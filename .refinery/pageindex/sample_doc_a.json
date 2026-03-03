@@ -1,0 +1,19 @@
+﻿{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 12,
+  "child_sections": [
+    {
+      "title": "Income Statement",
+      "page_start": 4,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": ["Revenue", "Expenses"],
+      "summary": "Section covers revenue and expenditure details for the reporting period.",
+      "data_types_present": ["table", "text"]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": ["table", "text"]
+}

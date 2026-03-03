@@ -1,0 +1,26 @@
+﻿triage:
+  thresholds:
+    low_density_threshold: 0.0002
+    high_density_threshold: 0.001
+    image_heavy_threshold: 0.6
+    max_images_for_ratio: 10
+    target_chars_per_page: 350
+    target_density: 0.001
+  domain_keywords:
+    financial: ["revenue", "balance sheet", "income statement", "fiscal", "asset", "liability"]
+    legal: ["clause", "agreement", "hereby", "party", "statute", "compliance"]
+    technical: ["architecture", "implementation", "system", "protocol", "specification"]
+    medical: ["patient", "diagnosis", "treatment", "clinical", "hospital"]
+
+extraction:
+  confidence_minimum: 0.65
+  budget_per_document_usd: 0.20
+
+chunking:
+  max_tokens: 500
+  rules:
+    - table_cell_never_split_from_header
+    - figure_caption_stored_with_figure
+    - numbered_list_single_ldu_unless_too_large
+    - section_header_propagates_to_children
+    - cross_references_resolved
