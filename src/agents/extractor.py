@@ -4,9 +4,11 @@ import time
 from pathlib import Path
 
 from src.agents.errors import BudgetExceededError, HumanReviewRequiredError
+from src.agents.orchestrator import EscalationOrchestrator
 from src.config import ExtractionConfig
-from src.models import CostTier, DocumentProfile, ExtractionLedgerEntry, ExtractedDocument
+from src.models import DocumentProfile, ExtractionLedgerEntry, ExtractedDocument
 from src.strategies import FastTextExtractor, LayoutExtractor, VisionExtractor
+from src.strategies.base import ExtractionStrategy
 from src.utils.jsonl import append_jsonl
 
 
@@ -40,76 +42,54 @@ class ExtractionRouter:
         }
         self.vlm_budget = extraction_cfg["vlm_budget"]
         self.escalation_cfg = extraction_cfg["escalation"]
-        self.continue_on_strategy_error = bool(self.escalation_cfg["continue_on_strategy_error"])
-        self.require_human_review_on_low_confidence = bool(self.escalation_cfg["require_human_review_on_low_confidence"])
+        self.orchestrator = EscalationOrchestrator(
+            min_confidence=self.min_confidence,
+            escalation_cfg=self.escalation_cfg,
+        )
 
     def route(self, document_path: str, profile: DocumentProfile) -> ExtractedDocument:
         start = time.time()
-        chosen = self._select_initial(profile)
-
+        initial_name = self.orchestrator.select_initial_strategy_name(profile)
+        strategy_map: dict[str, ExtractionStrategy] = {
+            "fast_text": self.fast,
+            "layout_aware": self.layout,
+            "vision_augmented": self.vision,
+        }
+        conf = 0.0
         total_cost = 0.0
-        per_strategy_cost: dict[str, float] = {}
+        extracted: ExtractedDocument | None = None
         routing_trace: list[str] = []
         escalated_from: str | None = None
-        conf = 0.0
         error_message: str | None = None
         human_review_required = False
-        extracted: ExtractedDocument | None = None
-        final_strategy_name = chosen.name
+        final_strategy_name = initial_name
 
         try:
-            chain = self._build_chain(chosen.name)
-
-            first_name: str | None = None
-
-            for name, extractor in chain:
-                if first_name is None:
-                    first_name = name
-
-                if self.enforce_hard_caps:
-                    projected = self._projected_strategy_cost(name, profile)
-                    self._enforce_budget(
-                        total_cost + projected,
-                        name,
-                        per_strategy_cost.get(name, 0.0) + projected,
-                        preflight=True,
-                    )
-
-                try:
-                    current_extracted, current_conf, cost = extractor.extract(document_path, profile)
-                except BudgetExceededError as exc:
-                    error_message = str(exc)
-                    human_review_required = True
-                    raise
-                except Exception as exc:  # noqa: BLE001
-                    # Log error and attempt next strategy in the chain.
-                    error_message = str(exc)
-                    human_review_required = True
-                    if self.continue_on_strategy_error:
-                        continue
-                    raise
-
-                final_strategy_name = current_extracted.strategy_used
-                total_cost += cost
-                per_strategy_cost[name] = per_strategy_cost.get(name, 0.0) + cost
-                self._enforce_budget(total_cost, name, per_strategy_cost[name])
-                routing_trace.append(name)
-
-                extracted = current_extracted
-                conf = current_conf
-
-                # Record if we escalated beyond the first strategy.
-                if name != first_name and escalated_from is None:
-                    escalated_from = first_name
-
-                # Stop if we reach acceptable confidence.
-                if conf >= self.min_confidence:
-                    break
-
-            # If no strategy produced a result, or final confidence is still low,
-            # require human review.
-            if extracted is None or (self.require_human_review_on_low_confidence and conf < self.min_confidence):
-                human_review_required = True
+            preflight_cb = (
+                (lambda name, total_cost_now, strategy_total_now: self._preflight_budget_check(
+                    name,
+                    total_cost_now,
+                    strategy_total_now,
+                    profile,
+                ))
+                if self.enforce_hard_caps
+                else None
+            )
+            result = self.orchestrator.execute(
+                document_path=document_path,
+                profile=profile,
+                strategies=strategy_map,
+                preflight_check=preflight_cb,
+                post_attempt_check=self._post_attempt_budget_check,
+            )
+            extracted = result.extracted
+            conf = result.confidence
+            total_cost = result.total_cost
+            routing_trace = result.routing_trace
+            escalated_from = result.escalated_from
+            error_message = result.error_message
+            human_review_required = result.human_review_required
+            final_strategy_name = result.final_strategy_name
 
         except BudgetExceededError as exc:
             error_message = str(exc)
@@ -147,6 +127,24 @@ class ExtractionRouter:
 
         return extracted
 
+    def _preflight_budget_check(
+        self,
+        strategy_name: str,
+        total_cost: float,
+        strategy_total: float,
+        profile: DocumentProfile,
+    ) -> None:
+        projected = self._projected_strategy_cost(strategy_name, profile=profile)
+        self._enforce_budget(
+            total_cost + projected,
+            strategy_name,
+            strategy_total + projected,
+            preflight=True,
+        )
+
+    def _post_attempt_budget_check(self, strategy_name: str, total_cost: float, strategy_total: float) -> None:
+        self._enforce_budget(total_cost, strategy_name, strategy_total)
+
     def _enforce_budget(self, total_cost: float, strategy_name: str, strategy_total: float, preflight: bool = False) -> None:
         phase = "preflight " if preflight else ""
         if total_cost > self.doc_budget_usd:
@@ -169,28 +167,3 @@ class ExtractionRouter:
             page_budget = max(1, min(profile.page_count, max_pages))
             return min(page_budget * cost_per_page, max_total)
         return float(self.strategy_estimated_costs.get(strategy_name, 0.0))
-
-    def _build_chain(self, initial_strategy: str) -> list[tuple[str, object]]:
-        strategy_map = {
-            "fast_text": self.fast,
-            "layout_aware": self.layout,
-            "vision_augmented": self.vision,
-        }
-        raw_chains = self.escalation_cfg.get("chains", {})
-        names = raw_chains.get(initial_strategy) if isinstance(raw_chains, dict) else None
-        if not names:
-            names = [initial_strategy]
-        chain: list[tuple[str, object]] = []
-        for n in names:
-            if n in strategy_map:
-                chain.append((n, strategy_map[n]))
-        if not chain:
-            chain.append((initial_strategy, strategy_map[initial_strategy]))
-        return chain
-
-    def _select_initial(self, profile: DocumentProfile):
-        if profile.estimated_extraction_cost == CostTier.FAST_TEXT_SUFFICIENT:
-            return self.fast
-        if profile.estimated_extraction_cost == CostTier.NEEDS_LAYOUT_MODEL:
-            return self.layout
-        return self.vision
