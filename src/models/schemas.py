@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from enum import Enum
 from typing import Literal
@@ -126,6 +126,8 @@ class ExtractionLedgerEntry(BaseModel):
     cost_estimate_usd: float
     processing_time_sec: float
     escalated_from: str | None = None
+    error_message: str | None = None
+    human_review_required: bool = False
 
 
 class QueryAnswer(BaseModel):

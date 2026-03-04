@@ -1,8 +1,9 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import time
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Protocol
 
 from pypdf import PdfReader
 
@@ -17,10 +18,36 @@ class PageStat:
     image_count: int
 
 
-class TriageAgent:
-    def __init__(self, domain_keywords: dict[str, list[str]], thresholds: dict[str, float]) -> None:
+class DomainClassifier(Protocol):
+    def classify(self, text: str) -> str:  # pragma: no cover - simple protocol
+        ...
+
+
+class KeywordDomainClassifier:
+    def __init__(self, domain_keywords: dict[str, list[str]]) -> None:
         self.domain_keywords = domain_keywords
+
+    def classify(self, text: str) -> str:
+        low = text.lower()
+        best_domain = "general"
+        best_score = 0
+        for domain, kws in self.domain_keywords.items():
+            score = sum(low.count(k.lower()) for k in kws)
+            if score > best_score:
+                best_domain = domain
+                best_score = score
+        return best_domain
+
+
+class TriageAgent:
+    def __init__(
+        self,
+        domain_keywords: dict[str, list[str]],
+        thresholds: dict[str, float],
+        domain_classifier: DomainClassifier | None = None,
+    ) -> None:
         self.thresholds = thresholds
+        self.domain_classifier = domain_classifier or KeywordDomainClassifier(domain_keywords)
 
     def profile(self, document_path: str) -> DocumentProfile:
         start = time.time()
@@ -99,15 +126,7 @@ class TriageAgent:
         return LayoutComplexity.SINGLE_COLUMN
 
     def _domain_hint(self, text: str) -> str:
-        low = text.lower()
-        best_domain = "general"
-        best_score = 0
-        for domain, kws in self.domain_keywords.items():
-            score = sum(low.count(k.lower()) for k in kws)
-            if score > best_score:
-                best_domain = domain
-                best_score = score
-        return best_domain
+        return self.domain_classifier.classify(text)
 
     def _cost_tier(self, origin: OriginType, complexity: LayoutComplexity) -> CostTier:
         if origin == OriginType.SCANNED_IMAGE:

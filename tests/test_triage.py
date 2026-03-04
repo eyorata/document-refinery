@@ -1,4 +1,4 @@
-﻿from src.agents.triage import TriageAgent, PageStat
+from src.agents.triage import KeywordDomainClassifier, TriageAgent, PageStat
 from src.models import OriginType
 
 
@@ -14,13 +14,17 @@ def test_origin_type_scanned():
 
 
 def test_domain_hint_financial():
+    classifier = KeywordDomainClassifier(
+        {"financial": ["revenue", "balance sheet"], "legal": ["clause"]}
+    )
     agent = TriageAgent(
-        domain_keywords={"financial": ["revenue", "balance sheet"], "legal": ["clause"]},
+        domain_keywords={},
         thresholds={
             "low_density_threshold": 0.0002,
             "high_density_threshold": 0.001,
             "image_heavy_threshold": 0.6,
             "max_images_for_ratio": 10,
         },
+        domain_classifier=classifier,
     )
     assert agent._domain_hint("The revenue and balance sheet were audited") == "financial"
