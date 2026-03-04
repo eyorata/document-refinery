@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from pathlib import Path
 from typing import List
 
@@ -22,6 +23,8 @@ class VisionExtractor(FastTextExtractor):
         self.max_pages = int(budget["max_pages_per_document"])
         self.cost_per_page_usd = float(budget["cost_per_page_usd"])
         self.max_total_cost_usd = float(budget["max_total_cost_usd"])
+        self.stop_on_budget_exceeded = bool(budget["stop_on_budget_exceeded"])
+        self.allow_partial_processing = bool(budget["allow_partial_processing"])
 
     def extract(self, document_path: str, profile: DocumentProfile) -> tuple[ExtractedDocument, float, float]:
         base, _, _ = super().extract(document_path, profile)
@@ -43,20 +46,32 @@ class VisionExtractor(FastTextExtractor):
 
         reader = PdfReader(document_path)
         total_pages = len(reader.pages)
-        if total_pages > self.max_pages:
+        affordable_pages = self._affordable_pages(total_pages)
+        if affordable_pages <= 0:
+            raise BudgetExceededError("VLM budget cap allows 0 pages; vision processing is blocked.")
+
+        if (total_pages > affordable_pages) and (self.stop_on_budget_exceeded or not self.allow_partial_processing):
             raise BudgetExceededError(
-                f"VLM page cap exceeded: document has {total_pages} pages "
-                f"but configured cap is {self.max_pages}."
+                f"VLM cap exceeded: document has {total_pages} pages but only {affordable_pages} "
+                f"pages are allowed by budget/page caps."
             )
 
-        estimated_cost = total_pages * self.cost_per_page_usd
-        if estimated_cost > self.max_total_cost_usd:
-            raise BudgetExceededError(
-                f"VLM hard cap exceeded: estimated cost ${estimated_cost:.4f} "
-                f"> configured VLM cap ${self.max_total_cost_usd:.4f}."
+        pages_to_process = min(total_pages, affordable_pages)
+        estimated_cost = pages_to_process * self.cost_per_page_usd
+        ocr_blocks = self._ocr_pages_with_vision(reader, max_pages=pages_to_process)
+        if pages_to_process < total_pages:
+            ocr_blocks.append(
+                TextBlock(
+                    content=(
+                        f"[vision-budget-stop] Processed {pages_to_process}/{total_pages} pages due to "
+                        "VLM budget/page caps."
+                    ),
+                    page_number=max(1, pages_to_process),
+                    bbox=BoundingBox(x0=0.0, y0=0.0, x1=612.0, y1=80.0),
+                    section_hint="vision budget cap",
+                    reading_order=pages_to_process + 1,
+                )
             )
-
-        ocr_blocks = self._ocr_pages_with_vision(reader)
         if not ocr_blocks:
             ocr_blocks = [
                 TextBlock(
@@ -88,9 +103,11 @@ class VisionExtractor(FastTextExtractor):
         )
         return extracted, conf, estimated_cost
 
-    def _ocr_pages_with_vision(self, reader: PdfReader) -> List[TextBlock]:
+    def _ocr_pages_with_vision(self, reader: PdfReader, max_pages: int) -> List[TextBlock]:
         blocks: List[TextBlock] = []
         for i, page in enumerate(reader.pages, start=1):
+            if i > max_pages:
+                break
             width = float(page.mediabox.width or 612)
             height = float(page.mediabox.height or 792)
             blocks.append(
@@ -103,3 +120,10 @@ class VisionExtractor(FastTextExtractor):
                 )
             )
         return blocks
+
+    def _affordable_pages(self, total_pages: int) -> int:
+        if self.cost_per_page_usd <= 0:
+            cost_cap_pages = total_pages
+        else:
+            cost_cap_pages = int(math.floor((self.max_total_cost_usd / self.cost_per_page_usd) + 1e-9))
+        return max(0, min(total_pages, self.max_pages, cost_cap_pages))

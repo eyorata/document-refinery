@@ -79,11 +79,14 @@ All runtime behavior is driven from `rubric/extraction_rules.yaml`, validated th
 - `vlm_budget.max_pages_per_document` (`int`): hard max pages eligible for VLM.
 - `vlm_budget.cost_per_page_usd` (`float`): page-based VLM estimate used for preflight/post-checks.
 - `vlm_budget.max_total_cost_usd` (`float`): hard VLM cap per document.
+- `vlm_budget.stop_on_budget_exceeded` (`bool`): hard-stop vision when caps are exceeded.
+- `vlm_budget.allow_partial_processing` (`bool`): allow partial page processing when hard-stop is disabled.
 - `fast_text.*`: confidence weights and table-detection thresholds for strategy A.
 - `layout.confidence_if_tables_present` (`float`): confidence floor for strategy B when tables are found.
 - `layout.estimated_cost_usd` (`float`): returned cost estimate for strategy B.
-- `layout.adapter.provider` (`heuristic|docling|mineru`): selected layout tool adapter.
+- `layout.adapter.provider` (`heuristic|docling|external_payload|mineru`): selected layout tool adapter.
 - `layout.adapter.options.strict` (`bool`): when `provider=docling`, fail fast if Docling is unavailable/errors instead of fallback.
+- `layout.adapter.options.payload_json_path` (`str`): for `external_payload`, path to external tool JSON tables.
 - `vision.*`: confidence tuning and synthetic provenance geometry for strategy C.
 - `escalation.continue_on_strategy_error` (`bool`): continue chain on strategy failure.
 - `escalation.require_human_review_on_low_confidence` (`bool`): enforce review for low-confidence final output.

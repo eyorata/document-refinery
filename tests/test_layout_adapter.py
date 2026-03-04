@@ -1,5 +1,8 @@
+import json
+from pathlib import Path
+
 from src.models import BoundingBox, CostTier, DocumentProfile, LayoutComplexity, OriginType, TextBlock
-from src.strategies.layout_aware import DoclingLayoutAdapter, build_layout_adapter
+from src.strategies.layout_aware import DoclingLayoutAdapter, ExternalPayloadLayoutAdapter, build_layout_adapter
 
 
 def _profile() -> DocumentProfile:
@@ -38,3 +41,38 @@ def test_docling_adapter_falls_back_to_heuristic_when_docling_missing():
     tables = adapter.promote_tables(blocks, "dummy.pdf", _profile())
     assert tables
     assert tables[0].title
+
+
+def test_external_payload_adapter_maps_to_internal_schema(tmp_path: Path):
+    payload = {
+        "tables": [
+            {
+                "page_number": 2,
+                "headers": ["col_a", "col_b"],
+                "rows": [["x", "1"], ["y", "2"]],
+                "title": "Imported Table",
+            }
+        ]
+    }
+    payload_path = tmp_path / "tables.json"
+    payload_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    adapter = build_layout_adapter(
+        {
+            "adapter": {
+                "provider": "external_payload",
+                "options": {
+                    "strict": True,
+                    "payload_json_path": str(payload_path),
+                    "default_table_bbox_width": 700.0,
+                    "default_table_bbox_height": 300.0,
+                },
+            }
+        }
+    )
+    assert isinstance(adapter, ExternalPayloadLayoutAdapter)
+    tables = adapter.promote_tables([], "dummy.pdf", _profile())
+    assert len(tables) == 1
+    assert tables[0].page_number == 2
+    assert tables[0].headers == ["col_a", "col_b"]
+    assert tables[0].title == "Imported Table"

@@ -36,6 +36,8 @@ class VlmBudgetConfig(BaseModel):
     max_pages_per_document: int = Field(default=25, ge=1)
     cost_per_page_usd: float = Field(default=0.01, ge=0.0)
     max_total_cost_usd: float = Field(default=0.20, ge=0.0)
+    stop_on_budget_exceeded: bool = True
+    allow_partial_processing: bool = False
 
 
 class FastTextConfig(BaseModel):

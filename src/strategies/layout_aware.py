@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import re
+import json
 from pathlib import Path
 from typing import Protocol
+
+from pydantic import BaseModel
 
 from src.config import LayoutConfig
 from src.models import BoundingBox, DocumentProfile, ExtractedDocument, TableObject, TextBlock
@@ -33,6 +36,77 @@ class HeuristicLayoutAdapter:
                         title="Heuristic layout table",
                     )
                 )
+        return out
+
+
+class ExternalTablePayload(BaseModel):
+    page_number: int = 1
+    headers: list[str]
+    rows: list[list[str]]
+    title: str | None = None
+    bbox: BoundingBox | None = None
+
+
+def normalize_external_tables(raw: object) -> list[ExternalTablePayload]:
+    if isinstance(raw, dict):
+        if "tables" in raw:
+            raw = raw["tables"]
+        else:
+            raw = [raw]
+    if not isinstance(raw, list):
+        raise ValueError("External table payload must be a list or an object with `tables` list.")
+
+    out: list[ExternalTablePayload] = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        out.append(ExternalTablePayload.model_validate(item))
+    return out
+
+
+class ExternalPayloadLayoutAdapter:
+    name = "external_payload"
+
+    def __init__(self, options: dict | None = None, fallback: LayoutToolAdapter | None = None) -> None:
+        self.options = options or {}
+        self.fallback = fallback or HeuristicLayoutAdapter()
+
+    def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
+        strict = bool(self.options.get("strict", False))
+        path_str = str(self.options.get("payload_json_path", "")).strip()
+        if not path_str:
+            if strict:
+                raise ValueError("external_payload adapter requires `payload_json_path` in options.")
+            return self.fallback.promote_tables(blocks, document_path, profile)
+
+        payload_path = Path(path_str)
+        try:
+            raw = json.loads(payload_path.read_text(encoding="utf-8"))
+            normalized = normalize_external_tables(raw)
+        except Exception:
+            if strict:
+                raise
+            return self.fallback.promote_tables(blocks, document_path, profile)
+
+        if not normalized:
+            return self.fallback.promote_tables(blocks, document_path, profile)
+        return self._to_tables(normalized)
+
+    def _to_tables(self, payloads: list[ExternalTablePayload]) -> list[TableObject]:
+        default_w = float(self.options.get("default_table_bbox_width", 612.0))
+        default_h = float(self.options.get("default_table_bbox_height", 250.0))
+        out: list[TableObject] = []
+        for payload in payloads:
+            bbox = payload.bbox or BoundingBox(x0=0.0, y0=0.0, x1=default_w, y1=default_h)
+            out.append(
+                TableObject(
+                    page_number=max(1, payload.page_number),
+                    bbox=bbox,
+                    headers=[str(h) for h in payload.headers],
+                    rows=[[str(c) for c in row] for row in payload.rows],
+                    title=payload.title or "External table",
+                )
+            )
         return out
 
 
@@ -158,19 +232,20 @@ class DoclingLayoutAdapter:
         return 1
 
     def _to_tables(self, rows: list[dict]) -> list[TableObject]:
-        out: list[TableObject] = []
         bbox_height = float(self.options.get("default_table_bbox_height", 250.0))
+        bbox_width = float(self.options.get("default_table_bbox_width", 612.0))
+        payloads: list[ExternalTablePayload] = []
         for row in rows:
-            out.append(
-                TableObject(
+            payloads.append(
+                ExternalTablePayload(
                     page_number=max(1, int(row.get("page_number", 1))),
-                    bbox=BoundingBox(x0=0.0, y0=0.0, x1=612.0, y1=bbox_height),
                     headers=[str(h) for h in row.get("headers", ["col_1"])],
                     rows=[[str(c) for c in r] for r in row.get("rows", [[""]])],
                     title=str(row.get("title", "Docling table")),
+                    bbox=BoundingBox(x0=0.0, y0=0.0, x1=bbox_width, y1=bbox_height),
                 )
             )
-        return out
+        return ExternalPayloadLayoutAdapter(options=self.options)._to_tables(payloads)
 
 
 class MineruLayoutAdapter:
@@ -192,6 +267,8 @@ def build_layout_adapter(layout_cfg: dict | None) -> LayoutToolAdapter:
         return HeuristicLayoutAdapter()
     if provider == "docling":
         return DoclingLayoutAdapter(options=options, fallback=HeuristicLayoutAdapter())
+    if provider == "external_payload":
+        return ExternalPayloadLayoutAdapter(options=options, fallback=HeuristicLayoutAdapter())
     if provider == "mineru":
         return MineruLayoutAdapter()
     raise ValueError(f"Unsupported layout adapter provider: {provider}")
