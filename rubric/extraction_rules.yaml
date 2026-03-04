@@ -1,30 +1,80 @@
+# TRIAGE: classify document origin/layout and estimate extraction tier.
 triage:
   thresholds:
-    low_density_threshold: 0.0002
-    high_density_threshold: 0.001
-    image_heavy_threshold: 0.6
-    max_images_for_ratio: 10
-    target_chars_per_page: 350
-    target_density: 0.001
+    low_density_threshold: 0.0002            # Below this char density + high image ratio -> scanned_image.
+    high_density_threshold: 0.001            # Above this char density + low image ratio -> native_digital.
+    image_heavy_threshold: 0.6               # Minimum image ratio to treat low-density docs as scanned.
+    native_digital_max_image_ratio: 0.3      # Max image ratio allowed for native_digital classification.
+    max_images_for_ratio: 10                 # Normalizer for image ratio: image_count / max_images_for_ratio.
+    target_chars_per_page: 350               # Fast-text confidence calibration target.
+    target_density: 0.001                    # Fast-text confidence calibration target.
+    short_line_min_chars: 8                  # Minimum chars for "short line" multi-column heuristic.
+    short_line_max_chars: 32                 # Maximum chars for "short line" multi-column heuristic.
+    table_heavy_min_pipe_lines: 5            # Pipe-line count threshold for table_heavy layout.
+    multi_column_short_line_ratio: 0.45      # Required short-line ratio for multi_column classification.
+    multi_column_short_line_min_count: 5     # Minimum short-line count for multi_column classification.
+    triage_confidence_base: 0.5              # Base triage confidence score before bonuses.
+    triage_confidence_origin_bonus: 0.25     # Added when origin_type is not MIXED.
+    triage_confidence_layout_bonus: 0.25     # Added when layout_complexity is not MIXED.
+    default_language_confidence: 0.85        # Default language confidence emitted in profile.
   domain_keywords:
-    financial: ["revenue", "balance sheet", "income statement", "fiscal", "asset", "liability"]
-    legal: ["clause", "agreement", "hereby", "party", "statute", "compliance"]
-    technical: ["architecture", "implementation", "system", "protocol", "specification"]
-    medical: ["patient", "diagnosis", "treatment", "clinical", "hospital"]
+    financial: ["revenue", "balance sheet", "income statement", "fiscal", "asset", "liability"]  # Domain hint keywords.
+    legal: ["clause", "agreement", "hereby", "party", "statute", "compliance"]                    # Domain hint keywords.
+    technical: ["architecture", "implementation", "system", "protocol", "specification"]           # Domain hint keywords.
+    medical: ["patient", "diagnosis", "treatment", "clinical", "hospital"]                         # Domain hint keywords.
 
+# EXTRACTION: confidence gate, budget controls, strategy tuning, and escalation policy.
 extraction:
-  confidence_minimum: 0.65
-  budget_per_document_usd: 0.20
+  confidence_minimum: 0.65                   # Minimum confidence needed to stop escalation.
+  budget_per_document_usd: 0.20              # Hard max estimated spend across all strategies per document.
+  enforce_hard_caps: true                    # Enforce preflight and post-run budget checks.
   strategy_budgets_usd:
-    fast_text: 0.05
-    layout_aware: 0.15
-    vision_augmented: 0.20
+    fast_text: 0.05                          # Hard cap for strategy A.
+    layout_aware: 0.15                       # Hard cap for strategy B.
+    vision_augmented: 0.20                   # Hard cap for strategy C.
+  strategy_estimated_costs_usd:
+    fast_text: 0.002                         # Preflight estimate used before running strategy A.
+    layout_aware: 0.02                       # Preflight estimate used before running strategy B.
+    vision_augmented: 0.10                   # Preflight estimate used before running strategy C.
+  vlm_budget:
+    enabled: true                            # Enables/disables vision model execution.
+    max_pages_per_document: 25               # Hard page cap for vision processing.
+    cost_per_page_usd: 0.01                  # Cost model used for projected/actual VLM spend.
+    max_total_cost_usd: 0.20                 # Hard VLM cost cap per document.
+  fast_text:
+    estimated_cost_usd: 0.002                # Returned cost estimate for fast_text strategy.
+    confidence_weight_chars: 0.45            # Confidence blend weight for avg chars/page.
+    confidence_weight_density: 0.35          # Confidence blend weight for avg char density.
+    confidence_weight_image_penalty: 0.20    # Confidence blend weight for image penalty term.
+    table_bbox_height_ratio: 0.45            # Height ratio used for detected pipe-table bbox.
+    table_min_columns: 3                     # Minimum pipe-separated columns to consider table line.
+    table_min_lines: 2                       # Minimum table lines to promote as table.
+  layout:
+    confidence_if_tables_present: 0.72       # Confidence floor when layout strategy finds tables.
+    estimated_cost_usd: 0.02                 # Returned cost estimate for layout strategy.
+    adapter:
+      provider: heuristic                    # Adapter options: heuristic, docling, mineru.
+      options:
+        strict: false                        # For docling: raise on adapter failure instead of fallback.
+        default_table_bbox_height: 250.0     # Default bbox height used for normalized docling tables.
+  vision:
+    confidence_if_text_present_min: 0.9      # Confidence floor when fast text is already available.
+    confidence_if_ocr_only: 0.88             # Confidence used when OCR/VLM path is used.
+    figure_bbox_height: 260.0                # Height used for synthetic vision figure provenance bbox.
+  escalation:
+    continue_on_strategy_error: true         # If true, try next strategy when current strategy errors.
+    require_human_review_on_low_confidence: true  # If true, low-confidence final output requires review.
+    chains:
+      fast_text: ["fast_text", "layout_aware", "vision_augmented"]  # Strategy order when starting from A.
+      layout_aware: ["layout_aware", "vision_augmented"]             # Strategy order when starting from B.
+      vision_augmented: ["vision_augmented"]                         # Strategy order when starting from C.
 
+# CHUNKING: controls for LDU generation.
 chunking:
-  max_tokens: 500
+  max_tokens: 500                            # Maximum tokens allowed per emitted chunk.
   rules:
-    - table_cell_never_split_from_header
-    - figure_caption_stored_with_figure
+    - table_cell_never_split_from_header     # Keep table headers with their cells.
+    - figure_caption_stored_with_figure      # Keep figure captions attached to figure chunks.
     - numbered_list_single_ldu_unless_too_large
     - section_header_propagates_to_children
     - cross_references_resolved

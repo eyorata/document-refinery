@@ -5,6 +5,7 @@ from pathlib import Path
 
 from pypdf import PdfReader
 
+from src.config import FastTextConfig, TriageThresholds
 from src.models import BoundingBox, DocumentProfile, ExtractedDocument, FigureObject, TableObject, TextBlock
 from src.strategies.base import ExtractionStrategy
 
@@ -12,8 +13,9 @@ from src.strategies.base import ExtractionStrategy
 class FastTextExtractor(ExtractionStrategy):
     name = "fast_text"
 
-    def __init__(self, thresholds: dict[str, float]) -> None:
-        self.thresholds = thresholds
+    def __init__(self, thresholds: dict[str, float], fast_cfg: dict | None = None) -> None:
+        self.thresholds = TriageThresholds.model_validate(thresholds).model_dump(mode="python")
+        self.fast_cfg = FastTextConfig.model_validate(fast_cfg or {}).model_dump(mode="python")
 
     def extract(self, document_path: str, profile: DocumentProfile) -> tuple[ExtractedDocument, float, float]:
         reader = PdfReader(document_path)
@@ -32,7 +34,7 @@ class FastTextExtractor(ExtractionStrategy):
             page_area = max(width * height, 1.0)
             char_count = len(txt)
             images = len(getattr(page, "images", []))
-            image_ratio = min(images / max(self.thresholds.get("max_images_for_ratio", 10), 1), 1.0)
+            image_ratio = min(images / max(self.thresholds["max_images_for_ratio"], 1), 1.0)
 
             char_counts.append(char_count)
             densities.append(char_count / page_area)
@@ -60,7 +62,7 @@ class FastTextExtractor(ExtractionStrategy):
             tables=tables,
             figures=figures,
         )
-        return extracted, conf, 0.002
+        return extracted, conf, float(self.fast_cfg["estimated_cost_usd"])
 
     def score_confidence(self, char_counts: list[int], densities: list[float], image_ratios: list[float]) -> float:
         if not char_counts:
@@ -69,11 +71,14 @@ class FastTextExtractor(ExtractionStrategy):
         avg_density = sum(densities) / len(densities) if densities else 0.0
         avg_img = sum(image_ratios) / len(image_ratios) if image_ratios else 0.0
 
-        char_score = min(avg_chars / self.thresholds.get("target_chars_per_page", 350), 1.0)
-        density_score = min(avg_density / self.thresholds.get("target_density", 0.001), 1.0)
+        char_score = min(avg_chars / self.thresholds["target_chars_per_page"], 1.0)
+        density_score = min(avg_density / self.thresholds["target_density"], 1.0)
         image_penalty = max(0.0, 1.0 - avg_img)
 
-        return max(0.0, min(1.0, (char_score * 0.45) + (density_score * 0.35) + (image_penalty * 0.20)))
+        w_chars = float(self.fast_cfg["confidence_weight_chars"])
+        w_density = float(self.fast_cfg["confidence_weight_density"])
+        w_img_penalty = float(self.fast_cfg["confidence_weight_image_penalty"])
+        return max(0.0, min(1.0, (char_score * w_chars) + (density_score * w_density) + (image_penalty * w_img_penalty)))
 
     def _section_hint(self, text: str) -> str | None:
         first = next((ln.strip() for ln in text.splitlines() if ln.strip()), "")
@@ -81,8 +86,10 @@ class FastTextExtractor(ExtractionStrategy):
 
     def _detect_pipe_tables(self, text: str, page: int, width: float, height: float) -> list[TableObject]:
         lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
-        table_lines = [ln for ln in lines if "|" in ln and len(ln.split("|")) >= 3]
-        if len(table_lines) < 2:
+        table_min_cols = int(self.fast_cfg["table_min_columns"])
+        table_min_lines = int(self.fast_cfg["table_min_lines"])
+        table_lines = [ln for ln in lines if "|" in ln and len(ln.split("|")) >= table_min_cols]
+        if len(table_lines) < table_min_lines:
             return []
 
         headers = [c.strip() for c in table_lines[0].split("|") if c.strip()]
@@ -94,7 +101,12 @@ class FastTextExtractor(ExtractionStrategy):
         return [
             TableObject(
                 page_number=page,
-                bbox=BoundingBox(x0=0.0, y0=0.0, x1=width, y1=height * 0.45),
+                bbox=BoundingBox(
+                    x0=0.0,
+                    y0=0.0,
+                    x1=width,
+                    y1=height * float(self.fast_cfg["table_bbox_height_ratio"]),
+                ),
                 headers=headers,
                 rows=rows,
                 title="Detected pipe-delimited table",

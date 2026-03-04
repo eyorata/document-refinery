@@ -52,13 +52,51 @@ pytest
 ## Design notes
 
 - Strategy A/B/C are implemented with confidence-gated escalation and budget guard.
+- Budget guard now enforces both post-run spend and preflight projected spend before expensive strategies run.
 - Provenance includes page + bbox + content hash.
 - Query flow uses PageIndex navigation before semantic search.
 - Fact extraction persists key-value signals to SQLite for structured queries.
 
+## Configuration reference
+
+All runtime behavior is driven from `rubric/extraction_rules.yaml`, validated through typed Pydantic models at startup (`src/config.py`).
+
+### `triage.thresholds`
+- `low_density_threshold` (`float`): below this density and image-heavy implies scanned.
+- `high_density_threshold` (`float`): above this density and low-image implies native-digital.
+- `image_heavy_threshold` (`float`): ratio threshold for scanned-image signal.
+- `max_images_for_ratio` (`int`): normalization denominator for image ratio.
+- `target_chars_per_page` (`int`): fast-text confidence calibration.
+- `target_density` (`float`): fast-text confidence calibration.
+
+### `extraction`
+- `confidence_minimum` (`0..1`): minimum confidence to avoid human-review escalation.
+- `budget_per_document_usd` (`float`): hard total cost cap per document.
+- `enforce_hard_caps` (`bool`): enables projected preflight caps before each strategy attempt.
+- `strategy_budgets_usd` (`map[str,float]`): per-strategy hard caps.
+- `strategy_estimated_costs_usd` (`map[str,float]`): projected costs for preflight checks.
+- `vlm_budget.enabled` (`bool`): toggle vision strategy execution.
+- `vlm_budget.max_pages_per_document` (`int`): hard max pages eligible for VLM.
+- `vlm_budget.cost_per_page_usd` (`float`): page-based VLM estimate used for preflight/post-checks.
+- `vlm_budget.max_total_cost_usd` (`float`): hard VLM cap per document.
+- `fast_text.*`: confidence weights and table-detection thresholds for strategy A.
+- `layout.confidence_if_tables_present` (`float`): confidence floor for strategy B when tables are found.
+- `layout.estimated_cost_usd` (`float`): returned cost estimate for strategy B.
+- `layout.adapter.provider` (`heuristic|docling|mineru`): selected layout tool adapter.
+- `layout.adapter.options.strict` (`bool`): when `provider=docling`, fail fast if Docling is unavailable/errors instead of fallback.
+- `vision.*`: confidence tuning and synthetic provenance geometry for strategy C.
+- `escalation.continue_on_strategy_error` (`bool`): continue chain on strategy failure.
+- `escalation.require_human_review_on_low_confidence` (`bool`): enforce review for low-confidence final output.
+- `escalation.chains` (`map[str,list[str]]`): explicit per-entry strategy chain order.
+
+### `chunking`
+- `max_tokens` (`int`): max tokens per LDU chunk.
+- `rules` (`list[str]`): rule toggles for chunk assembly behavior.
+
 ## Current limitations
 
-- Layout and vision extraction are implemented as extensible adapters/placeholders (no external VLM call by default).
+- `docling` is wired with optional dependency + heuristic fallback; `mineru` remains an extension point.
+- Vision extraction keeps an explicit budget/paging guard but OCR/VLM calls are still placeholder by default.
 - Semantic retrieval currently uses a local cosine-over-token baseline vector store.
 - Section summaries are heuristic; swap in cheap LLM call if available.
 

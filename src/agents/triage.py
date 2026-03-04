@@ -7,6 +7,7 @@ from typing import Protocol
 
 from pypdf import PdfReader
 
+from src.config import TriageThresholds
 from src.models import CostTier, DocumentProfile, LayoutComplexity, OriginType
 from src.utils.hashing import stable_hash
 
@@ -46,7 +47,7 @@ class TriageAgent:
         thresholds: dict[str, float],
         domain_classifier: DomainClassifier | None = None,
     ) -> None:
-        self.thresholds = thresholds
+        self.thresholds = TriageThresholds.model_validate(thresholds).model_dump(mode="python")
         self.domain_classifier = domain_classifier or KeywordDomainClassifier(domain_keywords)
 
     def profile(self, document_path: str) -> DocumentProfile:
@@ -69,10 +70,11 @@ class TriageAgent:
         return DocumentProfile(
             doc_id=doc_id,
             document_name=path.name,
+            page_count=len(page_stats) if page_stats else 1,
             origin_type=origin,
             layout_complexity=complexity,
             language_code="en",
-            language_confidence=0.85,
+            language_confidence=float(self.thresholds["default_language_confidence"]),
             domain_hint=domain,
             estimated_extraction_cost=cost,
             avg_char_density=avg_density,
@@ -101,19 +103,20 @@ class TriageAgent:
     def _avg_image_ratio(self, stats: list[PageStat]) -> float:
         if not stats:
             return 0.0
-        max_images = max(self.thresholds.get("max_images_for_ratio", 10), 1)
+        max_images = max(int(self.thresholds["max_images_for_ratio"]), 1)
         return sum(min(s.image_count / max_images, 1.0) for s in stats) / len(stats)
 
     def _origin_type(self, avg_density: float, avg_image_ratio: float, form_fillable: bool) -> OriginType:
         if form_fillable:
             return OriginType.FORM_FILLABLE
-        low_density = self.thresholds.get("low_density_threshold", 0.0002)
-        high_density = self.thresholds.get("high_density_threshold", 0.001)
-        image_heavy = self.thresholds.get("image_heavy_threshold", 0.6)
+        low_density = float(self.thresholds["low_density_threshold"])
+        high_density = float(self.thresholds["high_density_threshold"])
+        image_heavy = float(self.thresholds["image_heavy_threshold"])
 
         if avg_density < low_density and avg_image_ratio >= image_heavy:
             return OriginType.SCANNED_IMAGE
-        if avg_density >= high_density and avg_image_ratio < 0.3:
+        native_max_image_ratio = float(self.thresholds["native_digital_max_image_ratio"])
+        if avg_density >= high_density and avg_image_ratio < native_max_image_ratio:
             return OriginType.NATIVE_DIGITAL
         return OriginType.MIXED
 
@@ -121,10 +124,15 @@ class TriageAgent:
         text = "\n".join(page_texts)
         lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
         pipe_like = sum(1 for ln in lines if "|" in ln)
-        many_short_lines = sum(1 for ln in lines if 8 < len(ln) < 32)
-        if pipe_like > 5:
+        short_min = int(self.thresholds["short_line_min_chars"])
+        short_max = int(self.thresholds["short_line_max_chars"])
+        many_short_lines = sum(1 for ln in lines if short_min < len(ln) < short_max)
+        table_heavy_min = int(self.thresholds["table_heavy_min_pipe_lines"])
+        if pipe_like > table_heavy_min:
             return LayoutComplexity.TABLE_HEAVY
-        if many_short_lines > max(len(lines) * 0.45, 5):
+        short_ratio = float(self.thresholds["multi_column_short_line_ratio"])
+        short_min_count = int(self.thresholds["multi_column_short_line_min_count"])
+        if many_short_lines > max(len(lines) * short_ratio, short_min_count):
             return LayoutComplexity.MULTI_COLUMN
         if "figure" in text.lower() or "chart" in text.lower():
             return LayoutComplexity.FIGURE_HEAVY
@@ -149,11 +157,11 @@ class TriageAgent:
         - Add 0.25 if origin_type is not MIXED.
         - Add 0.25 if layout_complexity is not MIXED.
         """
-        score = 0.5
+        score = float(self.thresholds["triage_confidence_base"])
         if origin != OriginType.MIXED:
-            score += 0.25
+            score += float(self.thresholds["triage_confidence_origin_bonus"])
         if complexity != LayoutComplexity.MIXED:
-            score += 0.25
+            score += float(self.thresholds["triage_confidence_layout_bonus"])
         return max(0.0, min(1.0, score))
 
     def _cost_tier(self, origin: OriginType, complexity: LayoutComplexity) -> CostTier:

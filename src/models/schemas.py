@@ -54,6 +54,7 @@ class ProvenanceChain(BaseModel):
 class DocumentProfile(BaseModel):
     doc_id: str
     document_name: str
+    page_count: int = Field(ge=1, default=1)
     origin_type: OriginType
     layout_complexity: LayoutComplexity
     language_code: str
