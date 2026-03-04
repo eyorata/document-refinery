@@ -3,6 +3,7 @@ from pathlib import Path
 
 import streamlit as st
 
+from src.agents.extractor import BudgetExceededError, HumanReviewRequiredError
 from src.pipeline import RefineryPipeline
 
 
@@ -31,23 +32,45 @@ def main() -> None:
         return
 
     pipeline = get_pipeline()
-    results: list[tuple[str, object]] = []
+    results: list[tuple[str, object, str]] = []
 
     for uploaded in uploaded_files:
         with tempfile.NamedTemporaryFile(delete=False, suffix=Path(uploaded.name).suffix) as tmp:
             tmp.write(uploaded.read())
             tmp_path = tmp.name
 
+        status = "ok"
         with st.spinner(f"Running refinery pipeline for {uploaded.name}..."):
-            res = pipeline.run(tmp_path)
-            results.append((uploaded.name, res))
+            try:
+                res = pipeline.run(tmp_path)
+            except HumanReviewRequiredError as exc:
+                res = None
+                status = f"human_review_required: {exc}"
+            except BudgetExceededError as exc:
+                res = None
+                status = f"budget_exceeded: {exc}"
+            except Exception as exc:  # noqa: BLE001
+                res = None
+                status = f"error: {exc}"
+
+        results.append((uploaded.name, res, status))
 
     st.success("Pipeline complete for all uploaded documents.")
 
     # High-level answers and provenance per document
     st.subheader("Answers (auto-summarize prompt)")
-    for name, result in results:
+    for name, result, status in results:
         st.markdown(f"**{name}**")
+
+        if status != "ok":
+            if status.startswith("human_review_required"):
+                st.warning(f"Requires human review: {status}")
+            elif status.startswith("budget_exceeded"):
+                st.error(f"Budget exceeded for this document: {status}")
+            else:
+                st.error(f"Extraction failed: {status}")
+            continue
+
         st.write(result.answer)
 
         st.markdown("**Provenance**")
