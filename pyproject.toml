@@ -12,6 +12,7 @@ dependencies = [
   "pydantic>=2.7.0",
   "PyYAML>=6.0.1",
   "pypdf>=4.2.0",
+  "streamlit>=1.40.0",
 ]
 
 [project.optional-dependencies]
