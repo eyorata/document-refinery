@@ -58,10 +58,12 @@ class TriageAgent:
 
         avg_density = self._avg_char_density(page_stats)
         avg_image_ratio = self._avg_image_ratio(page_stats)
-        origin = self._origin_type(avg_density, avg_image_ratio)
+        origin = self._origin_type(avg_density, avg_image_ratio, self._is_form_fillable(path))
         complexity = self._layout_complexity(text_by_page)
         domain = self._domain_hint(flat_text)
         cost = self._cost_tier(origin, complexity)
+
+        triage_conf = self._triage_confidence(origin, complexity)
 
         _ = time.time() - start
         return DocumentProfile(
@@ -75,6 +77,7 @@ class TriageAgent:
             estimated_extraction_cost=cost,
             avg_char_density=avg_density,
             avg_image_ratio=avg_image_ratio,
+            triage_confidence=triage_conf,
         )
 
     def _read_pdf(self, path: Path) -> tuple[list[str], list[PageStat]]:
@@ -101,7 +104,9 @@ class TriageAgent:
         max_images = max(self.thresholds.get("max_images_for_ratio", 10), 1)
         return sum(min(s.image_count / max_images, 1.0) for s in stats) / len(stats)
 
-    def _origin_type(self, avg_density: float, avg_image_ratio: float) -> OriginType:
+    def _origin_type(self, avg_density: float, avg_image_ratio: float, form_fillable: bool) -> OriginType:
+        if form_fillable:
+            return OriginType.FORM_FILLABLE
         low_density = self.thresholds.get("low_density_threshold", 0.0002)
         high_density = self.thresholds.get("high_density_threshold", 0.001)
         image_heavy = self.thresholds.get("image_heavy_threshold", 0.6)
@@ -127,6 +132,29 @@ class TriageAgent:
 
     def _domain_hint(self, text: str) -> str:
         return self.domain_classifier.classify(text)
+
+    def _is_form_fillable(self, path: Path) -> bool:
+        try:
+            reader = PdfReader(str(path))
+            root = reader.trailer.get("/Root", {})
+            return "/AcroForm" in root
+        except Exception:  # noqa: BLE001
+            return False
+
+    def _triage_confidence(self, origin: OriginType, complexity: LayoutComplexity) -> float:
+        """
+        Heuristic confidence score for the overall profile classification.
+
+        - Start from 0.5 (unknown).
+        - Add 0.25 if origin_type is not MIXED.
+        - Add 0.25 if layout_complexity is not MIXED.
+        """
+        score = 0.5
+        if origin != OriginType.MIXED:
+            score += 0.25
+        if complexity != LayoutComplexity.MIXED:
+            score += 0.25
+        return max(0.0, min(1.0, score))
 
     def _cost_tier(self, origin: OriginType, complexity: LayoutComplexity) -> CostTier:
         if origin == OriginType.SCANNED_IMAGE:

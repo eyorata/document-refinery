@@ -62,6 +62,7 @@ class DocumentProfile(BaseModel):
     estimated_extraction_cost: CostTier
     avg_char_density: float = 0.0
     avg_image_ratio: float = 0.0
+    triage_confidence: float = Field(ge=0.0, le=1.0, default=1.0)
 
 
 class TextBlock(BaseModel):
@@ -94,6 +95,8 @@ class ExtractedDocument(BaseModel):
     text_blocks: list[TextBlock]
     tables: list[TableObject]
     figures: list[FigureObject]
+    routing_trace: list[str] = []
+    total_cost_estimate_usd: float | None = None
 
 
 class LDU(BaseModel):

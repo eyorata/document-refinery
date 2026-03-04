@@ -9,7 +9,7 @@ def test_origin_type_scanned():
         "image_heavy_threshold": 0.6,
         "max_images_for_ratio": 10,
     })
-    origin = agent._origin_type(avg_density=0.00005, avg_image_ratio=0.8)
+    origin = agent._origin_type(avg_density=0.00005, avg_image_ratio=0.8, form_fillable=False)
     assert origin == OriginType.SCANNED_IMAGE
 
 

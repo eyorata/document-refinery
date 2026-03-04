@@ -1,4 +1,4 @@
-﻿# DOMAIN_NOTES
+# DOMAIN_NOTES
 
 ## Extraction Decision Tree
 
@@ -44,6 +44,23 @@
 - Strategy C (vision): highest cost, reserved for scanned or low-confidence extraction.
 
 Budget guard prevents high-cost overrun per document.
+
+## Normalization Guarantees by Strategy
+
+- Strategy A (`fast_text`):
+  - Source: `pypdf` text extraction only.
+  - Guarantees: per-page `TextBlock`s with full-page `BoundingBox`, heuristic detection of pipe-delimited tables as `TableObject`s, and monotonically increasing `reading_order` within each page.
+  - Limitations: no explicit multi-column reconstruction or table grid geometry beyond pipe heuristics.
+
+- Strategy B (`layout_aware`):
+  - Source: Fast-text baseline plus heuristic table promotion.
+  - Guarantees: preserves all `TextBlock`s and tables from Strategy A, and adds `TableObject`s for sections that mention financial tables (“balance sheet”, “income statement”, or “table”), keeping table-level structure intact (`headers` + `rows`) and respecting global reading order.
+  - Limitations: does not yet use full layout models (e.g., Docling/MinerU) for cell-level geometry; works best for well-structured textual tables.
+
+- Strategy C (`vision_augmented`):
+  - Source: Fast-text baseline plus per-page OCR/VLM extraction for scanned/image-heavy pages.
+  - Guarantees: for pages without usable text streams, produces one `TextBlock` per page spanning the full page `BoundingBox`, ready to be replaced with real OCR text from a VLM (e.g., LM Studio) while keeping the same `ExtractedDocument` schema as A/B.
+  - Limitations: current implementation uses placeholder text; replace `_ocr_pages_with_vision` with a real vision/OCR call to achieve full fidelity.
 
 ## Pipeline Diagram
 

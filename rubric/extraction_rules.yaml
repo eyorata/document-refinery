@@ -1,4 +1,4 @@
-﻿triage:
+triage:
   thresholds:
     low_density_threshold: 0.0002
     high_density_threshold: 0.001
@@ -15,6 +15,10 @@
 extraction:
   confidence_minimum: 0.65
   budget_per_document_usd: 0.20
+  strategy_budgets_usd:
+    fast_text: 0.05
+    layout_aware: 0.15
+    vision_augmented: 0.20
 
 chunking:
   max_tokens: 500
