@@ -17,45 +17,53 @@ def get_pipeline() -> RefineryPipeline:
 def main() -> None:
     st.title("Document Intelligence Refinery")
     st.markdown(
-        "Upload a document to run it through the triage → extraction → chunking → PageIndex → query pipeline."
+        "Upload one or more documents to run them through the triage → extraction → chunking → PageIndex → query pipeline."
     )
 
-    uploaded = st.file_uploader("Upload a PDF or text file", type=["pdf", "txt"])
+    uploaded_files = st.file_uploader(
+        "Upload one or more PDF or text files",
+        type=["pdf", "txt"],
+        accept_multiple_files=True,
+    )
 
-    if not uploaded:
+    if not uploaded_files:
         st.info("Awaiting document upload.")
         return
 
-    with tempfile.NamedTemporaryFile(delete=False, suffix=Path(uploaded.name).suffix) as tmp:
-        tmp.write(uploaded.read())
-        tmp_path = tmp.name
-
     pipeline = get_pipeline()
+    results: list[tuple[str, object]] = []
 
-    with st.spinner("Running refinery pipeline..."):
-        result = pipeline.run(tmp_path)
+    for uploaded in uploaded_files:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=Path(uploaded.name).suffix) as tmp:
+            tmp.write(uploaded.read())
+            tmp_path = tmp.name
 
-    st.success("Pipeline complete.")
+        with st.spinner(f"Running refinery pipeline for {uploaded.name}..."):
+            res = pipeline.run(tmp_path)
+            results.append((uploaded.name, res))
 
-    # High-level answer
-    st.subheader("Answer (auto-summarize prompt)")
-    st.write(result.answer)
+    st.success("Pipeline complete for all uploaded documents.")
 
-    # Provenance
-    st.subheader("Provenance")
-    if result.provenance.citations:
-        for i, cit in enumerate(result.provenance.citations, start=1):
-            with st.expander(f"Citation {i}: page {cit.page_number}"):
-                st.json(
-                    {
-                        "document_name": cit.document_name,
-                        "page_number": cit.page_number,
-                        "bbox": cit.bbox.model_dump(),
-                        "content_hash": cit.content_hash,
-                    }
-                )
-    else:
-        st.write("No citations found.")
+    # High-level answers and provenance per document
+    st.subheader("Answers (auto-summarize prompt)")
+    for name, result in results:
+        st.markdown(f"**{name}**")
+        st.write(result.answer)
+
+        st.markdown("**Provenance**")
+        if result.provenance.citations:
+            for i, cit in enumerate(result.provenance.citations, start=1):
+                with st.expander(f"Citation {i}: page {cit.page_number}"):
+                    st.json(
+                        {
+                            "document_name": cit.document_name,
+                            "page_number": cit.page_number,
+                            "bbox": cit.bbox.model_dump(),
+                            "content_hash": cit.content_hash,
+                        }
+                    )
+        else:
+            st.write("No citations found.")
 
     # Artifacts
     output_dir = Path(".refinery")
