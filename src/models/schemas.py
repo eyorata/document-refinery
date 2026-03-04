@@ -48,6 +48,8 @@ class ProvenanceItem(BaseModel):
 
 
 class ProvenanceChain(BaseModel):
+    bbox: BoundingBox
+    content_hash: str
     citations: list[ProvenanceItem]
 
 
