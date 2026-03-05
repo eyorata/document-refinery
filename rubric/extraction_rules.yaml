@@ -65,6 +65,13 @@ extraction:
     confidence_if_text_present_min: 0.9      # Confidence floor when fast text is already available.
     confidence_if_ocr_only: 0.88             # Confidence used when OCR/VLM path is used.
     figure_bbox_height: 260.0                # Height used for synthetic vision figure provenance bbox.
+    openrouter:
+      enabled: false                          # Set true to call OpenRouter vision endpoint for OCR extraction.
+      api_base: "https://openrouter.ai/api/v1"
+      model: "openai/gpt-4o-mini"
+      api_key_env: "OPENROUTER_API_KEY"      # API key is read from this environment variable.
+      max_output_tokens: 700
+      temperature: 0.0
   escalation:
     continue_on_strategy_error: true         # If true, try next strategy when current strategy errors.
     require_human_review_on_low_confidence: true  # If true, low-confidence final output requires review.

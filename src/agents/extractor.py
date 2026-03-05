@@ -101,6 +101,11 @@ class ExtractionRouter:
             raise
         finally:
             elapsed = time.time() - start
+            token_usage = None
+            provider = None
+            if final_strategy_name == "vision_augmented":
+                token_usage = getattr(self.vision, "last_token_usage", None)
+                provider = getattr(self.vision, "last_provider", None)
             # Ensure we always record something in the ledger, even if extraction failed.
             entry = ExtractionLedgerEntry(
                 doc_id=profile.doc_id,
@@ -112,6 +117,8 @@ class ExtractionRouter:
                 escalated_from=escalated_from,
                 error_message=error_message,
                 human_review_required=human_review_required,
+                token_usage=token_usage,
+                provider=provider,
             )
             append_jsonl(self.output_dir / "extraction_ledger.jsonl", entry.model_dump())
 

@@ -25,6 +25,36 @@ class QueryInterfaceAgent:
     def structured_query(self, sql: str):
         return self.fact_table.query(sql)
 
+    def tools(self) -> dict[str, object]:
+        return {
+            "pageindex_navigate": self.pageindex_navigate,
+            "semantic_search": self.semantic_search,
+            "structured_query": self.structured_query,
+        }
+
+    def build_langgraph(self):
+        """
+        Optional LangGraph wiring for environments where langgraph is installed.
+        The runtime pipeline works without this dependency.
+        """
+        try:
+            from langgraph.graph import END, StateGraph  # type: ignore[import-not-found]
+        except Exception:
+            return None
+
+        class _State(dict):
+            pass
+
+        graph = StateGraph(_State)
+        graph.add_node("pageindex_navigate", lambda s: s)
+        graph.add_node("semantic_search", lambda s: s)
+        graph.add_node("structured_query", lambda s: s)
+        graph.set_entry_point("pageindex_navigate")
+        graph.add_edge("pageindex_navigate", "semantic_search")
+        graph.add_edge("semantic_search", "structured_query")
+        graph.add_edge("structured_query", END)
+        return graph.compile()
+
     def answer(self, question: str, page_index: PageIndexNode) -> QueryAnswer:
         nav = self.pageindex_navigate(page_index, question, k=3)
         pages = set()

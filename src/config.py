@@ -54,6 +54,16 @@ class VisionConfig(BaseModel):
     confidence_if_text_present_min: float = Field(default=0.9, ge=0.0, le=1.0)
     confidence_if_ocr_only: float = Field(default=0.88, ge=0.0, le=1.0)
     figure_bbox_height: float = Field(default=260.0, ge=0.0)
+    openrouter: dict[str, Any] = Field(
+        default_factory=lambda: {
+            "enabled": False,
+            "api_base": "https://openrouter.ai/api/v1",
+            "model": "openai/gpt-4o-mini",
+            "api_key_env": "OPENROUTER_API_KEY",
+            "max_output_tokens": 700,
+            "temperature": 0.0,
+        }
+    )
 
 
 class LayoutAdapterConfig(BaseModel):

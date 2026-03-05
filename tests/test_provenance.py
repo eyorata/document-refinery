@@ -58,3 +58,9 @@ def test_provenance_chain_hits_populates_top_level_fields(tmp_path):
     assert ans.provenance.bbox.y0 == 20
     assert ans.provenance.bbox.x1 == 200
     assert ans.provenance.bbox.y1 == 300
+
+
+def test_query_agent_exposes_three_tool_interface(tmp_path):
+    agent = QueryInterfaceAgent(SimpleVectorStore(), FactTableStore(str(tmp_path / "facts.db")))
+    tools = agent.tools()
+    assert sorted(tools.keys()) == ["pageindex_navigate", "semantic_search", "structured_query"]

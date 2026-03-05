@@ -56,6 +56,10 @@ pytest
 - Provenance includes page + bbox + content hash.
 - Query flow uses PageIndex navigation before semantic search.
 - Fact extraction persists key-value signals to SQLite for structured queries.
+- Vision strategy supports optional OpenRouter multimodal OCR (with placeholder fallback).
+- Extraction ledger includes optional vision `token_usage` and `provider` metadata for cost audits.
+- Query agent exposes explicit 3-tool surface (`pageindex_navigate`, `semantic_search`, `structured_query`) and optional LangGraph wiring.
+- PageIndex builder includes retrieval precision evaluation helper (`with_pageindex` vs `without_pageindex`).
 
 ## Configuration reference
 
@@ -88,6 +92,9 @@ All runtime behavior is driven from `rubric/extraction_rules.yaml`, validated th
 - `layout.adapter.options.strict` (`bool`): when `provider=docling`, fail fast if Docling is unavailable/errors instead of fallback.
 - `layout.adapter.options.payload_json_path` (`str`): for `external_payload`, path to external tool JSON tables.
 - `vision.*`: confidence tuning and synthetic provenance geometry for strategy C.
+- `vision.openrouter.enabled` (`bool`): enables OpenRouter multimodal OCR calls in strategy C.
+- `vision.openrouter.api_key_env` (`str`): environment variable carrying the OpenRouter API key.
+- `vision.openrouter.model` (`str`): OpenRouter model id (for example, `openai/gpt-4o-mini`).
 - `escalation.continue_on_strategy_error` (`bool`): continue chain on strategy failure.
 - `escalation.require_human_review_on_low_confidence` (`bool`): enforce review for low-confidence final output.
 - `escalation.chains` (`map[str,list[str]]`): explicit per-entry strategy chain order.
@@ -99,7 +106,7 @@ All runtime behavior is driven from `rubric/extraction_rules.yaml`, validated th
 ## Current limitations
 
 - `docling` is wired with optional dependency + heuristic fallback; `mineru` remains an extension point.
-- Vision extraction keeps an explicit budget/paging guard but OCR/VLM calls are still placeholder by default.
+- Vision extraction keeps an explicit budget/paging guard and can call OpenRouter when configured; default remains placeholder-safe.
 - Semantic retrieval currently uses a local cosine-over-token baseline vector store.
 - Section summaries are heuristic; swap in cheap LLM call if available.
 

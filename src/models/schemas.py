@@ -98,7 +98,7 @@ class ExtractedDocument(BaseModel):
     text_blocks: list[TextBlock]
     tables: list[TableObject]
     figures: list[FigureObject]
-    routing_trace: list[str] = []
+    routing_trace: list[str] = Field(default_factory=list)
     total_cost_estimate_usd: float | None = None
 
 
@@ -110,18 +110,18 @@ class LDU(BaseModel):
     parent_section: str | None = None
     token_count: int
     content_hash: str
-    related_chunk_hashes: list[str] = []
-    metadata: dict[str, str] = {}
+    related_chunk_hashes: list[str] = Field(default_factory=list)
+    metadata: dict[str, str] = Field(default_factory=dict)
 
 
 class PageIndexNode(BaseModel):
     title: str
     page_start: int
     page_end: int
-    child_sections: list["PageIndexNode"] = []
-    key_entities: list[str] = []
+    child_sections: list["PageIndexNode"] = Field(default_factory=list)
+    key_entities: list[str] = Field(default_factory=list)
     summary: str
-    data_types_present: list[str] = []
+    data_types_present: list[str] = Field(default_factory=list)
 
 
 class ExtractionLedgerEntry(BaseModel):
@@ -134,6 +134,8 @@ class ExtractionLedgerEntry(BaseModel):
     escalated_from: str | None = None
     error_message: str | None = None
     human_review_required: bool = False
+    token_usage: int | None = None
+    provider: str | None = None
 
 
 class QueryAnswer(BaseModel):

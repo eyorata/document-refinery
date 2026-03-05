@@ -23,7 +23,10 @@ class RefineryPipeline:
             thresholds=self.config["triage"]["thresholds"],
         )
         self.router = ExtractionRouter(config=self.config, output_dir=str(self.output_dir))
-        self.chunker = ChunkingEngine(max_tokens=int(self.config["chunking"]["max_tokens"]))
+        self.chunker = ChunkingEngine(
+            max_tokens=int(self.config["chunking"]["max_tokens"]),
+            enabled_rules=list(self.config["chunking"].get("rules", [])),
+        )
         self.indexer = PageIndexBuilder()
         self.vector_store = SimpleVectorStore()
         self.fact_table = FactTableStore(str(self.output_dir / "facts.db"))
@@ -35,10 +38,6 @@ class RefineryPipeline:
 
         extracted = self.router.route(document_path, profile)
         chunks = self.chunker.chunk(extracted)
-
-        for c in chunks:
-            for ref in c.page_refs:
-                ref.document_name = profile.document_name
 
         self.vector_store.ingest(chunks)
         self.fact_table.ingest(chunks)
