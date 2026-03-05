@@ -1,0 +1,108 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 6,
+  "child_sections": [
+    {
+      "title": "TRP1 Challenge – Interim Submission Report",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Challenge",
+        "Interim",
+        "Submission",
+        "Report",
+        "Architecting",
+        "Native",
+        "Intent",
+        "Code",
+        "Traceability",
+        "Overview"
+      ],
+      "summary": "TRP1 Challenge – Interim Submission Report Architecting the AI Native IDE & Intent Code Traceability 1. Overview This interim submission documents the design and implementation of an AI-native VS Code extension focus",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "In Stage A, the agent must declare which intent it is currently executing (inten",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Stage",
+        "This",
+        "Only"
+      ],
+      "summary": "In Stage A, the agent must declare which intent it is currently executing (intent_id + intent_type). This triggers automatic context injection (loading relevant specs, repo rules, and prior intent history). Only after",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "To improve implementation clarity, hooks operate on a structured context payload",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "To improve implementation clarity, hooks operate on a structured context payload: export interface HookContext { sessionId: string; stage: \"INTENT_SELECTION\" | \"CONTEXT_INJECTION\" | \"TOOL_EXECUTION\"; intentId?:",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Hooks must always run in a stable order:",
+      "page_start": 4,
+      "page_end": 4,
+      "child_sections": [],
+      "key_entities": [
+        "Hooks",
+        "Decision",
+        "Artifacts",
+        "Must",
+        "Capture",
+        "Payloads"
+      ],
+      "summary": "Hooks must always run in a stable order: 1. PreIntentSelection 2. PostIntentSelection 3. PreToolUse 4. PostToolUse 5. OnToolError ✅ Decision 4: Artifacts Must Capture Payloads All trace logs must store both:  th",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Stage B: Tool Execution (Governed)",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [
+        "Stage",
+        "Tool",
+        "Execution",
+        "Traceability",
+        "Artifacts",
+        "Design",
+        "Append-only"
+      ],
+      "summary": "Stage B: Tool Execution (Governed) 8. Traceability Artifacts (Improved Design) The orchestration layer produces three key files: agent_trace.jsonl Append-only trace log capturing both intent events and tool executi",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "\"session_id\": \"abc123\",",
+      "page_start": 6,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "\"session_id\": \"abc123\", \"trace_id\": \"trace-8821\", \"intent_id\": \"intent-001\", \"stage\": \"TOOL_EXECUTION\", \"tool\": \"writeFile\", \"args\": { \"path\": \"src/hooks/hookEngine.ts\" }, \"timestamp\": \"2026-02-18T12:00",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

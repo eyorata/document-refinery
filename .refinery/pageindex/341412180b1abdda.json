@@ -1,0 +1,181 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 9,
+  "child_sections": [
+    {
+      "title": "Interim Submission Report (Wednesday 21hr UTC)",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Interim",
+        "Submission",
+        "Report",
+        "Automaton",
+        "Auditor",
+        "Digital",
+        "Courtroom",
+        "Constitutional",
+        "Governance",
+        "System"
+      ],
+      "summary": "Interim Submission Report (Wednesday 21hr UTC) Automaton Auditor - Digital Courtroom Constitutional Multi-Agent Governance System 1. Project Overview Automaton Auditor is a governance-oriented multi-agent system that",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Use Pydantic BaseModel contracts (Evidence, JudicialOpinion, AuditReport)",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Pydantic",
+        "Rationale",
+        "Free-form"
+      ],
+      "summary": " Use Pydantic BaseModel contracts (Evidence, JudicialOpinion, AuditReport)  Use TypedDict AgentState with reducer annotations for merge-safe parallel updates Rationale:  Free-form dicts are flexible but error-prone",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " AST operates on syntax structure, enabling reliable detection of code patterns",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Current"
+      ],
+      "summary": " AST operates on syntax structure, enabling reliable detection of code patterns Current AST-based checks:  StateGraph builder assignment detection  add_edge and add_conditional_edges call extraction  fan-out sign",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Timeout-bounded subprocess execution",
+      "page_start": 4,
+      "page_end": 4,
+      "child_sections": [],
+      "key_entities": [
+        "Timeout-bounded",
+        "Auth/repo-not-found",
+        "Impact",
+        "Safer",
+        "Easier",
+        "Trade-off",
+        "Fresh"
+      ],
+      "summary": " Timeout-bounded subprocess execution  Auth/repo-not-found error surfacing Impact:  Safer and cleaner forensic runtime behavior  Easier operational debugging when clone/auth fails Trade-off:  Fresh clone per r",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "A. Interim Implemented Flow (Current)",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [
+        "Interim",
+        "Implemented",
+        "Flow",
+        "Planned",
+        "Full",
+        "Courtroom",
+        "Topology",
+        "Target"
+      ],
+      "summary": "A. Interim Implemented Flow (Current) B. Planned Full Courtroom Topology (Final Target)",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "C. Data Contracts on Edges",
+      "page_start": 6,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": [
+        "Data",
+        "Contracts",
+        "Edges",
+        "Detectives",
+        "Aggregator",
+        "Dict[str",
+        "Judges"
+      ],
+      "summary": "C. Data Contracts on Edges  Detectives -> Aggregator: Dict[str, List[Evidence]]  Aggregator -> conditional routes: flags + summarized evidence  Judges -> ChiefJustice (planned): List[JudicialOpinion]  ChiefJustic",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "1. Implement deterministic ChiefJustice in Python.",
+      "page_start": 7,
+      "page_end": 7,
+      "child_sections": [],
+      "key_entities": [
+        "Implement",
+        "Python",
+        "Apply",
+        "Security",
+        "Fact",
+        "Functionality",
+        "Dissent",
+        "Variance"
+      ],
+      "summary": "1. Implement deterministic ChiefJustice in Python. 2. Apply explicit conflict rules:  Security override  Fact supremacy  Functionality weighting  Dissent requirement  Variance re-evaluation for highly divergen",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Risk Mitigation",
+      "page_start": 8,
+      "page_end": 8,
+      "child_sections": [],
+      "key_entities": [
+        "Risk",
+        "Mitigation",
+        "Structural",
+        "Prefer",
+        "Planned",
+        "Failure",
+        "Mode",
+        "Trigger",
+        "Persona"
+      ],
+      "summary": "Risk Mitigation Structural false positives in code checks Prefer AST-based structural verification over regex-only checks B. Planned judicial/synthesis failure modes Failure Mode Trigger Mitigation Persona conve",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Failure Mode Trigger Mitigation",
+      "page_start": 9,
+      "page_end": 9,
+      "child_sections": [],
+      "key_entities": [
+        "Failure",
+        "Mode",
+        "Trigger",
+        "Mitigation",
+        "Evidence-",
+        "Opinion",
+        "Apply",
+        "Conclusion"
+      ],
+      "summary": "Failure Mode Trigger Mitigation confirms vulnerability Evidence- opinion mismatch Opinion claims unsupported by collected artifacts Apply fact-supremacy rule to overrule unsupported opinion 6. Conclusion The",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

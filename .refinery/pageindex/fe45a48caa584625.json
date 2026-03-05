@@ -1,0 +1,151 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 8,
+  "child_sections": [
+    {
+      "title": "Interim Submission Report (Wednesday 21hr UTC)",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Interim",
+        "Submission",
+        "Report",
+        "Automaton",
+        "Auditor",
+        "Digital",
+        "Courtroom",
+        "Constitutional",
+        "Governance",
+        "System"
+      ],
+      "summary": "Interim Submission Report (Wednesday 21hr UTC) Automaton Auditor - Digital Courtroom Constitutional Multi-Agent Governance System 1. Project Overview Automaton Auditor is a governance-oriented multi-agent system that",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Use Pydantic BaseModel contracts (Evidence, JudicialOpinion, AuditReport)",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Pydantic",
+        "Rationale",
+        "Free-form"
+      ],
+      "summary": " Use Pydantic BaseModel contracts (Evidence, JudicialOpinion, AuditReport)  Use TypedDict AgentState with reducer annotations for merge-safe parallel updates Rationale:  Free-form dicts are flexible but error-prone",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " AST operates on syntax structure, enabling reliable detection of code patterns",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Current"
+      ],
+      "summary": " AST operates on syntax structure, enabling reliable detection of code patterns Current AST-based checks:  StateGraph builder assignment detection  add_edge and add_conditional_edges call extraction  fan-out sign",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Timeout-bounded subprocess execution",
+      "page_start": 4,
+      "page_end": 4,
+      "child_sections": [],
+      "key_entities": [
+        "Timeout-bounded",
+        "Auth/repo-not-found",
+        "Impact",
+        "Safer",
+        "Easier",
+        "Trade-off",
+        "Fresh"
+      ],
+      "summary": " Timeout-bounded subprocess execution  Auth/repo-not-found error surfacing Impact:  Safer and cleaner forensic runtime behavior  Easier operational debugging when clone/auth fails Trade-off:  Fresh clone per r",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "from untrusted targets. Overall, this interim architecture establishes the foren",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [
+        "Overall",
+        "Chief",
+        "Justice"
+      ],
+      "summary": "from untrusted targets. Overall, this interim architecture establishes the forensic and governance foundation required for the final phase, where judicial fan-out and deterministic Chief Justice synthesis will be layer",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " has_node_errors: route to ErrorCollector",
+      "page_start": 6,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": [
+        "This"
+      ],
+      "summary": " has_node_errors: route to ErrorCollector  insufficient_evidence: route to InsufficientEvidence  otherwise: complete normally This prevents a common governance failure mode where partial evidence is treated as comp",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Variance re-evaluation for highly divergent scores",
+      "page_start": 7,
+      "page_end": 7,
+      "child_sections": [],
+      "key_entities": [
+        "Variance",
+        "Produce",
+        "Expected",
+        "This",
+        "Evidence"
+      ],
+      "summary": " Variance re-evaluation for highly divergent scores 3. Produce final AuditReport and serialize to markdown. Expected outcome This moves the system from forensic collection to full dialectical governance:  Evidence",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "rules, and final report rendering. This progression keeps the architecture align",
+      "page_start": 8,
+      "page_end": 8,
+      "child_sections": [],
+      "key_entities": [
+        "This"
+      ],
+      "summary": "rules, and final report rendering. This progression keeps the architecture aligned with rubric expectations while avoiding overclaims at the interim stage.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Detected pipe-delimited table",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "START | ---> RepoInvestigator ----\\ | ---> DocAnalyst -----------> EvidenceAggregator ---> [conditional] ---> END | ---> VisionInspector -----/ | +--> ErrorCollector ---> END +-->",
+      "data_types_present": [
+        "table"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "table",
+    "text"
+  ]
+}

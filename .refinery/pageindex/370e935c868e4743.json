@@ -1,0 +1,63 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 3,
+  "child_sections": [
+    {
+      "title": "TRP1 Challenge – Interim Submission Report",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Challenge",
+        "Interim",
+        "Submission",
+        "Report",
+        "Architecting",
+        "Traceability",
+        "Overview",
+        "This",
+        "Code"
+      ],
+      "summary": "TRP1 Challenge – Interim Submission Report Architecting the AI■Native IDE & Intent■Code Traceability 1. Overview This interim submission documents the VS Code extension architecture, the agent design, and the hook system",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Key decisions:",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Hooks",
+        "Artifacts"
+      ],
+      "summary": "Key decisions:  Hooks must be deterministic and always run in the same order.  PreToolUse hook enforces safety policy (block dangerous commands).  PostToolUse hook writes trace logs for auditability.  Artifacts are s",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Appendix A: Recommended File Layout",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Appendix",
+        "Recommended",
+        "File",
+        "Layout"
+      ],
+      "summary": "Appendix A: Recommended File Layout src/ hooks/ hookTypes.ts hookRegistry.ts hookEngine.ts preToolUse.ts postToolUse.ts .orchestration/ agent_trace.jsonl active_intents.yaml intent_map.md",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

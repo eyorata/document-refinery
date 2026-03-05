@@ -1,0 +1,81 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 4,
+  "child_sections": [
+    {
+      "title": "TRP1 Challenge – Interim Submission Report",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Challenge",
+        "Interim",
+        "Submission",
+        "Report",
+        "Architecting",
+        "Native",
+        "Intent",
+        "Code",
+        "Traceability",
+        "Overview"
+      ],
+      "summary": "TRP1 Challenge – Interim Submission Report Architecting the AI Native IDE & Intent Code Traceability 1. Overview This interim submission documents the design and implementation of an AI-native VS Code extension focu",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Instead of allowing the agent to execute actions directly, all tool calls are ro",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Instead",
+        "Hook",
+        "Engine",
+        "This"
+      ],
+      "summary": "Instead of allowing the agent to execute actions directly, all tool calls are routed through a Hook Engine implemented in src/hooks/. This hook layer intercepts every tool execution to enforce safety rules, validate in",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Key decisions:",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Hooks",
+        "Artifac"
+      ],
+      "summary": "Key decisions: • Hooks must be deterministic and always run in the same order. • PreToolUse hook enforces safety policy (block dangerous commands). • PostToolUse hook writes trace logs for auditability. • Artifac",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "7. Traceability Artifacts (Interim Design)",
+      "page_start": 4,
+      "page_end": 4,
+      "child_sections": [],
+      "key_entities": [
+        "Traceability",
+        "Artifacts",
+        "Design",
+        "This",
+        "Intent"
+      ],
+      "summary": "7. Traceability Artifacts (Interim Design) The system writes a JSONL trace log capturing all tool calls and results. This supports replay, audit, and debugging. Intent mapping files will link high level intent to code",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

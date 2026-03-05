@@ -1,0 +1,55 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 2,
+  "child_sections": [
+    {
+      "title": "Subject: Update on Data Warehouse Discovery – Guidance Requested on Initial Reco",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Subject",
+        "Update",
+        "Data",
+        "Warehouse",
+        "Discovery",
+        "Guidance",
+        "Requested",
+        "Initial",
+        "Reconciliation",
+        "Discrepancies"
+      ],
+      "summary": "Subject: Update on Data Warehouse Discovery – Guidance Requested on Initial Reconciliation Discrepancies Dear Mr. Abebe and Team, I hope this message finds you well. As part of building your centralized data warehous",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "2. Parallel Light Review — Proceed with build + conduct quick, asynchronous chec",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Parallel",
+        "Light",
+        "Review",
+        "Proceed",
+        "Pros",
+        "Cons",
+        "Higher",
+        "Defer",
+        "Note"
+      ],
+      "summary": "2. Parallel Light Review — Proceed with build + conduct quick, asynchronous checks (1– 2 hours of clarifications). Pros: No timeline impact. Cons: Higher chance of issues surfacing later. 3. Defer to Post-MVP — Note is",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

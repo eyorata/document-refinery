@@ -1,0 +1,93 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 4,
+  "child_sections": [
+    {
+      "title": "Final Submission Report",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Final",
+        "Submission",
+        "Report",
+        "Automaton",
+        "Auditor",
+        "Digital",
+        "Courtroom",
+        "Constitutional",
+        "Governance",
+        "System"
+      ],
+      "summary": "Final Submission Report Automaton Auditor - Digital Courtroom Constitutional Multi-Agent Governance System 1. Executive Summary This final submission delivers a LangGraph-based autonomous governance system that audi",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3. Architecture Diagram (Mermaid)",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Architecture",
+        "Diagram",
+        "Criterion",
+        "Summary",
+        "Score",
+        "Forensic",
+        "Analysis",
+        "State",
+        "Managem"
+      ],
+      "summary": "3. Architecture Diagram (Mermaid) 4. Criterion-by-Criterion Self-Audit Criterion Summary Score Git Forensic Analysis Forensic commit timeline extraction implemented; improve atomicity heuristics. 3/5 State Managem",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Graph Orchestration",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Graph",
+        "Orchestration",
+        "Architecture",
+        "Dual",
+        "Safe",
+        "Tool",
+        "Engineering",
+        "Sandboxed",
+        "Structured"
+      ],
+      "summary": "Graph Orchestration Architecture Dual fan-out/fan-in with conditional routing implemented. 3/5 Safe Tool Engineering Sandboxed clone and subprocess controls implemented; tune timeout behavior. 3/5 Structured O",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Lockfile and infrastructure hardening",
+      "page_start": 4,
+      "page_end": 4,
+      "child_sections": [],
+      "key_entities": [
+        "Lockfile",
+        "Expanded",
+        "Improved",
+        "Dynamic",
+        "Remediation"
+      ],
+      "summary": " Lockfile and infrastructure hardening  Expanded architecture docs and diagrams  Improved error-path governance and terminal diagnostics  Dynamic rubric support and local LLM compatibility path 6. Remediation Pla",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

@@ -1,0 +1,253 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 11,
+  "child_sections": [
+    {
+      "title": "AUTOMATON AUDITOR - Final Report",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Final",
+        "Report",
+        "Digital",
+        "Courtroom",
+        "System",
+        "Week",
+        "Submission",
+        "Executive",
+        "Summary",
+        "Automaton"
+      ],
+      "summary": "AUTOMATON AUDITOR - Final Report Digital Courtroom System | Week 2 Final Submission 1. Executive Summary Automaton Auditor is a hierarchical, governance-oriented multi-agent system implemented with LangGraph to",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "| Judicial specialization | Prosecutor, Defense, TechLead |",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Judicial",
+        "Prosecutor",
+        "Defense",
+        "Synthesis",
+        "Deterministic",
+        "Python",
+        "Structured",
+        "Pydantic",
+        "Runtime"
+      ],
+      "summary": "| Judicial specialization | Prosecutor, Defense, TechLead | | Synthesis policy | Deterministic Python rules (no LLM averaging) | | Structured contracts | Pydantic models + TypedDict reducers | | Runtime interfaces | C",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3. Functionality weighting",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Functionality",
+        "Variance",
+        "Dissent",
+        "This",
+        "Governance",
+        "Mechanics"
+      ],
+      "summary": "3. Functionality weighting 4. Variance re-evaluation 5. Dissent requirement This avoids non-deterministic \"LLM-over-LLM\" synthesis and yields repeatable outcomes. 2.2 Fan-In / Fan-Out as Governance Mechanics T",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3. StateGraph Architecture",
+      "page_start": 4,
+      "page_end": 4,
+      "child_sections": [],
+      "key_entities": [
+        "Architecture",
+        "Complete",
+        "Flow",
+        "Data",
+        "Contracts",
+        "Across",
+        "Edges",
+        "Detectives",
+        "Aggregator",
+        "Judges"
+      ],
+      "summary": "3. StateGraph Architecture 3.1 Complete Flow 3.2 Data Contracts Across Edges  Detectives -> Aggregator: `Dict[str, List[Evidence]]`  Judges -> JudgeAggregator: `List[JudicialOpinion]`  ChiefJustice -> END",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3.3 Conditional Routing Strategy",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [
+        "Conditional",
+        "Routing",
+        "Strategy"
+      ],
+      "summary": "3.3 Conditional Routing Strategy  If detective errors exist: route to `ErrorCollector` then continue with partial evidence  If evidence insufficient: route to `InsufficientEvidence` then continue with caution  If",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Much lower false positives and stronger forensic confidence",
+      "page_start": 6,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": [
+        "Much",
+        "Sandboxed",
+        "Decision",
+        "Clone",
+        "Trade-off",
+        "Fresh"
+      ],
+      "summary": " Much lower false positives and stronger forensic confidence 4.3 Sandboxed repo analysis Decision:  Clone and inspect in temporary directories with subprocess controls Trade-off:  Fresh clone overhead  Sa",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Better portability (offline/local-first or cloud)",
+      "page_start": 7,
+      "page_end": 7,
+      "child_sections": [],
+      "key_entities": [
+        "Better",
+        "Implementation",
+        "Details",
+        "Detective",
+        "Layer"
+      ],
+      "summary": " Better portability (offline/local-first or cloud) --- 5. Implementation Details 5.1 Detective Layer  `RepoInvestigator`: clone safety, git timeline extraction, AST structure checks, file inventory  `Doc",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Streamlit UI for operator-friendly runs and dynamic rubric edits",
+      "page_start": 8,
+      "page_end": 8,
+      "child_sections": [],
+      "key_entities": [
+        "Streamlit",
+        "Breakdown",
+        "Criterion",
+        "Score",
+        "Evidence",
+        "Summary",
+        "Consensus",
+        "Dissent"
+      ],
+      "summary": " Streamlit UI for operator-friendly runs and dynamic rubric edits --- 6. Criterion-by-Criterion Self-Audit Breakdown | Criterion | Score | Key Evidence Summary | Consensus / Dissent | |---|---|---|---| | Git",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Interpretation:",
+      "page_start": 9,
+      "page_end": 9,
+      "child_sections": [],
+      "key_entities": [
+        "Interpretation",
+        "Feedback",
+        "Loop",
+        "Reflection"
+      ],
+      "summary": "Interpretation:  architecture completeness is high  score ceiling is currently constrained by runtime provider/model reliability and fallback behavior when LLM calls fail --- 7. MinMax Feedback Loop Reflection",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " **What peer caught that I missed:** missing lockfile, incomplete diagram clari",
+      "page_start": 10,
+      "page_end": 10,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": " **What peer caught that I missed:** missing lockfile, incomplete diagram clarity, under- specified failure modes, and runtime model mismatch risks.  **What I now catch in others:** missing dependency locks, linear (n",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "---",
+      "page_start": 11,
+      "page_end": 11,
+      "child_sections": [],
+      "key_entities": [
+        "Conclusion",
+        "Automaton",
+        "Auditor"
+      ],
+      "summary": "--- 9. Conclusion Automaton Auditor now provides a complete digital-courtroom baseline for autonomous governance: typed evidence flow, parallel specialist execution, deterministic synthesis, and trace-capable run",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Detected pipe-delimited table",
+      "page_start": 1,
+      "page_end": 8,
+      "child_sections": [],
+      "key_entities": [
+        "Metric",
+        "Value",
+        "Primary",
+        "Forensic",
+        "Judicial",
+        "Prosecutor",
+        "Defense",
+        "Synthesis",
+        "Deterministic",
+        "Python"
+      ],
+      "summary": "Metric | Value --- | --- Primary orchestration runtime | LangGraph StateGraph Forensic specialization | RepoInvestigator, DocAnalyst, VisionInspector Judicial specialization | Prosecutor, Defense, TechLead Synthesis policy | Deterministic Python rules (no LLM averaging) Structured contracts | Pydantic models + TypedDict",
+      "data_types_present": [
+        "table"
+      ]
+    },
+    {
+      "title": "Heuristic layout table",
+      "page_start": 2,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": [
+        "Judicial",
+        "Prosecutor",
+        "Defense",
+        "Synthesis",
+        "Deterministic",
+        "Python",
+        "Structured",
+        "Pydantic",
+        "Functionality",
+        "Variance"
+      ],
+      "summary": "label | value snippet | | Judicial specialization | Prosecutor, Defense, TechLead | | Synthesis policy | Deterministic Python rules (no LLM averaging) | | Structured contracts | Pydantic models + TypedDict reducers | label | value snippet | 3.",
+      "data_types_present": [
+        "table"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "list",
+    "table",
+    "text"
+  ]
+}

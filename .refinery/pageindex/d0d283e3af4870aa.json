@@ -1,0 +1,58 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 16,
+  "child_sections": [
+    {
+      "title": "AUTOMATON  AUDITOR",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Final",
+        "Report",
+        "Challenge",
+        "Week",
+        "Digital",
+        "Courtroom",
+        "System",
+        "Sumeya",
+        "Sirmula",
+        "Submission"
+      ],
+      "summary": "AUTOMATON AUDITOR Final Report TRP1 Challenge Week 2 — Digital Courtroom System By: Sumeya Sirmula Final Submission",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Automaton  Auditor  —  Final  Report",
+      "page_start": 2,
+      "page_end": 16,
+      "child_sections": [],
+      "key_entities": [
+        "Automaton",
+        "Auditor",
+        "Final",
+        "Report",
+        "Table",
+        "Contents",
+        "Sumeya",
+        "Sirmula",
+        "Page",
+        "Executive"
+      ],
+      "summary": "Automaton Auditor — Final Report Table of Contents Sumeya Sirmula — Page 2 Automaton Auditor — Final Report 1. Executive Summary The Automaton Auditor is a hierarchical multi-agent application built on LangGraph that audits peer code submissions using a Digital",
+      "data_types_present": [
+        "list",
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "list",
+    "text"
+  ]
+}

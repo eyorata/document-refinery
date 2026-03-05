@@ -1,0 +1,127 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 7,
+  "child_sections": [
+    {
+      "title": "Project Chimera — Day 1 Report",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Project",
+        "Chimera",
+        "Report",
+        "Autonomous",
+        "Influencer",
+        "Network",
+        "Role",
+        "Forward",
+        "Deployed",
+        "Engineer"
+      ],
+      "summary": "Project Chimera — Day 1 Report Autonomous Influencer Network Role: Forward Deployed Engineer (FDE) Trainee Research Summary Key Insights from a16z, OpenClaw, MoltBook, and the Project Chimera SRS 1. The Trillion Dol",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Integration with Project Chimera:",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Integration",
+        "Project",
+        "Chimera",
+        "Each"
+      ],
+      "summary": "Integration with Project Chimera: Project Chimera fits cleanly into this paradigm. Each Chimera agent is specified as a sovereign digital entity with a persistent persona, hierarchical memory, and economic agency (Proj",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Persistent personas defined through version-controlled configuration",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Persistent",
+        "Long-term",
+        "Coordinated"
+      ],
+      "summary": " Persistent personas defined through version-controlled configuration  Long-term memory via semantic retrieval  Coordinated multi-agent swarms rather than single agents  Human-in-the-Loop escalation for sensitive",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "as a formal governance layer that validates outputs before state is committed. T",
+      "page_start": 4,
+      "page_end": 4,
+      "child_sections": [],
+      "key_entities": [
+        "This"
+      ],
+      "summary": "as a formal governance layer that validates outputs before state is committed. This separation of concerns enables high parallelism while preserving control and auditability. I am intentionally selecting this pattern b",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "I am intentionally accepting additional upfront complexity in exchange for long-",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [
+        "Strong"
+      ],
+      "summary": "I am intentionally accepting additional upfront complexity in exchange for long-term resilience. Strong decoupling enables clearer contracts, better testability, and safer multi-agent collaboration. It also aligns with",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Architectural Posture Summary",
+      "page_start": 6,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": [
+        "Architectural",
+        "Posture",
+        "Summary",
+        "Overall",
+        "Predictable",
+        "Governance",
+        "Infrastructure"
+      ],
+      "summary": "Architectural Posture Summary Overall, the architectural direction prioritizes:  Predictable behavior over clever prompts  Governance and safety over raw autonomy  Infrastructure discipline over experimentation T",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Reference",
+      "page_start": 7,
+      "page_end": 7,
+      "child_sections": [],
+      "key_entities": [
+        "Reference",
+        "Andreessen",
+        "Horowitz",
+        "Project",
+        "Documentation"
+      ],
+      "summary": "Reference  Andreessen Horowitz. (2024). The trillion dollar AI code stack. https://a16z.com  OpenClaw Project. (2024). The agent social network. OpenClaw Documentation. https://permiso.io/blog/inside-the-openclaw-ec",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

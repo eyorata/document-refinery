@@ -1,0 +1,138 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 14,
+  "child_sections": [
+    {
+      "title": "Interim",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Interim",
+        "Submission",
+        "Report",
+        "Automaton",
+        "Auditor",
+        "Digital",
+        "Courtroom",
+        "Constitutional",
+        "Governance",
+        "System"
+      ],
+      "summary": "Interim Submission Report Automaton Auditor – Digital Courtroom Constitutional Multi-Agent Governance System 1 ⃣ Project Overview Automaton Auditor – Digital Courtroom is a p",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "This",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "This",
+        "Architecture",
+        "Decision",
+        "Rationale"
+      ],
+      "summary": "This architecture prevents shallow LLM grading and instead enforces stateful, adversarial, rule-driven governance. 2 ⃣ Architecture Decision Rationale This section provides expli",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "●",
+      "page_start": 4,
+      "page_end": 14,
+      "child_sections": [],
+      "key_entities": [
+        "Structured",
+        "Annotated",
+        "Parallel",
+        "Deterministic",
+        "Clear",
+        "Non-determinism",
+        "Bias",
+        "Averaging",
+        "Inconsistent",
+        "Security"
+      ],
+      "summary": "● Structured output alignment with LLMs TypedDict + Annotated reducers ensure: ● Parallel node safety ● Deterministic state merging ● No overwrites ● Clear audit ● Non-determinism ● Bias ampliﬁcation ● Averaging without rule enforcement ● Inconsistent governance outcomes Deterministic",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "●  tempfile.TemporaryDirectory()",
+      "page_start": 7,
+      "page_end": 7,
+      "child_sections": [],
+      "key_entities": [
+        "Cloning"
+      ],
+      "summary": "● tempfile.TemporaryDirectory() ● subprocess.run() with return code checks ● No os.system() ● No execution of repository code Why Cloning arbitrary repositories carries ris",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Full",
+      "page_start": 8,
+      "page_end": 8,
+      "child_sections": [],
+      "key_entities": [
+        "Full",
+        "Heavy",
+        "Temp",
+        "Balanced",
+        "Future",
+        "Architecture"
+      ],
+      "summary": "Full containerization Heavy overhead Temp dir + no execution Balanced Future improvement: optional container isolation for hardened deployments. 3 ⃣ StateGraph Architecture A.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Currently",
+      "page_start": 10,
+      "page_end": 10,
+      "child_sections": [],
+      "key_entities": [
+        "Currently",
+        "Migration",
+        "Streaming",
+        "Polling-based"
+      ],
+      "summary": "Currently not inﬂuencing synthesis weights. 2. SQLite Migration JSON run ledger used; relational store planned. 3. Real-Time Streaming Polling-based progress; SSE/WebSockets plan",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Mitigation:",
+      "page_start": 12,
+      "page_end": 12,
+      "child_sections": [],
+      "key_entities": [
+        "Mitigation",
+        "Discrete",
+        "Apply",
+        "Avoid",
+        "Migration",
+        "Risks",
+        "Risk"
+      ],
+      "summary": "Mitigation: ● Discrete tiers (low/medium/high) ● Apply multiplier only when evidence count threshold met ● Avoid compounding stacking D. SQLite Migration Risks Risk:",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}
