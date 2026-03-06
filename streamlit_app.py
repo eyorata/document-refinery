@@ -38,25 +38,26 @@ def main() -> None:
     uploaded_doc_ids: set[str] = set()
 
     for uploaded in uploaded_files:
-        with tempfile.NamedTemporaryFile(delete=False, suffix=Path(uploaded.name).suffix) as tmp:
-            tmp.write(uploaded.read())
-            tmp_path = tmp.name
-        doc_id = stable_hash(str(Path(tmp_path).resolve()))[:16]
-        uploaded_doc_ids.add(doc_id)
+        safe_name = Path(uploaded.name).name
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            tmp_path = Path(tmp_dir) / safe_name
+            tmp_path.write_bytes(uploaded.read())
+            doc_id = stable_hash(str(tmp_path.resolve()))[:16]
+            uploaded_doc_ids.add(doc_id)
 
-        status = "ok"
-        with st.spinner(f"Running refinery pipeline for {uploaded.name}..."):
-            try:
-                res = pipeline.run(tmp_path)
-            except HumanReviewRequiredError as exc:
-                res = None
-                status = f"human_review_required: {exc}"
-            except BudgetExceededError as exc:
-                res = None
-                status = f"budget_exceeded: {exc}"
-            except Exception as exc:  # noqa: BLE001
-                res = None
-                status = f"error: {exc}"
+            status = "ok"
+            with st.spinner(f"Running refinery pipeline for {uploaded.name}..."):
+                try:
+                    res = pipeline.run(str(tmp_path))
+                except HumanReviewRequiredError as exc:
+                    res = None
+                    status = f"human_review_required: {exc}"
+                except BudgetExceededError as exc:
+                    res = None
+                    status = f"budget_exceeded: {exc}"
+                except Exception as exc:  # noqa: BLE001
+                    res = None
+                    status = f"error: {exc}"
 
         results.append((uploaded.name, res, status, doc_id))
 

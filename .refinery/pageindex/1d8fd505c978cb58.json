@@ -1,0 +1,36 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 13,
+  "child_sections": [
+    {
+      "title": "ETHIOPIAN STATISTICAL SERVICE",
+      "page_start": 1,
+      "page_end": 13,
+      "child_sections": [],
+      "key_entities": [
+        "Statistical",
+        "Bulletin",
+        "Issue",
+        "August",
+        "Page",
+        "Summary",
+        "Content",
+        "Consumer",
+        "Price",
+        "Index"
+      ],
+      "summary": "ETHIOPIAN STATISTICAL SERVICE Statistical Bulletin MONTHLY NEWS RELEASE INFLATION REPORT ON AUGUST, EFY 2017 Issue No. 26/2017 August EFY2017 Page 1 1. Summary Content The Consumer Price Index (CPI), a key economic statistics, is surveyed, analyzed, and made available to",
+      "data_types_present": [
+        "list",
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "list",
+    "text"
+  ]
+}

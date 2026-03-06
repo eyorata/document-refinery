@@ -54,3 +54,10 @@ class FactTableStore:
         res = cur.fetchall()
         con.close()
         return res
+
+    def clear(self) -> None:
+        con = sqlite3.connect(self.db_path)
+        cur = con.cursor()
+        cur.execute("DELETE FROM facts")
+        con.commit()
+        con.close()

@@ -33,6 +33,11 @@ class RefineryPipeline:
         self.query_agent = QueryInterfaceAgent(self.vector_store, self.fact_table)
 
     def run(self, document_path: str):
+        # Ensure retrieval state is scoped to the currently processed document.
+        self.vector_store = SimpleVectorStore()
+        self.fact_table.clear()
+        self.query_agent = QueryInterfaceAgent(self.vector_store, self.fact_table)
+
         profile = self.triage.profile(document_path)
         self._save_profile(profile)
 

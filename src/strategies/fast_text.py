@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 from pathlib import Path
 
 import pdfplumber
@@ -110,8 +111,11 @@ class FastTextExtractor(ExtractionStrategy):
         avg_img = sum(image_ratios) / len(image_ratios) if image_ratios else 0.0
         avg_font_meta = (sum(font_metadata_scores) / len(font_metadata_scores)) if font_metadata_scores else 0.0
 
-        char_score = min(avg_chars / self.thresholds["target_chars_per_page"], 1.0)
-        density_score = min(avg_density / self.thresholds["target_density"], 1.0)
+        # Non-linear saturation avoids hard clipping at 1.0 for most clean digital PDFs.
+        char_ratio = avg_chars / max(float(self.thresholds["target_chars_per_page"]), 1.0)
+        density_ratio = avg_density / max(float(self.thresholds["target_density"]), 1e-12)
+        char_score = self._saturating_signal(char_ratio)
+        density_score = self._saturating_signal(density_ratio)
         image_penalty = max(0.0, 1.0 - avg_img)
         font_meta_score = max(0.0, min(1.0, avg_font_meta))
 
@@ -128,7 +132,7 @@ class FastTextExtractor(ExtractionStrategy):
             + (image_penalty * w_img_penalty)
             + (font_meta_score * w_font_meta)
         ) / weight_sum
-        return max(0.0, min(1.0, score))
+        return max(0.0, min(0.999, score))
 
     def _section_hint(self, text: str) -> str | None:
         first = next((ln.strip() for ln in text.splitlines() if ln.strip()), "")
@@ -173,3 +177,7 @@ class FastTextExtractor(ExtractionStrategy):
             bottom = float(img.get("bottom", top) or top)
             image_area += max(0.0, (x1 - x0) * (bottom - top))
         return max(0.0, min(1.0, image_area / max(page_area, 1.0)))
+
+    def _saturating_signal(self, ratio: float) -> float:
+        ratio = max(0.0, ratio)
+        return 1.0 - math.exp(-2.0 * ratio)

@@ -1,0 +1,14 @@
+{
+  "doc_id": "0b48a8a744f9a98d",
+  "document_name": "CBE Annual Report 2006-7 .pdf",
+  "page_count": 60,
+  "origin_type": "native_digital",
+  "layout_complexity": "figure_heavy",
+  "language_code": "en",
+  "language_confidence": 0.85,
+  "domain_hint": "financial",
+  "estimated_extraction_cost": "fast_text_sufficient",
+  "avg_char_density": 0.003302093651759278,
+  "avg_image_ratio": 0.20967579846457352,
+  "triage_confidence": 1.0
+}

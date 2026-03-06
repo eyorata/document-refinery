@@ -1,0 +1,881 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 60,
+  "child_sections": [
+    {
+      "title": "M",
+      "page_start": 1,
+      "page_end": 60,
+      "child_sections": [],
+      "key_entities": [
+        "Annual",
+        "Report",
+        "Commercial",
+        "Bank",
+        "Ethiopia",
+        "Gambia",
+        "Addis",
+        "Ababa",
+        "Tel",
+        "Website"
+      ],
+      "summary": "M PB 1 CBE - Annual Report 2006-07 CBE - Annual Report 2006-07 M Commercial Bank of Ethiopia Gambia St. P.O.Box- 255, Addis Ababa - Ethiopia Tel.: 251-11-551 50 04 FAX: 251-11-551 45 22, 551 78 22, 551 52 94,",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Commercial Bank",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Commercial",
+        "Bank",
+        "Ethiopia",
+        "Annual",
+        "Report"
+      ],
+      "summary": "Commercial Bank Ethiopia of Annual Report 2006-07 2 I CBE - Annual Report 2006-07 CBE - Annual Report 2006-07 CBE - Annual Report 2006-07",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Commercial Bank of Ethiopia",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [
+        "Commercial",
+        "Bank",
+        "Ethiopia",
+        "Profile",
+        "State",
+        "Share",
+        "Company"
+      ],
+      "summary": "Commercial Bank of Ethiopia Profile The State Bank of Ethiopia was founded in 1942 with twin objectives: performing the duties of both commercial and central banking. In 1963, the commercial Bank of Ethiopia (CBE) was legally established as Share Company",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "VALUES",
+      "page_start": 6,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "VALUES P We stand for quality; P We are a learning organization; P We are committed to unparalleled customer satisfaction; P Our employees are our valuable assets; P We are committed to maximizing shareholder value; P We uphold transparency, accountability",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Board Member,State Minister,",
+      "page_start": 7,
+      "page_end": 7,
+      "child_sections": [],
+      "key_entities": [
+        "Board",
+        "Minister",
+        "Ministry",
+        "Capacity",
+        "Building"
+      ],
+      "summary": "Board Member,State Minister, Ministry of Capacity Building",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "The President’s Message",
+      "page_start": 9,
+      "page_end": 9,
+      "child_sections": [],
+      "key_entities": [
+        "President’s",
+        "Message",
+        "During",
+        "Ethiopian",
+        "Africa"
+      ],
+      "summary": "The President’s Message It gives me great pleasure to succinctly present the major achievements of the CBE in fiscal year 2006-07. During the reviewing year, the Ethiopian economy witnessed a healthy growth trajectory with GDP of about 11.4%, significantly above",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "The attempt made on developing the Bank’s IT infrastructure continued in the ref",
+      "page_start": 10,
+      "page_end": 10,
+      "child_sections": [],
+      "key_entities": [
+        "Bank’s",
+        "Management’s",
+        "Management",
+        "Bank"
+      ],
+      "summary": "The attempt made on developing the Bank’s IT infrastructure continued in the reference year, entailing the Management’s commitment to achieve the Bank’s vision of becoming a “world-class” bank and to enable it stay at the top of the competition. The",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Macroeconomic Highlights",
+      "page_start": 11,
+      "page_end": 11,
+      "child_sections": [],
+      "key_entities": [
+        "Macroeconomic",
+        "Highlights",
+        "Euro",
+        "Advanced"
+      ],
+      "summary": "Macroeconomic Highlights The global economy grew at a rate of 5.4% in 2006, and is projected to have grown by 4.75% in the current year, due to expected slowdown in the US economy, though growth in the Euro zone is",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "indicating a slight improvement in the rate difference between the inter-bank ma",
+      "page_start": 12,
+      "page_end": 12,
+      "child_sections": [],
+      "key_entities": [
+        "Birr"
+      ],
+      "summary": "indicating a slight improvement in the rate difference between the inter-bank market and the parallel market in fiscal year 2006-07 relative to that of last year. The stock of broad money supply exhibited a 22% growth during the fiscal year",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Financial Position",
+      "page_start": 13,
+      "page_end": 13,
+      "child_sections": [],
+      "key_entities": [
+        "Financial",
+        "Position",
+        "Income",
+        "Bank",
+        "Birr"
+      ],
+      "summary": "Financial Position Net-Interest Income: The net-interest income of the Bank rose to Birr 685.5 million in 2006-07, from Birr 497 million in 2005-06 (37.9% rise), mainly on the back of a higher growth in interest income over interest expense. The",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Operating Expenses:",
+      "page_start": 14,
+      "page_end": 14,
+      "child_sections": [],
+      "key_entities": [
+        "Operating",
+        "Expenses",
+        "Bank",
+        "Birr",
+        "This",
+        "From"
+      ],
+      "summary": "Operating Expenses: The operating expenses of the Bank stood at Birr 729.2 million at year-end, up by 111.3%, over the preceding year’s total of Birr 345.1 million. This growth was attributed mainly to the growth in general expenses by 224.1%.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Returns on Assets (%) Returns on Equity (%)",
+      "page_start": 15,
+      "page_end": 15,
+      "child_sections": [],
+      "key_entities": [
+        "Returns",
+        "Assets",
+        "Equity",
+        "Liquidity",
+        "With"
+      ],
+      "summary": "Returns on Assets (%) Returns on Equity (%) 74.3 3.1 2.7 55.2 2.4 27.8 2004-05 2005-06 2006-07 2004-05 2005-06 2006-07 Liquidity: The commercial loan-to-deposit ratio, describing the proportion of the total deposits extended to financing loan demands, went down from",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Balance sheet Analysis",
+      "page_start": 16,
+      "page_end": 16,
+      "child_sections": [],
+      "key_entities": [
+        "Balance",
+        "Analysis",
+        "Birr",
+        "Total",
+        "Capital",
+        "Assets’",
+        "Structure",
+        "Bank"
+      ],
+      "summary": "Balance sheet Analysis (In Bn. of Birr) 2006-07 2005-06 % change Total assets 43.4 35.8 21.1 Total liabilities 39.2 34.3 14.1 Capital and reserves 4.2 1.5 179.9 Capital adequacy ratio (%) 28 10.6 164.1 Assets’ Structure: The balance sheet for",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "The amount of fresh-loans disbursed to the various economic sectors, during the ",
+      "page_start": 17,
+      "page_end": 17,
+      "child_sections": [],
+      "key_entities": [
+        "Birr"
+      ],
+      "summary": "The amount of fresh-loans disbursed to the various economic sectors, during the review period was Birr 5.2 billion, up by 27.1%, compared with the preceding year’s level of Birr 4.1 billion. Of the total fresh-loans disbursed, the agriculture sector absorbs",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Total loan collection stood at Birr 5.8 billion in 2006-07, up by 31.8% from Bir",
+      "page_start": 18,
+      "page_end": 18,
+      "child_sections": [],
+      "key_entities": [
+        "Total",
+        "Birr",
+        "Loans"
+      ],
+      "summary": "Total loan collection stood at Birr 5.8 billion in 2006-07, up by 31.8% from Birr 4.4 billion a year ago . Loans collection from the domestic trade services and the agriculture sectors (31.8% and 26.7%, respectively, of the total loans",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Capital Adequacy:",
+      "page_start": 19,
+      "page_end": 19,
+      "child_sections": [],
+      "key_entities": [
+        "Capital",
+        "Adequacy",
+        "Bank",
+        "Birr",
+        "This",
+        "Bank’s"
+      ],
+      "summary": "Capital Adequacy: The capital and reserves of the Bank stood at Birr 4.2 billion in 2006-07, indicating a 179.9% growth, over the preceding year’s position of Birr 1.5 billion. This was attributable to owner’s decision to increase the Bank’s paid",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Foreign Banking Operations",
+      "page_start": 20,
+      "page_end": 20,
+      "child_sections": [],
+      "key_entities": [
+        "Foreign",
+        "Banking",
+        "Operations",
+        "Being"
+      ],
+      "summary": "Foreign Banking Operations The CBE maintains good business relationships and correspondent account relations with various well-known international banks throughout the globe. It maintains a SWIFT bilateral key exchange arrangement with 520 banks of international renown. Being one of the strengths",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "CBE finances Import",
+      "page_start": 21,
+      "page_end": 21,
+      "child_sections": [],
+      "key_entities": [
+        "Import",
+        "Business",
+        "Courtesy",
+        "Annual",
+        "Report"
+      ],
+      "summary": "CBE finances Import Business Courtesy of MOENCO 1166 1177 CCBBEE -- AAnnnnuuaall RReeppoorrtt 22000066--0077 CCBBEE -- AAnnnnuuaall RReeppoorrtt 22000066--0077 CBE - Annual Report 2006-07",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Human Resources Activities",
+      "page_start": 22,
+      "page_end": 22,
+      "child_sections": [],
+      "key_entities": [
+        "Human",
+        "Resources",
+        "Activities",
+        "Bank’s",
+        "Compared",
+        "Generally"
+      ],
+      "summary": "Human Resources Activities At the end of fiscal year 2006-07, the Bank’s human resource reached 7,684. Compared with last year’s figure, this represents an increase of 310 staffs (or 4.2%), which is mainly the result of recruitment of 792 new",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Business Development Highlights",
+      "page_start": 23,
+      "page_end": 23,
+      "child_sections": [],
+      "key_entities": [
+        "Business",
+        "Development",
+        "Highlights",
+        "Bank",
+        "Transformation",
+        "Efforts"
+      ],
+      "summary": "Business Development Highlights Bank Transformation Efforts : The Bank has been exercising massive transformation effort, which is believed to enable it leap into a better position, in terms of enhancing the efficiency and quality of service delivery, and hence achieving",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "This is why wherever they are residing, Ethiopians think of CBE as their bank, s",
+      "page_start": 24,
+      "page_end": 24,
+      "child_sections": [],
+      "key_entities": [
+        "This",
+        "Ethiopians",
+        "Correspondence",
+        "Ethiopia",
+        "Bank’s"
+      ],
+      "summary": "This is why wherever they are residing, Ethiopians think of CBE as their bank, showing the fact that the CBE is the most preferable and reliable bank to do business with. Correspondence banks and their customers allover the globe also",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Of the major tasks performed by the IT, during the review period, the following ",
+      "page_start": 25,
+      "page_end": 25,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "Of the major tasks performed by the IT, during the review period, the following are worth noting: P To implement the visa-card banking program, continuous discussions have been made with the winning consulting firm, P The conversion of online system",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Corporate Social Responsibility",
+      "page_start": 26,
+      "page_end": 26,
+      "child_sections": [],
+      "key_entities": [
+        "Corporate",
+        "Social",
+        "Responsibility",
+        "Apart"
+      ],
+      "summary": "Corporate Social Responsibility CBE has been playing a pivotal role in the nation building process. Apart from its wide-ranging banking services, it is actively participating in various social activities and community development, including sponsorship and voluntary services, contributions, community services;",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "CBE Supports",
+      "page_start": 27,
+      "page_end": 27,
+      "child_sections": [],
+      "key_entities": [
+        "Supports",
+        "Courtesy",
+        "Salini",
+        "Construction",
+        "Ethiopian",
+        "Shipping",
+        "Lines",
+        "Annual",
+        "Report"
+      ],
+      "summary": "CBE Supports the development endeavors of the country Courtesy of Salini Construction Courtesy of Ethiopian Shipping Lines 2222 2233 CCBBEE -- AAnnnnuuaall RReeppoorrtt 22000066--0077 CCBBEE -- AAnnnnuuaall RReeppoorrtt 22000066--0077 CBE - Annual Report 2006-07",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "2244 2255",
+      "page_start": 28,
+      "page_end": 28,
+      "child_sections": [],
+      "key_entities": [
+        "Annual",
+        "Report"
+      ],
+      "summary": "2244 2255 CCBBEE -- AAnnnnuuaall RReeppoorrtt 22000066--0077 CCBBEE -- AAnnnnuuaall RReeppoorrtt 22000066--0077 CBE - Annual Report 2006-07",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Auditors’ Report",
+      "page_start": 29,
+      "page_end": 29,
+      "child_sections": [],
+      "key_entities": [
+        "Auditors’",
+        "Report",
+        "Annual"
+      ],
+      "summary": "Auditors’ Report 2006-07 2244 2255 CCBBEE -- AAnnnnuuaall RReeppoorrtt 22000066--0077 CCBBEE -- AAnnnnuuaall RReeppoorrtt 22000066--0077 CBE - Annual Report 2006-07",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "26",
+      "page_start": 30,
+      "page_end": 30,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "26",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "27",
+      "page_start": 31,
+      "page_end": 31,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "27",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "COMMERCIAL BANK OF ETHIOPIA",
+      "page_start": 32,
+      "page_end": 37,
+      "child_sections": [],
+      "key_entities": [
+        "Notes",
+        "Birr",
+        "Cash",
+        "National",
+        "Bank",
+        "Ethiopia",
+        "Investments",
+        "Government",
+        "Coupon",
+        "Development"
+      ],
+      "summary": "COMMERCIAL BANK OF ETHIOPIA BANK BALNACE SHEET AT 30 JUNE 2007 Notes 2007, Birr 2006, Birr ASSETS Cash and balances with National Bank 9,869,645,784 7,229,469,306 of Ethiopia 2 Investments in Government securities 3 13,013,380,234 12,588,996,938 Coupon bonds with Development Bank",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "are stated at cost less accumulated depreciation and impairment losses.",
+      "page_start": 38,
+      "page_end": 38,
+      "child_sections": [],
+      "key_entities": [
+        "Depreciation",
+        "Buildings"
+      ],
+      "summary": "are stated at cost less accumulated depreciation and impairment losses. Depreciation is charged on a straight-line basis over the estimated useful lives of the assets. Buildings, fixtures, fittings and office equipment, motor vehicles, computers, accessories and software are stated at",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "2. CASH AND BALANCES WITH NATIONAL BANK OF ETHIOPIAN",
+      "page_start": 39,
+      "page_end": 39,
+      "child_sections": [],
+      "key_entities": [
+        "Birr",
+        "Group",
+        "Cash",
+        "Balances",
+        "National",
+        "Bank",
+        "Ethiopia",
+        "Payment",
+        "Company"
+      ],
+      "summary": "2. CASH AND BALANCES WITH NATIONAL BANK OF ETHIOPIAN Birr 2006, Birr Group Cash on hand 665,114,647 572,886,785 Balances with National Bank of Ethiopia Cash reserve ratio 2,000,000,000 2,000,000,000 Payment and settlement account 7,204,532,537 4,656,585,221 9,869,647,184 7,229,472,006 Company Cash on",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "4. COUPON BONDS WITH DEVELOPMENT BANK OF ETHIOPIA",
+      "page_start": 40,
+      "page_end": 40,
+      "child_sections": [],
+      "key_entities": [
+        "Group",
+        "Company",
+        "Represent",
+        "Development",
+        "Bank",
+        "Ethiopia",
+        "Interest",
+        "December"
+      ],
+      "summary": "4. COUPON BONDS WITH DEVELOPMENT BANK OF ETHIOPIA AND REGIONAL STATES Group and Company Represent non-negotiable 4% secured bonds bought from Development Bank of Ethiopia (DBE). Interest is to be repaid by DBE semi-annually while the principal is to be",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "8. LOANS AND ADVANCES TO CUSTOMERS",
+      "page_start": 41,
+      "page_end": 41,
+      "child_sections": [],
+      "key_entities": [
+        "Group",
+        "Company",
+        "Birr",
+        "Term",
+        "Overdrafts",
+        "Advances",
+        "Loans",
+        "Less",
+        "Provi"
+      ],
+      "summary": "8. LOANS AND ADVANCES TO CUSTOMERS Group and Company Birr 2006, Birr a) Term and merchandise loans 5,745,311,388 5,691,411,055 Overdrafts 2,398,091,394 1,906,903,509 Advances on import and export bills 245,743,542 66,194,836 Loans and advances in legal 1,143,779,378 1,356,012,303 9,532,925,702 9,020,521,703 Less:",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "9. INVESTMENT IN SUBSIDIARY",
+      "page_start": 42,
+      "page_end": 42,
+      "child_sections": [],
+      "key_entities": [
+        "Birr",
+        "Commercial",
+        "Nominees",
+        "Private",
+        "Limited",
+        "Company",
+        "Ethiopia",
+        "Group",
+        "Specialized",
+        "Financial"
+      ],
+      "summary": "9. INVESTMENT IN SUBSIDIARY Birr 2006, Birr Commercial Nominees 93.425% 4,220,000 4,220,000 Private Limited Company The interest in the above undertaking is carried at cost. The subsidiary company is incorporated in Ethiopia. 10. INVESTMENT IN ASSOCIATES a) Group Birr 2006,",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "12. OTHER ASSETS",
+      "page_start": 43,
+      "page_end": 43,
+      "child_sections": [],
+      "key_entities": [
+        "Birr",
+        "Group",
+        "Balance",
+        "Commercial",
+        "Bank",
+        "Eritrea",
+        "Uncleared",
+        "Interest",
+        "Acquired",
+        "Stationery"
+      ],
+      "summary": "12. OTHER ASSETS 2007, Birr 2006, Birr Group Balance due from Commercial Bank of Eritrea 1,148,022,450 1,115,206,073 Uncleared effects 496,157,088 620,070,720 Interest receivable 88,531,507 48,958,904 Acquired properties 422,250,313 261,181,899 Stationery and other supplies 28,761,923 20,865,731 Staff imprests and prep",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "13. PROPERTY AND EQUIPMENT",
+      "page_start": 44,
+      "page_end": 44,
+      "child_sections": [],
+      "key_entities": [
+        "Balance",
+        "Transfers/",
+        "June",
+        "Additions",
+        "Adjustments",
+        "Birr",
+        "Group",
+        "Buildings",
+        "Motor",
+        "Computer"
+      ],
+      "summary": "13. PROPERTY AND EQUIPMENT a) The movements in property and equipment are as follows:- Balance at Transfers/ Balance at 30 30 June 2006 Additions Adjustments June 2007 Birr Birr Birr Birr Group COST Buildings 250,254,969 1,565,049 8,387,174 260,207,192 Motor vehicles",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "14. DEPOSITS DUE TO OTHER BANKS",
+      "page_start": 45,
+      "page_end": 45,
+      "child_sections": [],
+      "key_entities": [
+        "Birr",
+        "Group",
+        "Company",
+        "Payable",
+        "Private",
+        "Local",
+        "Central",
+        "Government",
+        "Public"
+      ],
+      "summary": "14. DEPOSITS DUE TO OTHER BANKS Birr 2006, Birr Group and Company 189,639,718 158,972,432 15. CUSTOMER’S DEPOSITS Birr 2006, Birr Group Payable on demand Private sector and retail customers 5,854,307,432 4,969,095,551 Local and Central Government 7,474,294,718 6,403,764,807 Public enterprises and",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "16. INCOME TAX",
+      "page_start": 46,
+      "page_end": 46,
+      "child_sections": [],
+      "key_entities": [
+        "Rental",
+        "Total",
+        "Birr",
+        "Group",
+        "Balance",
+        "June",
+        "Add",
+        "Less",
+        "Payments"
+      ],
+      "summary": "16. INCOME TAX i) The movement in the account is as follows:- Tax on Tax on Rental other Total income operations Birr Birr Birr Group Balance as at 30 June 2006 474,186 301,009,478 301,483,664 Add: Tax expense of current year",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "17. STATE DIVIDEND PAYABLE",
+      "page_start": 47,
+      "page_end": 47,
+      "child_sections": [],
+      "key_entities": [
+        "Birr",
+        "Balance",
+        "June",
+        "Current",
+        "Less",
+        "Ministry",
+        "Finance",
+        "Economic",
+        "Development",
+        "Group"
+      ],
+      "summary": "17. STATE DIVIDEND PAYABLE Birr 2006, Birr Balance as at 30 June 2006 929,616,528 217,488,471 Current year appropriation 648,418,068 712,128,057 1,578,034,596 929,616,528 Less: payment to Ministry of Finance and 929,616,525 - Economic Development 648,418,071 929,616,528 18. OTHER LIABILITIES Birr 2006,",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Under a loan agreement between the Government of Ethiopia and the International ",
+      "page_start": 48,
+      "page_end": 48,
+      "child_sections": [],
+      "key_entities": [
+        "Under",
+        "Government",
+        "Ethiopia",
+        "International",
+        "Fund",
+        "Agricultural",
+        "Development",
+        "November",
+        "Southern",
+        "Region"
+      ],
+      "summary": "Under a loan agreement between the Government of Ethiopia and the International Fund for Agricultural Development (IFAD) dated 5 November 1993, IFAD advanced the government funds to be on lent to Southern Region Cooperatives development and Credit Project. The government",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "22. INTEREST INCOME",
+      "page_start": 49,
+      "page_end": 49,
+      "child_sections": [],
+      "key_entities": [
+        "Birr",
+        "Loans",
+        "Government",
+        "Treasury",
+        "Placements",
+        "Coupon",
+        "Custome"
+      ],
+      "summary": "22. INTEREST INCOME Birr 2006, Birr Loans and advances 634,186,401 577,134,848 Government bonds 41,993,783 56,060,642 Treasury bills 40,024,245 2,432,475 Placements with other banks 76,653,184 30,696,660 Coupon and term bonds 243,647,476 160,439,503 1,036,505,089 826,764,128 23. INTEREST EXPENSE Birr 2006, Birr Custome",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "25. NON INTEREST EXPENSES",
+      "page_start": 50,
+      "page_end": 50,
+      "child_sections": [],
+      "key_entities": [
+        "Birr",
+        "Salaries",
+        "Depreciation",
+        "Postage",
+        "Occupancy",
+        "Stationery",
+        "Travel",
+        "Service"
+      ],
+      "summary": "25. NON INTEREST EXPENSES Birr 2006, Birr Salaries and employee benefits 233,348,872 192,137,187 Depreciation 29,243,441 28,683,863 Postage and telecommunication 19,557,942 14,604,456 Occupancy expenses 11,842,956 10,723,804 Stationery and office supplies 9,908,013 9,011,341 Travel costs 5,880,981 4,993,731 Service cha",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "b) EXPLANATION OF THE RELATIONSHIP BETWEEN TAX EXPENSE AND ACCOUNTING PROFIT",
+      "page_start": 51,
+      "page_end": 51,
+      "child_sections": [],
+      "key_entities": [
+        "Birr",
+        "Accounting",
+        "Add",
+        "Entertainment",
+        "Less"
+      ],
+      "summary": "b) EXPLANATION OF THE RELATIONSHIP BETWEEN TAX EXPENSE AND ACCOUNTING PROFIT Birr Birr 2006, Birr Accounting profit 1,173,155,297 1,095,605,865 Tax at the applicable rate of 30% 351,946,589 328,681,759 Add: Tax effect of tax disallowed expenses - Entertainment 295,088 135,819 352,241,677",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "b) Analysis of cash and cash equivalents",
+      "page_start": 52,
+      "page_end": 52,
+      "child_sections": [],
+      "key_entities": [
+        "Analysis",
+        "Change",
+        "Birr",
+        "Cash",
+        "Investment",
+        "Balances",
+        "National",
+        "Bank",
+        "Ethiopia"
+      ],
+      "summary": "b) Analysis of cash and cash equivalents 2006 Change 2007 Birr 2006 Birr Change Birr Birr Cash in hand 665,114,647 572,886,785 92,227,862 (92,898,304) Investment in treasury bills 7,907,085,975 9,373,409,940 (1,466,323,965) 5,434,652,891 Balances with National Bank 7,477,001,010 5,192,524,725 2,284,476,285 of Ethiopia",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "30. TRUST FUNDS",
+      "page_start": 53,
+      "page_end": 53,
+      "child_sections": [],
+      "key_entities": [
+        "Assets",
+        "Bank",
+        "Birr",
+        "Group",
+        "Cash",
+        "National",
+        "Ethiopia",
+        "Trust",
+        "Funds",
+        "Company"
+      ],
+      "summary": "30. TRUST FUNDS Assets held in trust by the Bank and its subsidiary are as follows: Birr 2006 Birr Group Cash held on behalf of National Bank of Ethiopia 2,305,313,294 2,063,600,737 Trust Funds 79,571,866 58,121,164 2,384,885,160 2,121,721,901 Company Cash held",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "5500 5511",
+      "page_start": 54,
+      "page_end": 55,
+      "child_sections": [],
+      "key_entities": [
+        "Annual",
+        "Report"
+      ],
+      "summary": "5500 5511 CCBBEE -- AAnnnnuuaall RReeppoorrtt 22000066--0077 CCBBEE -- AAnnnnuuaall RReeppoorrtt 22000066--0077 CBE - Annual Report 2006-07 KSIR YTIDIUQIL – SEITILIBAIL DNA STESSA FO SEITIRUTAM .43 :etad ytirutam lautcartnoc eht ot 7002 enuJ 03 ta doirep gniniamer eht no desab",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "36. FOREIGN CURRENCY RISK",
+      "page_start": 56,
+      "page_end": 56,
+      "child_sections": [],
+      "key_entities": [
+        "Table",
+        "June",
+        "Birr",
+        "Assets",
+        "Cash",
+        "National",
+        "Bank",
+        "Ethiopia",
+        "Investment"
+      ],
+      "summary": "36. FOREIGN CURRENCY RISK The Table below analysis the currencies to which the group is exposed at 30 June 2007. USD GBP EURO OTHER TOTAL Birr Birr Birr Birr Birr At 30 June 2007 Assets Cash and balances with National",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "37. RISK MANAGEMENT DISCLOSURES",
+      "page_start": 57,
+      "page_end": 57,
+      "child_sections": [],
+      "key_entities": [
+        "This",
+        "Group’s",
+        "Group",
+        "Market",
+        "Annual",
+        "Report"
+      ],
+      "summary": "37. RISK MANAGEMENT DISCLOSURES This section provides details of the Group’s exposure to risk and describes the methods used by management to control risk. The most important types of financial risks to which the Group is exposed are credit risk,",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "B. Risk measurement and control",
+      "page_start": 58,
+      "page_end": 58,
+      "child_sections": [],
+      "key_entities": [
+        "Risk",
+        "Interest",
+        "Group’s"
+      ],
+      "summary": "B. Risk measurement and control Interest rate, currency, credit, liquidity and other risks are actively managed by independent risk o=control group to ensure compliance with the Group’s risk limits. The Group’s risk limits are assessed regularly to ensure their appropriateness",
+      "data_types_present": [
+        "list"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "list",
+    "text"
+  ]
+}

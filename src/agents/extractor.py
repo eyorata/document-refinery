@@ -90,6 +90,10 @@ class ExtractionRouter:
             error_message = result.error_message
             human_review_required = result.human_review_required
             final_strategy_name = result.final_strategy_name
+            if escalated_from is None and final_strategy_name != initial_name:
+                escalated_from = initial_name
+            if escalated_from is None and len(routing_trace) > 1:
+                escalated_from = routing_trace[0]
 
         except BudgetExceededError as exc:
             error_message = str(exc)
@@ -109,12 +113,14 @@ class ExtractionRouter:
             # Ensure we always record something in the ledger, even if extraction failed.
             entry = ExtractionLedgerEntry(
                 doc_id=profile.doc_id,
-                document_name=Path(document_path).name,
+                document_name=profile.document_name,
                 strategy_used=final_strategy_name,
+                initial_strategy=initial_name,
                 confidence_score=conf,
                 cost_estimate_usd=total_cost,
                 processing_time_sec=elapsed,
                 escalated_from=escalated_from,
+                routing_trace=routing_trace,
                 error_message=error_message,
                 human_review_required=human_review_required,
                 token_usage=token_usage,

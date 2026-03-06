@@ -1,0 +1,52 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 2,
+  "child_sections": [
+    {
+      "title": "Nebiyu Melaku Junior Data Analyst",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Nebiyu",
+        "Melaku",
+        "Junior",
+        "Data",
+        "Analyst",
+        "Hawassa",
+        "University",
+        "Master",
+        "Science",
+        "Degree"
+      ],
+      "summary": "Nebiyu Melaku Junior Data Analyst LinkedIn: linkedin.com/in/eyoel-nebiyu-715a46374 +251941865992 GitHub: https://github.com/eyorata eyuel.nebiyu@gmail.com EDUCATION Hawassa University, Hawassa — Master of Science Degree October 2022 - November 2024 Computer Science Hawassa University, Hawassa — Bachelor Degree November",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": ".",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Credential",
+        "Analysis",
+        "Analyzed",
+        "Sales",
+        "Analysis:link",
+        "Conducted"
+      ],
+      "summary": ". PROJECTS ON DATA-ANALYTICS- Credential HR Analysis: link ● Analyzed key factors impacting employee attrition and developed insightful visualizations to assist HR teams in making data-driven decisions. E-Commerce Sales Analysis:link ● Conducted an in-depth analysis of the organization's e-commerce data",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

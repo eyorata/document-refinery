@@ -6,8 +6,8 @@ triage:
     image_heavy_threshold: 0.6               # Minimum image ratio to treat low-density docs as scanned.
     native_digital_max_image_ratio: 0.3      # Max image ratio allowed for native_digital classification.
     max_images_for_ratio: 10                 # Normalizer for image ratio: image_count / max_images_for_ratio.
-    target_chars_per_page: 350               # Fast-text confidence calibration target.
-    target_density: 0.001                    # Fast-text confidence calibration target.
+    target_chars_per_page: 700               # Fast-text confidence calibration target.
+    target_density: 0.0015                   # Fast-text confidence calibration target.
     short_line_min_chars: 8                  # Minimum chars for "short line" multi-column heuristic.
     short_line_max_chars: 32                 # Maximum chars for "short line" multi-column heuristic.
     table_heavy_min_pipe_lines: 5            # Pipe-line count threshold for table_heavy layout.

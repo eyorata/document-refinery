@@ -128,10 +128,12 @@ class ExtractionLedgerEntry(BaseModel):
     doc_id: str
     document_name: str
     strategy_used: str
+    initial_strategy: str | None = None
     confidence_score: float
     cost_estimate_usd: float
     processing_time_sec: float
     escalated_from: str | None = None
+    routing_trace: list[str] = Field(default_factory=list)
     error_message: str | None = None
     human_review_required: bool = False
     token_usage: int | None = None

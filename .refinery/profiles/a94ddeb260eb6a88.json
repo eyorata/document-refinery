@@ -1,0 +1,14 @@
+{
+  "doc_id": "a94ddeb260eb6a88",
+  "document_name": "EthSwitch-10th-Annual-Report-202324.pdf",
+  "page_count": 80,
+  "origin_type": "mixed",
+  "layout_complexity": "figure_heavy",
+  "language_code": "en",
+  "language_confidence": 0.85,
+  "domain_hint": "financial",
+  "estimated_extraction_cost": "fast_text_sufficient",
+  "avg_char_density": 0.0011597166206848565,
+  "avg_image_ratio": 0.44135214819134594,
+  "triage_confidence": 0.75
+}

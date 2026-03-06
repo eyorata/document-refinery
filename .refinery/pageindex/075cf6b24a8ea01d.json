@@ -1,0 +1,997 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 104,
+  "child_sections": [
+    {
+      "title": "RISING",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Annual",
+        "Report"
+      ],
+      "summary": "RISING WITH AFRICA! Annual Report",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "margorP",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "margorP ssalC retsaM tnempoleveD tcudorP ecnarusnI tekraM naipoihtE rof dezinagrO",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Contents",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Contents"
+      ],
+      "summary": "Contents II-III ETHIO-RE IN FIGURES (FINANCIAL HIGHLIGHTS) IV WHO WE ARE VI MESSAGE FROM THE CHAIRMAN VII MESSAGE FROM THE CEO X BOARD OF DIRECTORS XI EXECUTIVE MANAGEMENT XII-XXIX THE DIRECTORS REPORT 2-5 INDEPENDENT AUDITORS REPORT 6 STATEMENT OF FINANCIAL",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE",
+      "page_start": 4,
+      "page_end": 102,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Annual",
+        "Report",
+        "Ethiopian",
+        "Birr",
+        "Millions",
+        "Gross",
+        "Written",
+        "Premium",
+        "Earned"
+      ],
+      "summary": "Ethio RE ETHIO RE IN FIGURES Annual Report (FINANCIAL HIGHLIGHTS) Ethiopian Birr in Millions 0 100 200 300 400 500 600 700 800 2018/19 698.7 Gross Written 2017/18 661.5 Premium 2016/17 519.8 2018/19 595.2 Net Earned 2017/18 553.2 Premium 2016/17",
+      "data_types_present": [
+        "list",
+        "text"
+      ]
+    },
+    {
+      "title": "Ethiopian Birr in Millions",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [
+        "Ethiopian",
+        "Birr",
+        "Millions",
+        "Operating",
+        "Other",
+        "Expenses",
+        "Investment",
+        "Income",
+        "Profit",
+        "Before"
+      ],
+      "summary": "Ethiopian Birr in Millions 0 100 200 300 400 500 600 700 800 rriB naipoihtE snoilliM ni rriB naipoihtE 2018/19 32.8 Operating and Other 2017/18 22.1 Expenses 2016/17 14.9 2018/19 102.7 Net Investment 2017/18 66.9 Income 2016/17 51.3 2018/19 144.5",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "OUR MOTTO",
+      "page_start": 7,
+      "page_end": 7,
+      "child_sections": [],
+      "key_entities": [
+        "Africa",
+        "Rising"
+      ],
+      "summary": "OUR MOTTO “RISING WITH AFRICA!” Africa Rising is a term coined to describe the rapid economic growth in Sub-Saharan Africa since 2000 and the belief in the inevitability of further, rapid development of the continent. The continent is almost predestined",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "During the year, the Board of Directors and Board Committees have conducted 17 r",
+      "page_start": 9,
+      "page_end": 9,
+      "child_sections": [],
+      "key_entities": [
+        "During",
+        "Board",
+        "Directors",
+        "Committees",
+        "Regulator",
+        "Company’s",
+        "Articles",
+        "Association"
+      ],
+      "summary": "During the year, the Board of Directors and Board Committees have conducted 17 regular meetings in the course of discharging their respective responsibilities andprovide strategic direction as per the requirements set out by the Regulator and the Company’s Articles of",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Taking the five-year strategic plan as a roadmap,Management has been striving to",
+      "page_start": 11,
+      "page_end": 11,
+      "child_sections": [],
+      "key_entities": [
+        "Taking"
+      ],
+      "summary": "Taking the five-year strategic plan as a roadmap,Management has been striving to achieve the strategic objectives set out for the third year of operation. Our strategy is sketched to produce tangible results, through highly motivated professional team focused on gaining",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "EXECUTIVE",
+      "page_start": 13,
+      "page_end": 13,
+      "child_sections": [],
+      "key_entities": [
+        "Yewondwossen",
+        "Eteffa",
+        "Chief",
+        "Executive",
+        "Officer",
+        "Mrs",
+        "Meseret",
+        "Tilahun",
+        "Fikru",
+        "Tsegaye"
+      ],
+      "summary": "EXECUTIVE MANAGEMENT Mr. Yewondwossen Eteffa Chief Executive Officer Mrs. Meseret Tilahun Mr. Fikru Tsegaye Mrs. Azeb Wogayehu Manager, Manager, Manager, Operations Department Business Development & Finance & Administration Corporate Affairs Department Mr. Tekalign Paulos Mr. Mesfin Wolle Mr. Samuel Ademe",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Capital structure",
+      "page_start": 15,
+      "page_end": 15,
+      "child_sections": [],
+      "key_entities": [
+        "Capital",
+        "Company",
+        "Birr",
+        "Company’s",
+        "June",
+        "Governance",
+        "Board",
+        "Directors"
+      ],
+      "summary": "Capital structure The subscribed share capital of the Company is Birr 997.3 million. The Company’s paid up capital has reached Birr 607.2million as of June 30, 2019. Governance structure The Company’s Board of Directors comprise of nine members representing individual",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE Board Meetings: The Board holdsordinary meetings to deliberate on insti",
+      "page_start": 16,
+      "page_end": 16,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Board",
+        "Meetings",
+        "Annual",
+        "Report",
+        "Seventeen",
+        "Committees",
+        "Human"
+      ],
+      "summary": "Ethio RE Board Meetings: The Board holdsordinary meetings to deliberate on institutional affairs, while special Annual Report meetings are called whenever deemed necessary. The Board held Seventeen regular meetings during the year under review. Committees of the Board: The Board",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "mature markets. While motor cession rates are typically very low (approx. 4 %),s",
+      "page_start": 17,
+      "page_end": 17,
+      "child_sections": [],
+      "key_entities": [
+        "While",
+        "Based",
+        "African"
+      ],
+      "summary": "mature markets. While motor cession rates are typically very low (approx. 4 %),special lines such as aviation, marine or engineering (approx. 30 %), property (16 %)and liability (14 %) see much higher cession rates. Based on regulatory statistics it was",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE THE INSURANCE INDUSTRY:",
+      "page_start": 18,
+      "page_end": 18,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Annual",
+        "Report",
+        "Ethiopia",
+        "Birr"
+      ],
+      "summary": "Ethio RE THE INSURANCE INDUSTRY: Annual Report Of the 17 insurance companies operating in Ethiopia 16 were private and the total capital of all insurance companies reached Birr 8.2 billion at the end of the period under review. The industry",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3.3 COMPULSORY POLICY CESSIONS (CPC):",
+      "page_start": 19,
+      "page_end": 19,
+      "child_sections": [],
+      "key_entities": [
+        "Like",
+        "Directive",
+        "National",
+        "Bank",
+        "Ethiopia"
+      ],
+      "summary": "3.3 COMPULSORY POLICY CESSIONS (CPC): THE CASE FOR AND AGAINST. Like many national reinsurance companies in developing economies, Ethio-Re is entitled to receive 5% compulsory policy and 25% treaty cessions by the virtue of the stipulation of Directive No.SIB/44/2016 of",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE 3.4 MANNER OF ACCEPTING AND",
+      "page_start": 20,
+      "page_end": 20,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Annual",
+        "Report",
+        "Regarding",
+        "Directive",
+        "Nevertheless"
+      ],
+      "summary": "Ethio RE 3.4 MANNER OF ACCEPTING AND Annual Report CEDING FACULTATIVE BUSINESS: Regarding the manner of transacting reinsurance business, Directive No.SIB/44/2016 grants Ethio-Re the right of first refusal on all facultative businesses before they are offered to overseas companies. Nevertheless,",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "However, timely filing of quarterly statement of accounts and subsequent confirm",
+      "page_start": 21,
+      "page_end": 21,
+      "child_sections": [],
+      "key_entities": [
+        "However",
+        "Company’s"
+      ],
+      "summary": "However, timely filing of quarterly statement of accounts and subsequent confirmation of same has remained a challenge which affected the Company’s ability to compile periodic accounts and conduct timely appraisal of performance. In contrast, insurance companies have consistently complied with",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE 4. RESULTS",
+      "page_start": 22,
+      "page_end": 22,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Annual",
+        "Report",
+        "During",
+        "Company",
+        "Birr",
+        "Birr758.8million"
+      ],
+      "summary": "Ethio RE 4. RESULTS Annual Report 4.1 FINANCIAL PERFORMANCE TOTAL ASSET During the period under review, the total asset of the Company stood at Birr 1.6 billion, showing an increase of42% than last year’s similar period. CAPITAL During the period",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "CLAIMS PAID",
+      "page_start": 23,
+      "page_end": 23,
+      "child_sections": [],
+      "key_entities": [
+        "Company",
+        "Birr",
+        "Moreover"
+      ],
+      "summary": "CLAIMS PAID The Company has settled gross claims amounting to Birr 521million. Out of the total claims paid, Birr 466million and Birr 54.7 million were paid under policy and treaty cessions, respectively. Moreover, the Company has settled gross claims amounting",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Ethio RE 4.2 NON-FINANCIAL PERFORMANCE",
+      "page_start": 24,
+      "page_end": 24,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Annual",
+        "Report",
+        "Company"
+      ],
+      "summary": "Ethio RE 4.2 NON-FINANCIAL PERFORMANCE Annual Report IT PROJECT As part of its strategy, the Company has paid special attention to acquiring state of the arttechnology in order to enhance its competitiveness and improve the quality of products and services",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "which 50% are female (figures from 30 June 2019). All of them contribute to our ",
+      "page_start": 25,
+      "page_end": 25,
+      "child_sections": [],
+      "key_entities": [
+        "June"
+      ],
+      "summary": "which 50% are female (figures from 30 June 2019). All of them contribute to our success through their skill, performance and dedication. We are committed to investing in their development and provide all staff with equal opportunities and top-quality working",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Consultation forum with insurance companies and the regulator, National Bank of ",
+      "page_start": 27,
+      "page_end": 27,
+      "child_sections": [],
+      "key_entities": [
+        "Consultation",
+        "National",
+        "Bank",
+        "Ethiopia"
+      ],
+      "summary": "Consultation forum with insurance companies and the regulator, National Bank of Ethiopia (NBE): Ethio-Re believes that consultative forums with stakeholders serve asa spring board for creating and maintaining strong link. At the center of this endeavor is the discussion on",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Training The Board of Directors of Ethio- Re: The Company has organized training",
+      "page_start": 29,
+      "page_end": 29,
+      "child_sections": [],
+      "key_entities": [
+        "Training",
+        "Board",
+        "Directors",
+        "Ethio-",
+        "Company",
+        "Ethiopian",
+        "National",
+        "Bank",
+        "Ethiopia’s",
+        "Insurance"
+      ],
+      "summary": "Training The Board of Directors of Ethio- Re: The Company has organized training for Board of Directors of Ethiopian Re in line with requirements of National Bank of Ethiopia’s Insurance Corporate Governance Directive No.SIB/42/2015, and Directive No. SIB/32/2012.The training, among",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "8. VOTE OF THANKS",
+      "page_start": 31,
+      "page_end": 31,
+      "child_sections": [],
+      "key_entities": [
+        "Board",
+        "Directors",
+        "Executive",
+        "Management",
+        "Ethiopia",
+        "Company"
+      ],
+      "summary": "8. VOTE OF THANKS The Board of Directors, the Executive Management and employees would like to express their deepest gratitude to all insurers carrying on insurance business in Ethiopia and other stakeholders for their unreserved support and willingness to continue",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "91/8102",
+      "page_start": 33,
+      "page_end": 101,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "91/8102 2 91/8102 4 91/8102 6",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Notes to Financial Statements",
+      "page_start": 41,
+      "page_end": 41,
+      "child_sections": [],
+      "key_entities": [
+        "Notes",
+        "Financial",
+        "Statements",
+        "June"
+      ],
+      "summary": "Notes to Financial Statements For the year ended 30 June 2019",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE 1. Reporting entity",
+      "page_start": 42,
+      "page_end": 42,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Reporting",
+        "Annual",
+        "Report",
+        "Ethiopian",
+        "Reinsurance",
+        "Share",
+        "Company",
+        "Company”",
+        "July"
+      ],
+      "summary": "Ethio RE 1. Reporting entity Annual Report Ethiopian Reinsurance Share Company (“The Company”) is a reinsurance company established on 7 July 2016 with the objective of engaging in the business of rendering general and long-term re-insurance services. The Company’s registered",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "(b) Functional and presentation currency",
+      "page_start": 43,
+      "page_end": 43,
+      "child_sections": [],
+      "key_entities": [
+        "Functional",
+        "These",
+        "Ethiopian",
+        "Birr",
+        "Company’s",
+        "Except"
+      ],
+      "summary": "(b) Functional and presentation currency These financial statements are presented in Ethiopian Birr, which is the Company’s functional and presentation currency. Except when otherwise stated, all amounts have been rounded to the nearest unit. (c) Use of judgments and estimates",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE 3. Significant accounting policies",
+      "page_start": 44,
+      "page_end": 44,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Significant",
+        "Annual",
+        "Report",
+        "Foreign",
+        "Transactions"
+      ],
+      "summary": "Ethio RE 3. Significant accounting policies Annual Report The accounting policies set out below have been applied consistently to the period presented in these financial statements. (a) Foreign currency Foreign currency transactions Transactions in foreign currencies are translated into the",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3. Significant accounting policies (Continued)",
+      "page_start": 45,
+      "page_end": 67,
+      "child_sections": [],
+      "key_entities": [
+        "Significant",
+        "Reinsurance",
+        "Long",
+        "This",
+        "Recognition",
+        "Receivable",
+        "Continued",
+        "Ethiopian",
+        "Financial",
+        "Derecognition"
+      ],
+      "summary": "3. Significant accounting policies (Continued) (b). Reinsurance contract (Continued) (ii) Long term business - This is for other business not considered as non-life business. The main classes covered in long term insurance business are term, endowment, whole life, permanent health",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE 3. Significant accounting policies (Continued)",
+      "page_start": 46,
+      "page_end": 66,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Significant",
+        "Annual",
+        "Report",
+        "Reinsurance",
+        "Liability",
+        "Financial",
+        "Classification",
+        "Fair",
+        "Modifications"
+      ],
+      "summary": "Ethio RE 3. Significant accounting policies (Continued) Annual Report (b). Reinsurance contract (Continued) Liability adequacy test At each reporting date, liability adequacy tests are performed to ensure the adequacy of the contract liabilities. In performing these tests, current best estimates",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "(r) New Standards, amendments and interpretations",
+      "page_start": 63,
+      "page_end": 63,
+      "child_sections": [],
+      "key_entities": [
+        "Standards",
+        "Early",
+        "Financial",
+        "Instruments",
+        "Leases",
+        "Disclosu"
+      ],
+      "summary": "(r) New Standards, amendments and interpretations (i) Early adopted standards and interpretations The company has decided to early adoption of the under listed standards and has applied them in preparing this financial statement: New standard or amendments IFRS 9 –",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE 4. Financial risk review - (Continued)",
+      "page_start": 68,
+      "page_end": 68,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Financial",
+        "Annual",
+        "Report",
+        "This",
+        "Company’s",
+        "Risk"
+      ],
+      "summary": "Ethio RE 4. Financial risk review - (Continued) Annual Report Financial risk review - (Continued) This note presents information about the Company’s risk exposure, and the Company’s objectives, policies and processes for measuring and managing risk and managing capital. Risk",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "4. Financial risk review - (Continued)",
+      "page_start": 69,
+      "page_end": 69,
+      "child_sections": [],
+      "key_entities": [
+        "Financial",
+        "Underwriting",
+        "Insurance",
+        "Retr"
+      ],
+      "summary": "4. Financial risk review - (Continued) Underwriting risk Underwriting risk comprises; insurance risk, retro-cession risk and technical reserve risk. Insurance risk is the risk of loss on underwriting activities that may arise from acceptance of business that is not in",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE 4. Financial risk review (Continued)",
+      "page_start": 70,
+      "page_end": 80,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Financial",
+        "Annual",
+        "Report",
+        "Underwriting",
+        "Company",
+        "Aires",
+        "Market",
+        "Interest",
+        "Continued"
+      ],
+      "summary": "Ethio RE 4. Financial risk review (Continued) Annual Report (a) Underwriting risk (Continued) The Company enters into retrocession arrangements with reputable retrocession Aires to diversify its risks and reduce the risk of catastrophic loss on reinsurance assumed. The retrocession does",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "4. Financial risk review (Continued)",
+      "page_start": 71,
+      "page_end": 81,
+      "child_sections": [],
+      "key_entities": [
+        "Financial",
+        "Market",
+        "Interest",
+        "Continued",
+        "Company’s",
+        "Effect",
+        "Credit",
+        "Management"
+      ],
+      "summary": "4. Financial risk review (Continued) (a) Market risk Market risk is the risk that changes in the market prices – e.g. foreign exchange rates and equity prices will affect the fulfilment of cash flows of insurance and reinsurance contracts as",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE 6. Other receivables",
+      "page_start": 82,
+      "page_end": 82,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Other",
+        "Annual",
+        "Report",
+        "Long",
+        "Term",
+        "Total",
+        "Staff",
+        "Prepayment",
+        "Advance"
+      ],
+      "summary": "Ethio RE 6. Other receivables Annual Report Gen.Ins Long Term Ins Total Total 2019 2019 2019 2018 Staff loans 469,543 - 469,543 556,523 Prepayment 3,077,245 - 3,077,245 21,150 Advance tax 2,967,495 64,139 3,031,634 5,465,819 Total 6,514,283 64,139 6,578,421 6,043,492 7.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "9. Deferred acquisition costs",
+      "page_start": 83,
+      "page_end": 83,
+      "child_sections": [],
+      "key_entities": [
+        "Deferred",
+        "Long",
+        "Term",
+        "Total",
+        "Class",
+        "Business",
+        "Accident",
+        "Aviation",
+        "Burglary",
+        "Engineering"
+      ],
+      "summary": "9. Deferred acquisition costs Gen.Ins Long Term Ins Total Total Class of Business 2019 2019 2019 2018 Accident 2,028,953 2,028,953 2,089,687 Aviation 46 46 75,814 Burglary 182,044 182,044 143,667 Engineering 9,960,162 9,960,162 15,328,738 Employers Liability 1,332,056 1,332,056 1,287,960 Fire 6,509,038",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Ethio RE 10. Time deposits (Continued)",
+      "page_start": 84,
+      "page_end": 84,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Time",
+        "Annual",
+        "Report"
+      ],
+      "summary": "Ethio RE 10. Time deposits (Continued) Annual Report Time deposits have been recognized as financial assets at amortized cost. The effective interest rate on time deposits ranges from 12% to 13% per annum. The time deposits have a maturity of",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "12. Leases",
+      "page_start": 85,
+      "page_end": 85,
+      "child_sections": [],
+      "key_entities": [
+        "Leases",
+        "Right",
+        "Long",
+        "Term",
+        "Total",
+        "Cost",
+        "Balance",
+        "Addition",
+        "Depreciation"
+      ],
+      "summary": "12. Leases Right of use Gen.Ins Long Term Ins Total Total 2019 2019 2019 2018 Cost Balance at beginning of the year 8,117,946 - 8,117,946 8,208,318 Addition - - - - FV adjustments 850,089 - 850,089 (90,373) Balance at end",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Ethio RE 13. Property, plant and equipment",
+      "page_start": 86,
+      "page_end": 86,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Property",
+        "Annual",
+        "Report",
+        "Balance",
+        "Total",
+        "Additions",
+        "Partition",
+        "Motor",
+        "Vehicles"
+      ],
+      "summary": "Ethio RE 13. Property, plant and equipment Annual Report Balance Balance Total COST 01/07/18 Additions 30/06/19 2018 Partition work 2,489,846 - 2,489,846 2,489,846 Motor Vehicles 14,343,506 - 14,343,506 14,343,506 Office Equipment, furniture an d f i t t1i,n7g5s7,895 1,013 1,758,908",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "15. Other payables",
+      "page_start": 87,
+      "page_end": 87,
+      "child_sections": [],
+      "key_entities": [
+        "Other",
+        "Long",
+        "Term",
+        "Total",
+        "Employees",
+        "Income",
+        "Withholding",
+        "Pension",
+        "Payable",
+        "Sundry"
+      ],
+      "summary": "15. Other payables Gen.Ins Long Term Ins Total Total 2019 2019 2019 2018 Employees Income tax payable 206,080 - 206,080 132,944 Withholding tax payable 7,789 - 7,789 11,400 Pension Payable 79,481 - 79,481 63,340 Sundry creditors 1,188,614 - 1,188,614 963,754",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Ethio RE 17. Employee benefits",
+      "page_start": 88,
+      "page_end": 88,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Employee",
+        "Annual",
+        "Report",
+        "Defined",
+        "Company",
+        "Severance",
+        "Benefit",
+        "Entitlement",
+        "Proclamation"
+      ],
+      "summary": "Ethio RE 17. Employee benefits Annual Report 17.1 Defined benefit plans The Company employees are entitled to a Severance Benefit. The Severance Benefit Entitlement is provided for under the Proclamation No. 377/2003. This benefit is required by law for employees",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "17. Employee benefits (Continued)",
+      "page_start": 89,
+      "page_end": 89,
+      "child_sections": [],
+      "key_entities": [
+        "Employee",
+        "Actuarial",
+        "Ethiopia"
+      ],
+      "summary": "17. Employee benefits (Continued) (c) Actuarial assumptions (Continued) The discount rate was based on the rate of return of fixed term deposit due to lack of a deep and liquid market for long-term bonds in Ethiopia. The salary increases assumption",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Ethio RE 18. Outstanding Claims Reserve",
+      "page_start": 90,
+      "page_end": 90,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Outstanding",
+        "Claims",
+        "Reserve",
+        "Annual",
+        "Report",
+        "They",
+        "Long",
+        "Term",
+        "Total"
+      ],
+      "summary": "Ethio RE 18. Outstanding Claims Reserve Annual Report Outstanding claims are computed on the basis of preliminary loss advice from ceding companies and outstanding claims reports sent by cedants. They are also determined on the basis of historical expenses and",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "20. Gross premium",
+      "page_start": 91,
+      "page_end": 91,
+      "child_sections": [],
+      "key_entities": [
+        "Gross",
+        "Premiums",
+        "Unearned"
+      ],
+      "summary": "20. Gross premium Premiums and related expenses are accounted for in profit or loss when earned or incurred. Gross earned premiums comprise gross premiums relating to risks assumed in the year after accounting for any movement in gross unearned premiums.",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Ethio RE 21. Claims incurred",
+      "page_start": 92,
+      "page_end": 92,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Claims",
+        "Annual",
+        "Report",
+        "General"
+      ],
+      "summary": "Ethio RE 21. Claims incurred Annual Report The expected loss ratio method was used to determine the provision for incurred but not reported (IBNR) claims for General business. An equivalent of one month of the annual gross premium was used",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "22. Cedant acquisition costs",
+      "page_start": 93,
+      "page_end": 93,
+      "child_sections": [],
+      "key_entities": [
+        "Cedant",
+        "Long",
+        "Term",
+        "Total",
+        "Class",
+        "Business",
+        "Accident",
+        "Aviation",
+        "Burglary",
+        "Engineering"
+      ],
+      "summary": "22. Cedant acquisition costs Cedant acquisition costs Gen.Ins Long Term Ins Total Total Class of Business 2019 2019 2019 2018 Accident 6,844,236 6 ,844,236 5,580,292 Aviation 1 ,243,781 1,243,781 1,051,436 Burglary 900,716 9 00,716 7 11,028 Engineering 3 0,367,161 30,367,161",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Ethio RE 24. Operating and other expenses",
+      "page_start": 94,
+      "page_end": 94,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Operating",
+        "Annual",
+        "Report",
+        "Long",
+        "Term",
+        "Total",
+        "Administrative",
+        "Staff",
+        "Depreciation"
+      ],
+      "summary": "Ethio RE 24. Operating and other expenses Annual Report Gen.Ins Long Term Ins Total Total 2019 2019 2019 2018 Administrative and general 18,731,172 572,543 19,303,715 12,007,077 Staff costs 9,261,185 153,790 9,414,975 7 ,243,202 Depreciation 2,335,839 60,763 2,396,602 2,204,136 Directors allowance",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "(b) Income tax expense",
+      "page_start": 95,
+      "page_end": 95,
+      "child_sections": [],
+      "key_entities": [
+        "Income",
+        "Total",
+        "June",
+        "Adjusted",
+        "Long",
+        "Term",
+        "Add",
+        "Amortization",
+        "Right"
+      ],
+      "summary": "(b) Income tax expense Total taxable income or loss for the year ended 30 June 2019 is as follows INCOME TAX COMPUTATION For the year ended June 30th, 2019 Adjusted tax calculation Total Gen.Ins Long Term Ins 2019 PROFIT PER",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Ethio RE 26. Earnings per Share (EPS)",
+      "page_start": 96,
+      "page_end": 96,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Earnings",
+        "Share",
+        "Annual",
+        "Report",
+        "Profit",
+        "Shareholders",
+        "Weighted"
+      ],
+      "summary": "Ethio RE 26. Earnings per Share (EPS) Annual Report Earnings per share is calculated by dividing the profit/loss for the year by the weighted average number of ordinary shares in issue during the year. 2019 2018 ETB ETB Profit attributable",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "27. Related parties (Continued)",
+      "page_start": 97,
+      "page_end": 99,
+      "child_sections": [],
+      "key_entities": [
+        "Related",
+        "Percentage",
+        "Shareholder",
+        "Category",
+        "Composition",
+        "Shareholding",
+        "Ethiopian",
+        "Corporation",
+        "Insurance",
+        "Ethiopia"
+      ],
+      "summary": "27. Related parties (Continued) Percentage Shareholder Category Composition Shareholding 17 insurance companies. Ethiopian insurance Corporation (EIC) is a major Insurance companies 66.90% shareholder in this category with 20.05% 7 banks in Ethiopia. Commercial Bank Banks of Ethiopia (CBE) is a",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Ethio RE 27. Related parties (Continued)",
+      "page_start": 98,
+      "page_end": 98,
+      "child_sections": [],
+      "key_entities": [
+        "Ethio",
+        "Related",
+        "Annual",
+        "Report",
+        "Other",
+        "Premiums",
+        "Claims",
+        "Commission",
+        "Profit"
+      ],
+      "summary": "Ethio RE 27. Related parties (Continued) Annual Report (a) Other related party transactions 2019 2018 ETB ETB BBF 1 3,067,191 9,138,384 Premiums written 2 44,479,919.10 2 15,380,307 Claims paid (49,052,421.00) (56,866,692) Commission (68,789,502) (58,782,548) Profit commission ( 13,868,446) (17,157,964) Net",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "የኢትዮጵያ ጠለፋ መድን ኩባንያ አ.ማ.",
+      "page_start": 104,
+      "page_end": 104,
+      "child_sections": [],
+      "key_entities": [
+        "Ethiopian",
+        "Reinsurance",
+        "Company",
+        "Africa",
+        "Avenue",
+        "Kirkos",
+        "Subcity",
+        "Woreda",
+        "Tel",
+        "Fax:+251"
+      ],
+      "summary": "የኢትዮጵያ ጠለፋ መድን ኩባንያ አ.ማ. Ethiopian Reinsurance Company S.C. Africa Avenue | Kirkos Subcity | Woreda 9 Tel: +251-115-575757 | 115-582790 | 92 | 93 Fax:+251 115 575758 P.O. Box 12687 , Addis Ababa, Ethiopia Email: info@ethiopianre.com Website: www.ethiopianre.com 464135",
+      "data_types_present": [
+        "table",
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "list",
+    "table",
+    "text"
+  ]
+}
