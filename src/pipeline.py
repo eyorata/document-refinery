@@ -1,7 +1,7 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
-import json
 from pathlib import Path
+from typing import Any
 
 from src.agents.chunker import ChunkingEngine
 from src.agents.extractor import ExtractionRouter
@@ -36,8 +36,12 @@ class RefineryPipeline:
             router_cfg=self.config.get("query_agent", {}).get("router", {}),
         )
 
-    def run(self, document_path: str):
-        # Ensure retrieval state is scoped to the currently processed document.
+    def run(self, document_path: str, question: str = "Summarize key points"):
+        processed = self.process_document(document_path)
+        return self.answer_question(question, processed["chunks"], processed["page_index"])
+
+    def process_document(self, document_path: str) -> dict[str, Any]:
+        # Ensure extraction/retrieval state is scoped to the currently processed document.
         self.vector_store = build_vector_store(self.config.get("storage", {}))
         self.fact_table.clear()
         self.query_agent = QueryInterfaceAgent(
@@ -57,9 +61,20 @@ class RefineryPipeline:
 
         page_index = self.indexer.build(chunks)
         self._save_pageindex(profile.doc_id, page_index)
+        return {"profile": profile, "extracted": extracted, "chunks": chunks, "page_index": page_index}
 
-        answer = self.query_agent.answer("Summarize key points", page_index)
-        return answer
+    def answer_question(self, question: str, chunks, page_index):
+        # Rebuild retrieval state from this document's chunks for isolated multi-turn Q&A sessions.
+        self.vector_store = build_vector_store(self.config.get("storage", {}))
+        self.fact_table.clear()
+        self.vector_store.ingest(chunks)
+        self.fact_table.ingest(chunks)
+        self.query_agent = QueryInterfaceAgent(
+            self.vector_store,
+            self.fact_table,
+            router_cfg=self.config.get("query_agent", {}).get("router", {}),
+        )
+        return self.query_agent.answer(question, page_index)
 
     def _save_profile(self, profile) -> None:
         p = self.output_dir / "profiles" / f"{profile.doc_id}.json"
