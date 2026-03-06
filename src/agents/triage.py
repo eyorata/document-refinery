@@ -67,6 +67,7 @@ class TriageAgent:
         complexity = self._layout_complexity(text_by_page)
         domain = self._domain_hint(flat_text)
         cost = self._cost_tier(origin, complexity)
+        language_code, language_confidence = self._detect_language(flat_text)
 
         triage_conf = self._triage_confidence(origin, complexity)
 
@@ -77,8 +78,8 @@ class TriageAgent:
             page_count=len(page_stats) if page_stats else 1,
             origin_type=origin,
             layout_complexity=complexity,
-            language_code="en",
-            language_confidence=float(self.thresholds["default_language_confidence"]),
+            language_code=language_code,
+            language_confidence=language_confidence,
             domain_hint=domain,
             estimated_extraction_cost=cost,
             avg_char_density=avg_density,
@@ -221,6 +222,25 @@ class TriageAgent:
         if complexity != LayoutComplexity.MIXED:
             score += float(self.thresholds["triage_confidence_layout_bonus"])
         return max(0.0, min(1.0, score))
+
+    def _detect_language(self, text: str) -> tuple[str, float]:
+        default_conf = float(self.thresholds["default_language_confidence"])
+        if not text.strip():
+            return "unknown", 0.0
+        total_letters = sum(1 for ch in text if ch.isalpha())
+        if total_letters == 0:
+            return "unknown", 0.0
+
+        amharic_letters = sum(1 for ch in text if "\u1200" <= ch <= "\u137f")
+        latin_letters = sum(1 for ch in text if ("a" <= ch.lower() <= "z"))
+        am_ratio = amharic_letters / total_letters
+        lat_ratio = latin_letters / total_letters
+
+        if am_ratio >= 0.2:
+            return "am", max(0.6, min(1.0, am_ratio + 0.2))
+        if lat_ratio >= 0.2:
+            return "en", max(0.6, min(1.0, lat_ratio))
+        return "und", default_conf * 0.8
 
     def _cost_tier(self, origin: OriginType, complexity: LayoutComplexity) -> CostTier:
         if origin == OriginType.SCANNED_IMAGE:

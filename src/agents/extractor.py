@@ -110,6 +110,8 @@ class ExtractionRouter:
             if final_strategy_name == "vision_augmented":
                 token_usage = getattr(self.vision, "last_token_usage", None)
                 provider = getattr(self.vision, "last_provider", None)
+            elif final_strategy_name == "layout_aware":
+                provider = getattr(self.layout, "last_adapter_used", None)
             # Ensure we always record something in the ledger, even if extraction failed.
             entry = ExtractionLedgerEntry(
                 doc_id=profile.doc_id,

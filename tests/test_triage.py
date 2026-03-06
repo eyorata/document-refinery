@@ -28,3 +28,10 @@ def test_domain_hint_financial():
         domain_classifier=classifier,
     )
     assert agent._domain_hint("The revenue and balance sheet were audited") == "financial"
+
+
+def test_detect_language_amharic():
+    agent = TriageAgent(domain_keywords={}, thresholds={})
+    code, conf = agent._detect_language("የኢትዮጵያ ብሔራዊ ባንክ የወርሃዊ ሪፖርት")
+    assert code == "am"
+    assert conf >= 0.6

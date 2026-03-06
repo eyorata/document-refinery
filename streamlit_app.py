@@ -34,12 +34,13 @@ def main() -> None:
         type=["pdf", "txt"],
         accept_multiple_files=True,
     )
-    initial_question = st.text_input("Initial question to run after processing", value="Summarize key points")
-    process_clicked = st.button("Process Uploaded Files", type="primary", use_container_width=True)
 
     if not uploaded_files:
         st.info("Awaiting document upload.")
         return
+
+    initial_question = st.text_input("Initial question to run after processing", value="Summarize key points")
+    process_clicked = st.button("Process Uploaded Files", type="primary", use_container_width=True)
 
     pipeline = get_pipeline()
 

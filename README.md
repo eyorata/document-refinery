@@ -53,12 +53,14 @@ pytest
 ## Design notes
 
 - Strategy A/B/C are implemented with confidence-gated escalation and budget guard.
+- Triage includes script-aware language detection (including Amharic `am` via Ethiopic Unicode range heuristic).
 - Budget guard now enforces both post-run spend and preflight projected spend before expensive strategies run.
 - Provenance includes page + bbox + content hash.
 - Query flow uses PageIndex navigation before semantic search.
 - Fact extraction persists key-value signals to SQLite for structured queries.
 - Vision strategy supports optional OpenRouter multimodal OCR (with placeholder fallback).
 - Extraction ledger includes optional vision `token_usage` and `provider` metadata for cost audits.
+- Extraction ledger `provider` also captures the effective Strategy B adapter used (`docling|mineru|heuristic|...`).
 - Query agent exposes explicit 3-tool surface (`pageindex_navigate`, `semantic_search`, `structured_query`) and optional LangGraph wiring.
 - PageIndex builder includes retrieval precision evaluation helper (`with_pageindex` vs `without_pageindex`).
 - Vector storage supports `simple` or `faiss` backend via config (`storage.vector_store.backend`).

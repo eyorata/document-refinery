@@ -21,13 +21,16 @@ class LayoutToolAdapter(Protocol):
 
 class NoopLayoutAdapter:
     name = "noop"
+    last_used_name = "noop"
 
     def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
+        self.last_used_name = self.name
         return []
 
 
 class HeuristicLayoutAdapter:
     name = "heuristic"
+    last_used_name = "heuristic"
 
     def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
         out: list[TableObject] = []
@@ -43,6 +46,7 @@ class HeuristicLayoutAdapter:
                         title="Heuristic layout table",
                     )
                 )
+        self.last_used_name = self.name
         return out
 
 
@@ -77,6 +81,7 @@ class ExternalPayloadLayoutAdapter:
     def __init__(self, options: dict | None = None, fallback: LayoutToolAdapter | None = None) -> None:
         self.options = options or {}
         self.fallback = fallback or HeuristicLayoutAdapter()
+        self.last_used_name = self.name
 
     def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
         strict = bool(self.options.get("strict", False))
@@ -84,7 +89,9 @@ class ExternalPayloadLayoutAdapter:
         if not path_str:
             if strict:
                 raise ValueError("external_payload adapter requires `payload_json_path` in options.")
-            return self.fallback.promote_tables(blocks, document_path, profile)
+            out = self.fallback.promote_tables(blocks, document_path, profile)
+            self.last_used_name = getattr(self.fallback, "last_used_name", getattr(self.fallback, "name", "heuristic"))
+            return out
 
         payload_path = Path(path_str)
         try:
@@ -93,10 +100,15 @@ class ExternalPayloadLayoutAdapter:
         except Exception:
             if strict:
                 raise
-            return self.fallback.promote_tables(blocks, document_path, profile)
+            out = self.fallback.promote_tables(blocks, document_path, profile)
+            self.last_used_name = getattr(self.fallback, "last_used_name", getattr(self.fallback, "name", "heuristic"))
+            return out
 
         if not normalized:
-            return self.fallback.promote_tables(blocks, document_path, profile)
+            out = self.fallback.promote_tables(blocks, document_path, profile)
+            self.last_used_name = getattr(self.fallback, "last_used_name", getattr(self.fallback, "name", "heuristic"))
+            return out
+        self.last_used_name = self.name
         return self._to_tables(normalized)
 
     def _to_tables(self, payloads: list[ExternalTablePayload]) -> list[TableObject]:
@@ -123,17 +135,21 @@ class DoclingLayoutAdapter:
     def __init__(self, options: dict | None = None, fallback: LayoutToolAdapter | None = None) -> None:
         self.options = options or {}
         self.fallback = fallback or HeuristicLayoutAdapter()
+        self.last_used_name = self.name
 
     def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
         strict = bool(self.options.get("strict", False))
         try:
             rows = self._extract_rows_with_docling(document_path)
             if rows:
+                self.last_used_name = self.name
                 return self._to_tables(rows)
         except Exception:
             if strict:
                 raise
-        return self.fallback.promote_tables(blocks, document_path, profile)
+        out = self.fallback.promote_tables(blocks, document_path, profile)
+        self.last_used_name = getattr(self.fallback, "last_used_name", getattr(self.fallback, "name", "heuristic"))
+        return out
 
     def _extract_rows_with_docling(self, document_path: str) -> list[dict]:
         # Optional dependency: if docling is not installed, fallback behavior is used.
@@ -261,20 +277,25 @@ class MineruLayoutAdapter:
     def __init__(self, options: dict | None = None, fallback: LayoutToolAdapter | None = None) -> None:
         self.options = options or {}
         self.fallback = fallback or HeuristicLayoutAdapter()
+        self.last_used_name = self.name
 
     def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
         strict = bool(self.options.get("strict", False))
         try:
             payload_rows = self._extract_rows_with_payload()
             if payload_rows:
+                self.last_used_name = self.name
                 return self._to_tables(payload_rows)
             lib_rows = self._extract_rows_with_mineru_lib(document_path)
             if lib_rows:
+                self.last_used_name = self.name
                 return self._to_tables(lib_rows)
         except Exception:
             if strict:
                 raise
-        return self.fallback.promote_tables(blocks, document_path, profile)
+        out = self.fallback.promote_tables(blocks, document_path, profile)
+        self.last_used_name = getattr(self.fallback, "last_used_name", getattr(self.fallback, "name", "heuristic"))
+        return out
 
     def _extract_rows_with_payload(self) -> list[ExternalTablePayload]:
         path_str = str(self.options.get("payload_json_path", "")).strip()
@@ -340,6 +361,7 @@ class ChainLayoutAdapter:
     def __init__(self, adapters: list[LayoutToolAdapter], fallback: LayoutToolAdapter | None = None) -> None:
         self.adapters = adapters
         self.fallback = fallback or HeuristicLayoutAdapter()
+        self.last_used_name = self.name
 
     def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
         out: list[TableObject] = []
@@ -351,9 +373,12 @@ class ChainLayoutAdapter:
                 if sig not in seen:
                     seen.add(sig)
                     out.append(t)
+                    self.last_used_name = getattr(adapter, "last_used_name", getattr(adapter, "name", "unknown"))
         if out:
             return out
-        return self.fallback.promote_tables(blocks, document_path, profile)
+        out = self.fallback.promote_tables(blocks, document_path, profile)
+        self.last_used_name = getattr(self.fallback, "last_used_name", getattr(self.fallback, "name", "heuristic"))
+        return out
 
     def _signature(self, t: TableObject) -> str:
         first_row = "|".join(t.rows[0]) if t.rows else ""
@@ -412,10 +437,12 @@ class LayoutExtractor(FastTextExtractor):
         super().__init__(thresholds=thresholds)
         self.layout_cfg = LayoutConfig.model_validate(layout_cfg or {}).model_dump(mode="python")
         self.adapter = build_layout_adapter(self.layout_cfg)
+        self.last_adapter_used = getattr(self.adapter, "name", "layout")
 
     def extract(self, document_path: str, profile: DocumentProfile) -> tuple[ExtractedDocument, float, float]:
         base, base_conf, _ = super().extract(document_path, profile)
         promoted_tables = self.adapter.promote_tables(base.text_blocks, document_path, profile)
+        self.last_adapter_used = getattr(self.adapter, "last_used_name", getattr(self.adapter, "name", "layout"))
         all_tables = base.tables + promoted_tables
         conf_if_tables = float(self.layout_cfg["confidence_if_tables_present"])
         conf = max(base_conf, conf_if_tables if all_tables else base_conf)
