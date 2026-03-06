@@ -10,11 +10,13 @@ class SimpleVectorStore:
     def __init__(self) -> None:
         self._chunks: list[LDU] = []
         self._tf: list[Counter[str]] = []
+        self._by_hash: dict[str, LDU] = {}
 
     def ingest(self, chunks: list[LDU]) -> None:
         for ch in chunks:
             self._chunks.append(ch)
             self._tf.append(Counter(self._tokenize(ch.content)))
+            self._by_hash[ch.content_hash] = ch
 
     def search(self, query: str, top_k: int = 3, filter_pages: set[int] | None = None) -> list[LDU]:
         q_tf = Counter(self._tokenize(query))
@@ -27,6 +29,14 @@ class SimpleVectorStore:
             scored.append((score, i))
         scored.sort(key=lambda x: x[0], reverse=True)
         return [self._chunks[i] for score, i in scored[:top_k] if score > 0]
+
+    def get_by_hashes(self, hashes: list[str]) -> list[LDU]:
+        out: list[LDU] = []
+        for h in hashes:
+            chunk = self._by_hash.get(h)
+            if chunk is not None:
+                out.append(chunk)
+        return out
 
     def _tokenize(self, txt: str) -> list[str]:
         return [t.lower() for t in txt.split() if t.strip()]

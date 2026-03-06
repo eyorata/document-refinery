@@ -1,8 +1,127 @@
-﻿from __future__ import annotations
+from __future__ import annotations
+
+import json
+import os
+import urllib.error
+import urllib.request
+from dataclasses import dataclass
+from typing import Any
 
 from src.models import BoundingBox, LDU, PageIndexNode, ProvenanceChain, ProvenanceItem, QueryAnswer
 from src.storage import FactTableStore, SimpleVectorStore
 from src.utils.hashing import stable_hash
+
+
+@dataclass
+class ToolDecision:
+    next_tool: str
+    sql: str | None = None
+    reason: str = ""
+
+
+class HeuristicToolRouter:
+    def decide(self, question: str, state: dict[str, Any]) -> ToolDecision:
+        q = question.lower()
+        if state.get("step_count", 0) == 0:
+            return ToolDecision(next_tool="pageindex_navigate", reason="Start with section navigation.")
+        if not state.get("semantic_attempted", False):
+            return ToolDecision(next_tool="semantic_search", reason="Run vector retrieval.")
+        if state.get("semantic_hits"):
+            return ToolDecision(next_tool="finish", reason="Semantic evidence collected.")
+        if (not state.get("structured_attempted", False)) and any(
+            tok in q for tok in ["sql", "table", "revenue", "amount", "q1", "q2", "q3", "q4"]
+        ):
+            sql = self._default_fact_sql(question)
+            return ToolDecision(next_tool="structured_query", sql=sql, reason="Numerical question routed to SQL.")
+        return ToolDecision(next_tool="finish")
+
+    def _default_fact_sql(self, question: str) -> str:
+        safe = "".join(ch for ch in question.lower() if ch.isalnum() or ch.isspace()).strip()
+        terms = [t for t in safe.split() if len(t) > 2][:4]
+        if not terms:
+            return "SELECT key, value, page, content_hash FROM facts LIMIT 5"
+        clauses = " OR ".join([f"key LIKE '%{t}%'" for t in terms])
+        return f"SELECT key, value, page, content_hash FROM facts WHERE {clauses} LIMIT 5"
+
+
+class OpenRouterToolRouter:
+    def __init__(
+        self,
+        api_key_env: str = "OPENROUTER_API_KEY",
+        api_base: str = "https://openrouter.ai/api/v1",
+        model: str = "openai/gpt-4o-mini",
+    ) -> None:
+        self.api_key_env = api_key_env
+        self.api_base = api_base.rstrip("/")
+        self.model = model
+
+    def decide(self, question: str, state: dict[str, Any]) -> ToolDecision:
+        api_key = os.environ.get(self.api_key_env, "").strip()
+        if not api_key:
+            raise RuntimeError(f"Missing OpenRouter API key in env var `{self.api_key_env}`.")
+
+        prompt = (
+            "You are routing a query agent with tools: pageindex_navigate, semantic_search, structured_query, finish.\n"
+            "Return strict JSON: {\"next_tool\":\"...\",\"sql\":\"...|null\",\"reason\":\"...\"}.\n"
+            "Choose one tool only.\n"
+            f"Question: {question}\n"
+            f"State: {json.dumps(self._state_snapshot(state), ensure_ascii=True)}"
+        )
+        payload = {
+            "model": self.model,
+            "temperature": 0.0,
+            "max_tokens": 250,
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        req = urllib.request.Request(
+            f"{self.api_base}/chat/completions",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                body = json.loads(resp.read().decode("utf-8", errors="replace"))
+        except urllib.error.HTTPError as exc:
+            raise RuntimeError(f"OpenRouter routing HTTP error: {exc.code}") from exc
+
+        content = ""
+        choices = body.get("choices", [])
+        if choices:
+            msg = choices[0].get("message", {})
+            content = msg.get("content", "") if isinstance(msg, dict) else ""
+        if not isinstance(content, str):
+            content = str(content)
+        data = self._parse_json(content)
+        next_tool = str(data.get("next_tool", "semantic_search")).strip().lower()
+        if next_tool not in {"pageindex_navigate", "semantic_search", "structured_query", "finish"}:
+            next_tool = "semantic_search"
+        sql = data.get("sql")
+        return ToolDecision(next_tool=next_tool, sql=str(sql) if sql else None, reason=str(data.get("reason", "")))
+
+    def _state_snapshot(self, state: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "step_count": state.get("step_count", 0),
+            "selected_pages": state.get("selected_pages", []),
+            "has_semantic_hits": bool(state.get("semantic_hits")),
+            "has_structured_rows": bool(state.get("structured_rows")),
+        }
+
+    def _parse_json(self, text: str) -> dict[str, Any]:
+        stripped = text.strip()
+        if stripped.startswith("```"):
+            stripped = stripped.strip("`")
+            if "\n" in stripped:
+                stripped = stripped.split("\n", 1)[1]
+        if "{" in stripped and "}" in stripped:
+            stripped = stripped[stripped.find("{") : stripped.rfind("}") + 1]
+        try:
+            obj = json.loads(stripped)
+            if isinstance(obj, dict):
+                return obj
+        except Exception:
+            pass
+        return {}
 
 
 class QueryInterfaceAgent:
@@ -32,66 +151,189 @@ class QueryInterfaceAgent:
             "structured_query": self.structured_query,
         }
 
-    def build_langgraph(self):
-        """
-        Optional LangGraph wiring for environments where langgraph is installed.
-        The runtime pipeline works without this dependency.
-        """
+    def build_langgraph(self, question: str, page_index: PageIndexNode, max_steps: int = 4, use_openrouter_router: bool = False):
         try:
             from langgraph.graph import END, StateGraph  # type: ignore[import-not-found]
         except Exception:
             return None
 
-        class _State(dict):
-            pass
+        router = OpenRouterToolRouter() if use_openrouter_router else HeuristicToolRouter()
 
-        graph = StateGraph(_State)
-        graph.add_node("pageindex_navigate", lambda s: s)
-        graph.add_node("semantic_search", lambda s: s)
-        graph.add_node("structured_query", lambda s: s)
-        graph.set_entry_point("pageindex_navigate")
-        graph.add_edge("pageindex_navigate", "semantic_search")
-        graph.add_edge("semantic_search", "structured_query")
-        graph.add_edge("structured_query", END)
+        def merged(state: dict[str, Any], **updates: Any) -> dict[str, Any]:
+            out = dict(state)
+            out.update(updates)
+            return out
+
+        def route_node(state: dict[str, Any]) -> dict[str, Any]:
+            if int(state.get("step_count", 0)) >= max_steps:
+                return merged(state, next_tool="finish")
+            try:
+                decision = router.decide(state["question"], state)
+            except Exception:
+                decision = HeuristicToolRouter().decide(state["question"], state)
+            update: dict[str, Any] = {
+                "next_tool": decision.next_tool,
+                "step_count": int(state.get("step_count", 0)) + 1,
+                "routing_reasons": list(state.get("routing_reasons", [])) + [decision.reason],
+            }
+            if decision.sql:
+                update["sql"] = decision.sql
+            return merged(state, **update)
+
+        def pageindex_node(state: dict[str, Any]) -> dict[str, Any]:
+            nav = self.pageindex_navigate(state["page_index"], state["question"], k=3)
+            pages: set[int] = set()
+            for node in nav:
+                pages.update(range(node.page_start, node.page_end + 1))
+            return merged(state, selected_pages=sorted(pages))
+
+        def semantic_node(state: dict[str, Any]) -> dict[str, Any]:
+            pages = set(state.get("selected_pages", []))
+            hits = self.semantic_search(state["question"], top_k=3, allowed_pages=pages if pages else None)
+            return merged(state, semantic_hits=hits, semantic_attempted=True)
+
+        def structured_node(state: dict[str, Any]) -> dict[str, Any]:
+            sql = state.get("sql")
+            if not sql:
+                sql = HeuristicToolRouter()._default_fact_sql(state["question"])
+            try:
+                rows = self.structured_query(sql)
+            except Exception:
+                rows = []
+            return merged(state, structured_rows=rows, sql=sql, structured_attempted=True)
+
+        def synth_node(state: dict[str, Any]) -> dict[str, Any]:
+            answer = self._synthesize_answer(state["semantic_hits"], state.get("structured_rows", []))
+            prov = self._build_provenance(state["semantic_hits"], state.get("structured_rows", []))
+            return merged(state, final_answer=answer, final_provenance=prov)
+
+        def route_cond(state: dict[str, Any]) -> str:
+            nxt = str(state.get("next_tool", "finish"))
+            if nxt in {"pageindex_navigate", "semantic_search", "structured_query", "finish"}:
+                return nxt
+            return "finish"
+
+        graph = StateGraph(dict)
+        graph.add_node("route", route_node)
+        graph.add_node("pageindex_navigate", pageindex_node)
+        graph.add_node("semantic_search", semantic_node)
+        graph.add_node("structured_query", structured_node)
+        graph.add_node("synthesize", synth_node)
+        graph.set_entry_point("route")
+        graph.add_conditional_edges(
+            "route",
+            route_cond,
+            {
+                "pageindex_navigate": "pageindex_navigate",
+                "semantic_search": "semantic_search",
+                "structured_query": "structured_query",
+                "finish": "synthesize",
+            },
+        )
+        graph.add_edge("pageindex_navigate", "route")
+        graph.add_edge("semantic_search", "route")
+        graph.add_edge("structured_query", "route")
+        graph.add_edge("synthesize", END)
         return graph.compile()
 
     def answer(self, question: str, page_index: PageIndexNode) -> QueryAnswer:
-        nav = self.pageindex_navigate(page_index, question, k=3)
-        pages = set()
-        for n in nav:
-            pages.update(range(n.page_start, n.page_end + 1))
-        hits = self.semantic_search(question, top_k=3, allowed_pages=pages if pages else None)
-        if not hits:
-            return QueryAnswer(
-                answer="No verifiable answer found.",
-                provenance=ProvenanceChain(
-                    bbox=BoundingBox(x0=0.0, y0=0.0, x1=0.0, y1=0.0),
-                    content_hash="",
-                    citations=[],
-                ),
-            )
-
-        synthesis = " ".join(h.content[:220] for h in hits)
-        citations = [
-            ProvenanceItem(
-                document_name=h.page_refs[0].document_name,
-                page_number=h.page_refs[0].page_number,
-                bbox=h.page_refs[0].bbox,
-                content_hash=h.content_hash,
-            )
-            for h in hits
-        ]
-        provenance = ProvenanceChain(
-            bbox=self._aggregate_bbox(citations),
-            content_hash=stable_hash("|".join(c.content_hash for c in citations)),
-            citations=citations,
+        app = self.build_langgraph(question=question, page_index=page_index, max_steps=4, use_openrouter_router=False)
+        if app is None:
+            # Fallback if langgraph is not available.
+            return self._fallback_answer(question, page_index)
+        state = {
+            "question": question,
+            "page_index": page_index,
+            "selected_pages": [],
+            "semantic_hits": [],
+            "structured_rows": [],
+            "step_count": 0,
+            "next_tool": "pageindex_navigate",
+            "routing_reasons": [],
+            "sql": None,
+            "semantic_attempted": False,
+            "structured_attempted": False,
+        }
+        result = app.invoke(state)
+        return QueryAnswer(
+            answer=str(result.get("final_answer", "No verifiable answer found.")),
+            provenance=result.get(
+                "final_provenance",
+                ProvenanceChain(bbox=BoundingBox(x0=0.0, y0=0.0, x1=0.0, y1=0.0), content_hash="", citations=[]),
+            ),
         )
-        return QueryAnswer(answer=synthesis[:600], provenance=provenance)
 
     def audit_claim(self, claim: str, page_index: PageIndexNode) -> dict[str, object]:
         ans = self.answer(claim, page_index)
         status = "verified" if ans.provenance.citations else "unverifiable"
         return {"claim": claim, "status": status, "answer": ans.answer, "provenance": ans.provenance.model_dump()}
+
+    def _fallback_answer(self, question: str, page_index: PageIndexNode) -> QueryAnswer:
+        nav = self.pageindex_navigate(page_index, question, k=3)
+        pages = set()
+        for n in nav:
+            pages.update(range(n.page_start, n.page_end + 1))
+        hits = self.semantic_search(question, top_k=3, allowed_pages=pages if pages else None)
+        answer = self._synthesize_answer(hits, [])
+        provenance = self._build_provenance(hits, [])
+        return QueryAnswer(answer=answer, provenance=provenance)
+
+    def _synthesize_answer(self, hits: list[LDU], rows: list[tuple]) -> str:
+        parts: list[str] = []
+        if hits:
+            parts.append(" ".join(h.content[:220] for h in hits)[:600])
+        if rows:
+            kvs = []
+            for row in rows[:5]:
+                if len(row) >= 2:
+                    kvs.append(f"{row[0]}={row[1]}")
+            if kvs:
+                parts.append("Structured facts: " + "; ".join(kvs))
+        if not parts:
+            return "No verifiable answer found."
+        return " ".join(parts)[:900]
+
+    def _build_provenance(self, hits: list[LDU], rows: list[tuple]) -> ProvenanceChain:
+        cites: list[ProvenanceItem] = []
+        for h in hits:
+            if not h.page_refs:
+                continue
+            ref = h.page_refs[0]
+            cites.append(
+                ProvenanceItem(
+                    document_name=ref.document_name,
+                    page_number=ref.page_number,
+                    bbox=ref.bbox,
+                    content_hash=h.content_hash,
+                )
+            )
+
+        # If semantic retrieval misses but SQL rows contain content_hash, recover citations from vector-store chunks.
+        if not cites and rows:
+            hashes: list[str] = []
+            for row in rows:
+                if len(row) >= 4 and isinstance(row[3], str):
+                    hashes.append(row[3])
+            for h in self.vector_store.get_by_hashes(hashes):
+                if not h.page_refs:
+                    continue
+                ref = h.page_refs[0]
+                cites.append(
+                    ProvenanceItem(
+                        document_name=ref.document_name,
+                        page_number=ref.page_number,
+                        bbox=ref.bbox,
+                        content_hash=h.content_hash,
+                    )
+                )
+
+        if not cites:
+            return ProvenanceChain(bbox=BoundingBox(x0=0.0, y0=0.0, x1=0.0, y1=0.0), content_hash="", citations=[])
+        return ProvenanceChain(
+            bbox=self._aggregate_bbox(cites),
+            content_hash=stable_hash("|".join(c.content_hash for c in cites)),
+            citations=cites,
+        )
 
     def _aggregate_bbox(self, citations: list[ProvenanceItem]) -> BoundingBox:
         if not citations:
