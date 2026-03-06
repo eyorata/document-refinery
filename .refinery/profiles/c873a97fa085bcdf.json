@@ -1,0 +1,14 @@
+{
+  "doc_id": "c873a97fa085bcdf",
+  "document_name": "tmp7nylzifk.pdf",
+  "page_count": 11,
+  "origin_type": "native_digital",
+  "layout_complexity": "table_heavy",
+  "language_code": "en",
+  "language_confidence": 0.85,
+  "domain_hint": "technical",
+  "estimated_extraction_cost": "needs_layout_model",
+  "avg_char_density": 0.002025603629881705,
+  "avg_image_ratio": 0.009090909090909092,
+  "triage_confidence": 1.0
+}

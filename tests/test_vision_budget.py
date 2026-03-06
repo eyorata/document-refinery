@@ -1,4 +1,5 @@
 from pathlib import Path
+import textwrap
 
 import pytest
 
@@ -89,9 +90,56 @@ def test_vision_partial_processing_when_configured(monkeypatch):
             "stop_on_budget_exceeded": False,
             "allow_partial_processing": True,
         },
-        vision_cfg={},
+        vision_cfg={"require_model_for_ocr": False},
     )
     extracted, _, cost = ex.extract("dummy.pdf", _profile(page_count=5))
     assert cost == pytest.approx(0.02)
     assert len(extracted.text_blocks) >= 3  # 2 OCR blocks + budget-stop note
     assert any("vision-budget-stop" in b.content for b in extracted.text_blocks)
+
+
+def test_vision_requires_model_when_ocr_needed_and_not_configured(monkeypatch):
+    monkeypatch.setattr("src.strategies.vision.FastTextExtractor.extract", _empty_fast_extract)
+    monkeypatch.setattr("src.strategies.vision.PdfReader", lambda _: _FakeReader(2))
+
+    ex = VisionExtractor(
+        thresholds={},
+        vlm_budget={
+            "enabled": True,
+            "max_pages_per_document": 5,
+            "cost_per_page_usd": 0.01,
+            "max_total_cost_usd": 0.20,
+            "stop_on_budget_exceeded": True,
+            "allow_partial_processing": False,
+        },
+        vision_cfg={
+            "require_model_for_ocr": True,
+            "openrouter": {"enabled": False},
+        },
+    )
+
+    with pytest.raises(BudgetExceededError, match="Vision model required"):
+        ex.extract("dummy.pdf", _profile(page_count=2))
+
+
+def test_vision_loads_strategy_c_config_file(tmp_path: Path):
+    cfg = tmp_path / "vision_strategy.yaml"
+    cfg.write_text(
+        textwrap.dedent(
+            """
+            vision:
+              require_model_for_ocr: false
+              page_extraction_prompt: "custom prompt"
+              openrouter:
+                enabled: false
+            """
+        ).strip(),
+        encoding="utf-8",
+    )
+    ex = VisionExtractor(
+        thresholds={},
+        vlm_budget={"enabled": True, "max_pages_per_document": 2, "cost_per_page_usd": 0.01, "max_total_cost_usd": 0.20},
+        vision_cfg={"strategy_config_path": str(cfg)},
+    )
+    assert ex.require_model_for_ocr is False
+    assert ex.page_extraction_prompt == "custom prompt"

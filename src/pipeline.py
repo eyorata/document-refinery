@@ -27,7 +27,7 @@ class RefineryPipeline:
             max_tokens=int(self.config["chunking"]["max_tokens"]),
             enabled_rules=list(self.config["chunking"].get("rules", [])),
         )
-        self.indexer = PageIndexBuilder()
+        self.indexer = PageIndexBuilder(pageindex_cfg=self.config.get("pageindex", {}))
         self.vector_store = SimpleVectorStore()
         self.fact_table = FactTableStore(str(self.output_dir / "facts.db"))
         self.query_agent = QueryInterfaceAgent(self.vector_store, self.fact_table)

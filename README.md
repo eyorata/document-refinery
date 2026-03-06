@@ -89,9 +89,13 @@ All runtime behavior is driven from `rubric/extraction_rules.yaml`, validated th
 - `layout.confidence_if_tables_present` (`float`): confidence floor for strategy B when tables are found.
 - `layout.estimated_cost_usd` (`float`): returned cost estimate for strategy B.
 - `layout.adapter.provider` (`heuristic|docling|external_payload|mineru`): selected layout tool adapter.
+- `layout.adapter.provider` (`heuristic|docling|mineru|both|docling_mineru|mineru_docling|external_payload`): selected layout adapter mode.
+- `layout.adapter.providers` (`list[str]`): explicit ordered chain of providers for Strategy B (for example `["docling","mineru"]`).
 - `layout.adapter.options.strict` (`bool`): when `provider=docling`, fail fast if Docling is unavailable/errors instead of fallback.
 - `layout.adapter.options.payload_json_path` (`str`): for `external_payload`, path to external tool JSON tables.
 - `vision.*`: confidence tuning and synthetic provenance geometry for strategy C.
+- `vision.require_model_for_ocr` (`bool`): when true, strategy C fails fast with an actionable "connect vision model" message if no VLM is configured.
+- `vision.strategy_config_path` (`str`): path to dedicated Strategy C YAML file (default `rubric/vision_strategy.yaml`).
 - `vision.openrouter.enabled` (`bool`): enables OpenRouter multimodal OCR calls in strategy C.
 - `vision.openrouter.api_key_env` (`str`): environment variable carrying the OpenRouter API key.
 - `vision.openrouter.model` (`str`): OpenRouter model id (for example, `openai/gpt-4o-mini`).
@@ -107,6 +111,7 @@ All runtime behavior is driven from `rubric/extraction_rules.yaml`, validated th
 
 - `docling` is wired with optional dependency + heuristic fallback; `mineru` remains an extension point.
 - Vision extraction keeps an explicit budget/paging guard and can call OpenRouter when configured; default remains placeholder-safe.
+- Strategy C supports a dedicated config file at `rubric/vision_strategy.yaml` for prompt/model tuning.
 - Semantic retrieval currently uses a local cosine-over-token baseline vector store.
 - Section summaries are heuristic; swap in cheap LLM call if available.
 

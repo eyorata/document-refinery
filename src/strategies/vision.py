@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import List
 
 from pypdf import PdfReader
+import yaml
 
 from src.agents.errors import BudgetExceededError
 from src.config import VisionConfig, VlmBudgetConfig
@@ -24,7 +25,9 @@ class VisionExtractor(FastTextExtractor):
     def __init__(self, thresholds: dict[str, float], vlm_budget: dict | None = None, vision_cfg: dict | None = None) -> None:
         super().__init__(thresholds=thresholds)
         budget = VlmBudgetConfig.model_validate(vlm_budget or {}).model_dump(mode="python")
-        self.vision_cfg = VisionConfig.model_validate(vision_cfg or {}).model_dump(mode="python")
+        raw_cfg = vision_cfg or {}
+        base_cfg = VisionConfig.model_validate(raw_cfg).model_dump(mode="python")
+        self.vision_cfg = self._merge_with_strategy_config(base_cfg, raw_cfg)
         self.vlm_enabled = bool(budget["enabled"])
         self.max_pages = int(budget["max_pages_per_document"])
         self.cost_per_page_usd = float(budget["cost_per_page_usd"])
@@ -38,6 +41,8 @@ class VisionExtractor(FastTextExtractor):
         self.openrouter_api_key_env = str(openrouter_cfg.get("api_key_env", "OPENROUTER_API_KEY"))
         self.openrouter_max_output_tokens = int(openrouter_cfg.get("max_output_tokens", 700))
         self.openrouter_temperature = float(openrouter_cfg.get("temperature", 0.0))
+        self.require_model_for_ocr = bool(self.vision_cfg.get("require_model_for_ocr", True))
+        self.page_extraction_prompt = str(self.vision_cfg.get("page_extraction_prompt", "")).strip()
         self.last_token_usage = 0
         self.last_provider = "placeholder"
 
@@ -124,9 +129,22 @@ class VisionExtractor(FastTextExtractor):
         if self.openrouter_enabled and api_key:
             try:
                 return self._ocr_pages_with_openrouter(document_path=document_path, max_pages=max_pages, api_key=api_key)
-            except Exception:
-                # Never hard-fail to keep graceful degradation behavior.
-                pass
+            except Exception as exc:
+                if self.require_model_for_ocr:
+                    raise BudgetExceededError(
+                        "Vision model required for OCR extraction but OpenRouter call failed. "
+                        "Connect/configure the LLM/VLM and retry."
+                    ) from exc
+        if self.require_model_for_ocr:
+            if not self.openrouter_enabled:
+                raise BudgetExceededError(
+                    "Vision model required to extract this document. "
+                    "Set `extraction.vision.openrouter.enabled=true` and configure API access."
+                )
+            raise BudgetExceededError(
+                f"Vision model required to extract this document. "
+                f"Set `{self.openrouter_api_key_env}` with a valid API key and retry."
+            )
         self.last_provider = "placeholder"
         return self._ocr_pages_with_placeholder(reader=reader, max_pages=max_pages)
 
@@ -144,10 +162,7 @@ class VisionExtractor(FastTextExtractor):
             img.save(b, format="PNG")
             image_data_url = f"data:image/png;base64,{base64.b64encode(b.getvalue()).decode('ascii')}"
 
-            prompt = (
-                "Extract visible document text and tables from this page. "
-                "Return plain text with table rows represented using pipe separators."
-            )
+            prompt = self.page_extraction_prompt
             text, usage_tokens = self._openrouter_chat_completion(prompt=prompt, image_data_url=image_data_url, api_key=api_key)
             self.last_token_usage += usage_tokens
             blocks.append(
@@ -227,3 +242,42 @@ class VisionExtractor(FastTextExtractor):
         else:
             cost_cap_pages = int(math.floor((self.max_total_cost_usd / self.cost_per_page_usd) + 1e-9))
         return max(0, min(total_pages, self.max_pages, cost_cap_pages))
+
+    def _merge_with_strategy_config(self, base_cfg: dict, raw_cfg: dict) -> dict:
+        cfg = dict(base_cfg)
+        strategy_path = str(cfg.get("strategy_config_path", "")).strip()
+        if not strategy_path:
+            return cfg
+        p = Path(strategy_path)
+        if not p.exists():
+            return cfg
+        try:
+            loaded = yaml.safe_load(p.read_text(encoding="utf-8"))
+        except Exception:
+            return cfg
+        if not isinstance(loaded, dict):
+            return cfg
+
+        strategy_cfg = loaded.get("vision", loaded)
+        if not isinstance(strategy_cfg, dict):
+            return cfg
+
+        for key in ("require_model_for_ocr", "page_extraction_prompt", "confidence_if_ocr_only", "confidence_if_text_present_min"):
+            if key in strategy_cfg:
+                cfg[key] = strategy_cfg[key]
+
+        openrouter_cfg = dict(cfg.get("openrouter", {}))
+        extra_openrouter = strategy_cfg.get("openrouter")
+        if isinstance(extra_openrouter, dict):
+            openrouter_cfg.update(extra_openrouter)
+        cfg["openrouter"] = openrouter_cfg
+
+        # Explicit runtime config takes precedence over file settings.
+        for key, val in raw_cfg.items():
+            if key == "openrouter" and isinstance(val, dict):
+                merged_openrouter = dict(cfg.get("openrouter", {}))
+                merged_openrouter.update(val)
+                cfg["openrouter"] = merged_openrouter
+            else:
+                cfg[key] = val
+        return cfg

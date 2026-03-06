@@ -1,0 +1,64 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 3,
+  "child_sections": [
+    {
+      "title": "Subject:  Update  on  Data  Warehouse  Discovery  –  Request  for  Guidance  on ",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Subject",
+        "Update",
+        "Data",
+        "Warehouse",
+        "Discovery",
+        "Request",
+        "Guidance",
+        "Initial",
+        "Reconciliation",
+        "Discrepancies"
+      ],
+      "summary": "Subject: Update on Data Warehouse Discovery – Request for Guidance on Initial Reconciliation Discrepancies Dear Mr. Abebe and Team, I hope this email finds you well. As we continue build",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Recommendations",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Recommendations",
+        "Each"
+      ],
+      "summary": "Recommendations To resolve these discrepancies efficiently while respecting the fast-track timeline, I propose three distinct strategic options for your consideration. Each balances quali",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Mid-Level  Data  Engineer  Nexlify  Solutions  lemlem.tadesse@nexlify.et",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Data",
+        "Engineer",
+        "Nexlify",
+        "Solutions"
+      ],
+      "summary": "Mid-Level Data Engineer Nexlify Solutions lemlem.tadesse@nexlify.et +251 911 234 567",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

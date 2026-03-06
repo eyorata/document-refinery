@@ -1,0 +1,1136 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 74,
+  "child_sections": [
+    {
+      "title": "HAWASSA UNIVERSITY",
+      "page_start": 1,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Predicting",
+        "Sidama",
+        "Regional",
+        "State",
+        "Thesis",
+        "Eyoel",
+        "Nebiyu",
+        "October"
+      ],
+      "summary": "HAWASSA UNIVERSITY Predicting malaria incidence using case load and metrological data in Sidama Regional State MSc Thesis BY Eyoel Nebiyu HAWASSA, ETHIOPIA October, 2024 HAWASSA UNIVERSITY HAWASSA UNIVERSITY INSTITUTE OF TECHNOLOGY SCHOOL OF POST GRADUATE STUDIES FACULTY OF COMPUTER SCIENCE",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "i",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Submitted",
+        "Name"
+      ],
+      "summary": "i THESIS APPROVAL SHEET Submitted by _____________________________________ _______________________________ Name of the student",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "ii",
+      "page_start": 4,
+      "page_end": 4,
+      "child_sections": [],
+      "key_entities": [
+        "This",
+        "Predicting",
+        "Sidama",
+        "Regional",
+        "State"
+      ],
+      "summary": "ii HAWASSA UNIVERSITY SCHOOL OF GRADUATE STUDIES ADVISOR’ APPROVAL SHEET This is to certify that the thesis entitled “ Predicting malaria incidence using case load and metrological data in Sidama Regional State ”",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "iii",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "iii DECLARATION I declare that this thesis is my original work and has not been submitted as a partial requirement for a degree in any university. All the resources used for this thesis work are cited and acknow",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Table of Contents",
+      "page_start": 6,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": [
+        "Table",
+        "Contents"
+      ],
+      "summary": "Table of Contents THESIS APPROVAL SHEET ....................................................................................................... i ADVISORS’ APPROVAL SHEET ...............................................",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "v",
+      "page_start": 7,
+      "page_end": 7,
+      "child_sections": [],
+      "key_entities": [
+        "Neighbors",
+        "Decision",
+        "Trees"
+      ],
+      "summary": "v 2.7.3 K-Nearest Neighbors (KNN) .............................................................................................................................. 17 2.7.4 Decision Trees ...............................",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "vi",
+      "page_start": 8,
+      "page_end": 8,
+      "child_sections": [],
+      "key_entities": [
+        "Appendix",
+        "Sample",
+        "Training",
+        "Evaluation"
+      ],
+      "summary": "vi Appendix E: Sample code for Training the model with early stopping ............................................... 61 Appendix F: Sample code for calculating the Evaluation metrics ................................",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "vii",
+      "page_start": 9,
+      "page_end": 9,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "vii LIST OF TABLE TABLE 1: HAWASSA ZURIA RAINFALL ...................................................................................... 29 TABLE 2: HAWASSA ZURIA MAX TEMPERATURE ..................................",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "viii",
+      "page_start": 10,
+      "page_end": 10,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "viii LIST OF FIGURES FIGURE 2.1: MALARIA PARASITE LIFE CYCLE .................................................................. 10 FIGURE 2.2: FULLY CONNECTED MULTILAYER FEED-FORWARD NEURAL NETWORK ARCHITECTURE ...",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "ix",
+      "page_start": 11,
+      "page_end": 11,
+      "child_sections": [],
+      "key_entities": [
+        "Almighty",
+        "Marry"
+      ],
+      "summary": "ix ACKNOWLEDGEMENTS I would like to begin by expressing my heartfelt gratitude to Almighty God and his mother saint Marry for all the blessings in my life, especially as I embarked on this research journey. I am",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "x",
+      "page_start": 12,
+      "page_end": 12,
+      "child_sections": [],
+      "key_entities": [
+        "Artificial",
+        "Neural",
+        "Network",
+        "Intelligence",
+        "Values",
+        "Validation"
+      ],
+      "summary": "x ACRONYMS ANN …………………………………. Artificial Neural Network AI …………………………………… Artificial Intelligence CSV ………………………………….. Comma-Separated Values CV ……………………………………..Cross Validation KNN ………………………………….. K-Nearest",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "xi",
+      "page_start": 13,
+      "page_end": 13,
+      "child_sections": [],
+      "key_entities": [
+        "Malaria",
+        "Ethiopia's",
+        "Sidama",
+        "Regional",
+        "State",
+        "This"
+      ],
+      "summary": "xi ABSTRACT Malaria continues to be a serious public health concern, especially in tropical areas like Ethiopia's Sidama Regional State, where the weather has a big impact on the dynamics of transmission. This pape",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "1",
+      "page_start": 14,
+      "page_end": 14,
+      "child_sections": [],
+      "key_entities": [
+        "Background",
+        "Malaria",
+        "However"
+      ],
+      "summary": "1 CHAPTER 1: INTRODUCTION 1.1 Background Malaria is a potentially fatal illness that is mostly prevalent in tropical regions. It is treatable as well as preventive. However, an instance of s imple malaria can wor",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "2",
+      "page_start": 15,
+      "page_end": 15,
+      "child_sections": [],
+      "key_entities": [
+        "This",
+        "Anopheles"
+      ],
+      "summary": "2 vegetation index (NDVI). This is demonstrated by the clear relationship between rainfall and Anopheles mosquito abundance [5], increased transmission and temperature and vegetation density [6], and seasonality of",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3",
+      "page_start": 16,
+      "page_end": 16,
+      "child_sections": [],
+      "key_entities": [
+        "Furthermore"
+      ],
+      "summary": "3 decision-makers to allocate resources more efficiently and implement timely interventions to curb the spread of the disease. Furthermore, the deployment of ANN -based predictive models within existing public healt",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "4",
+      "page_start": 17,
+      "page_end": 17,
+      "child_sections": [],
+      "key_entities": [
+        "Ethiopia"
+      ],
+      "summary": "4 epidemics occur cyclically in every 5–8 years in Ethiopia, but focal epidemics are occurring every year. Ethiopia has a population of above 127 million, of which approximately 68% of the population is at risk of t",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "5",
+      "page_start": 18,
+      "page_end": 18,
+      "child_sections": [],
+      "key_entities": [
+        "Objectives",
+        "Study",
+        "General",
+        "Objective",
+        "Artificial",
+        "Neural",
+        "Network",
+        "Sidama"
+      ],
+      "summary": "5 1.4 Objectives of the Study 1.4.1 General Objective To develop a prediction mode l using feed forward Artificial Neural Network (ANN) for malaria incidence in the Sidama region by studying the association betwee",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "6",
+      "page_start": 19,
+      "page_end": 19,
+      "child_sections": [],
+      "key_entities": [
+        "Methodology",
+        "Literature",
+        "Review"
+      ],
+      "summary": "6 1.6 Methodology 1.6.1 Literature Review The research has chosen effective methods for malaria prediction using a feed forward artificial neural network (ANN) m odel by reviewing a variety of literatures, includi",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "7",
+      "page_start": 20,
+      "page_end": 20,
+      "child_sections": [],
+      "key_entities": [
+        "Significance",
+        "Study",
+        "Beyo"
+      ],
+      "summary": "7 1.7 Significance of the Study The findings of this research have the capacity to significant ly influence stakeholders at different levels to take decisive action and lessen the impact of incomplete evidence. Beyo",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "8",
+      "page_start": 21,
+      "page_end": 21,
+      "child_sections": [],
+      "key_entities": [
+        "This"
+      ],
+      "summary": "8 CHAPTER 2: LITERATURE REVIEW AND RELATED WORKS This chapter reports review of existing research on malaria prediction, including studies on spatial modeling, seasonal patterns, predictive mapping, and machine lear",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "9",
+      "page_start": 22,
+      "page_end": 22,
+      "child_sections": [],
+      "key_entities": [
+        "Lifecycle",
+        "Malaria",
+        "When",
+        "Anopheles"
+      ],
+      "summary": "9 2.4 Lifecycle of Malaria Malaria is usually transmitted by a female mosquito. Malaria is also communicable through the bite of the mosquito. When, an infected Anopheles mosquito bites, it introduces parasite to o",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "10",
+      "page_start": 23,
+      "page_end": 23,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Malaria",
+        "Overview",
+        "Prediction"
+      ],
+      "summary": "10 Figure 2.0-1: Malaria parasite life cycle 2.5 Overview of Malaria Prediction Malaria remains a significant public health concern, particularly in regions where meteorological conditions play a crucial r ole",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "11",
+      "page_start": 24,
+      "page_end": 24,
+      "child_sections": [],
+      "key_entities": [
+        "Overview",
+        "Artificial",
+        "Neural",
+        "Network",
+        "Models"
+      ],
+      "summary": "11 2.6 Overview of Artificial Neural Network (ANN) Feed-Forward Models Artificial neural networks (ANNs) have emerged as powerful tools for predictive modeling in various fields, including healthcare and epidemiolo",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "12",
+      "page_start": 25,
+      "page_end": 25,
+      "child_sections": [],
+      "key_entities": [
+        "Among"
+      ],
+      "summary": "12 Among the different architectures of ANNs, the feed -forward neural network is widely used for regression and classification tasks. In the context of malaria prediction, feed -forward ANNs can learn complex relat",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "13",
+      "page_start": 26,
+      "page_end": 26,
+      "child_sections": [],
+      "key_entities": [
+        "Evaluation",
+        "Validation",
+        "Models",
+        "After"
+      ],
+      "summary": "13 of meteorological data may be performed to capture seasonal patterns and long -term trends that influence malaria transmission dynamics. 2.6.3 Evaluation and Validation of ANN Models After training, feed-forward",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "14",
+      "page_start": 27,
+      "page_end": 27,
+      "child_sections": [],
+      "key_entities": [
+        "Monte",
+        "Carlo"
+      ],
+      "summary": "14 techniques, such as bootstrapping or Monte Carlo simulation, can provide insights into the variability of predictions and estimate confidence intervals for predicted outcomes. By employing these evaluation and va",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "15",
+      "page_start": 28,
+      "page_end": 28,
+      "child_sections": [],
+      "key_entities": [
+        "Here",
+        "Random",
+        "Forest",
+        "Forecasting",
+        "Severe",
+        "Weather",
+        "Forests",
+        "Forests”"
+      ],
+      "summary": "15 Here is an example of previous literature conducted by researchers using Random Forest. Forecasting Severe Weather with Random Forests The research paper on “ Forecasting Severe Weather with Random Forests” by",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "16",
+      "page_start": 29,
+      "page_end": 29,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "16 SVMs e mploy the kernel trick to transform the input data into a higher -dimensional space, enabling effective separation without the need for activation functions [17]. SVMs are effective at solving classificati",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "17",
+      "page_start": 30,
+      "page_end": 30,
+      "child_sections": [],
+      "key_entities": [
+        "Neighbors"
+      ],
+      "summary": "17 MLP in terms of accuracy and stability when it came to managing the non -linear aspects of the atmospheric data [19]. 2.7.3 K-Nearest Neighbors (KNN) K-Nearest Neighbors (KNN) is a straightforward yet effective",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "18",
+      "page_start": 31,
+      "page_end": 31,
+      "child_sections": [],
+      "key_entities": [
+        "Neighbors",
+        "Here"
+      ],
+      "summary": "18 things considered, K-Nearest Neighbors is a flexible and easily understandable technique that can successfully handle a variety of machine learning problems, particularly in small to medium-sized datasets. Here",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "19",
+      "page_start": 32,
+      "page_end": 32,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "19 jobs is usually to reduce the mean squared error (MSE). The data is split into subsets based on the decision rule when a split is created, and this process is repeated recursively until a stopping requirement is",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "20",
+      "page_start": 33,
+      "page_end": 33,
+      "child_sections": [],
+      "key_entities": [
+        "Here",
+        "Decision",
+        "Using",
+        "Tree",
+        "Algorithm",
+        "Predict",
+        "Student",
+        "Performance"
+      ],
+      "summary": "20 Here is an example of previous literature conducted by researchers using Decision trees. Using Decision Tree Algorithm to Predict Student Performance The study \"Using Decision Tree Algorithm to Predict Student",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "21",
+      "page_start": 34,
+      "page_end": 34,
+      "child_sections": [],
+      "key_entities": [
+        "Deep",
+        "Belief",
+        "Networks"
+      ],
+      "summary": "21 learn hierarchical representations of the incoming data by processing information through several layers of sophisticated mathematical models. Deep Belief Networks (DBNs) a re probabilistic, unsupervised learni",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "22",
+      "page_start": 35,
+      "page_end": 35,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "22 RNNs, with their ability to capture temporal dependencies, are particularly suited for prediction in time series data, such as forecasting trends or events, as well as in natural language processing and speech re",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "23",
+      "page_start": 36,
+      "page_end": 36,
+      "child_sections": [],
+      "key_entities": [
+        "African",
+        "Extreme",
+        "Gradient",
+        "Boosting"
+      ],
+      "summary": "23 The study conducted in a six African countries that uses a machine learning algorithm called Extreme Gradient Boosting (XGBoost), which is a machine learning method that is used to solve regression and classi",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "24",
+      "page_start": 37,
+      "page_end": 37,
+      "child_sections": [],
+      "key_entities": [
+        "Burundi",
+        "Artificial",
+        "Neural",
+        "Network"
+      ],
+      "summary": "24 In a recent research conducted in Burundi, an attempt was made to predict malaria using Artificial Neural Network models. The initial models leveraged climate -change-related factors like temperature, rainfall, a",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "25",
+      "page_start": 38,
+      "page_end": 38,
+      "child_sections": [],
+      "key_entities": [
+        "Boost"
+      ],
+      "summary": "25 order of performance throughout the study, the models rank as follows: LSTMSeq2Seq, LSTM, GRU, and XG Boost. LSTMSeq2Seq consistently yielded the lowest RMSE values, measuring 0.0252, 0.0107, 0.0586, and 0.0077 f",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "26",
+      "page_start": 39,
+      "page_end": 39,
+      "child_sections": [],
+      "key_entities": [
+        "Ethiopia"
+      ],
+      "summary": "26 and emphasizes the need to improve epidemic early warning sy stems by including outside variables like weather[36]. A research conducted in south Ethiopia investigated if it was possible to forecast malaria in va",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "27",
+      "page_start": 40,
+      "page_end": 40,
+      "child_sections": [],
+      "key_entities": [
+        "Introduction",
+        "This",
+        "Artificial",
+        "Neural",
+        "Network"
+      ],
+      "summary": "27 CHAPTER 3: MATERIALS AND METHODS 3.1 Introduction This section describes the methodology used in the study to use an Artificial Neural Network (ANN) and meteorological data to predict malaria incidences. It",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "28",
+      "page_start": 41,
+      "page_end": 41,
+      "child_sections": [],
+      "key_entities": [
+        "Once"
+      ],
+      "summary": "28 errors and optimize performance. Once trained, the model can be used to predict future malaria incidences based on new meteorological data inputs. In summary, the proposed architecture utilizes meteorological dat",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "29",
+      "page_start": 42,
+      "page_end": 42,
+      "child_sections": [],
+      "key_entities": [
+        "Table",
+        "Hawassa",
+        "Zuria"
+      ],
+      "summary": "29 Table 1: Hawassa zuria rainfall Table 2: Hawassa Zuria max temperature",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "30",
+      "page_start": 43,
+      "page_end": 43,
+      "child_sections": [],
+      "key_entities": [
+        "Table",
+        "Hawassa",
+        "Zuria",
+        "Sample"
+      ],
+      "summary": "30 Table 3: Hawassa Zuria min temperature Table 4: Hawassa Zuria malaria cases Table 5: Sample of integrated dataset",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "31",
+      "page_start": 44,
+      "page_end": 44,
+      "child_sections": [],
+      "key_entities": [
+        "Natures",
+        "Meteorological",
+        "Data",
+        "Continuous",
+        "Variables"
+      ],
+      "summary": "31 Natures of the data Meteorological Data:  Continuous Variables: Meteorological data typically consists of continuous variables such as temperature (minimum and maximum), rainfall, humidity, wind speed, and atm",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "32",
+      "page_start": 45,
+      "page_end": 45,
+      "child_sections": [],
+      "key_entities": [
+        "Multivariate",
+        "Data",
+        "Analyzing"
+      ],
+      "summary": "32  Multivariate Data: The integrated dataset contains multiple variables, including meteorological parameters (e.g., temperature, rainfal l) and malaria incidence indicators (e.g., number of cases). Analyzing the",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "33",
+      "page_start": 46,
+      "page_end": 46,
+      "child_sections": [],
+      "key_entities": [
+        "This"
+      ],
+      "summary": "33 was chosen to incorporate the lowest and highest temperatures, rainfall, and past weekly incidences of malaria. This choice was guided by their established, high correlation with the incidence of malaria, which i",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "34",
+      "page_start": 47,
+      "page_end": 47,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Correlation",
+        "Matrix",
+        "Metrological",
+        "Features",
+        "Malaria",
+        "Cases",
+        "Data",
+        "Splitting"
+      ],
+      "summary": "34 Figure 3.2 Correlation Matrix for Metrological Features and Malaria Cases 3. Data Splitting: We divided the preprocessed dataset into training and testing sets using an 80 -20 split, allocating 80% of the data",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "35",
+      "page_start": 48,
+      "page_end": 48,
+      "child_sections": [],
+      "key_entities": [
+        "Artificial",
+        "Neural",
+        "Network"
+      ],
+      "summary": "35 3.5 malaria prediction The process of malaria prediction involves training an Artificial Neural Network (ANN) feed forward model to analyze patterns and relationships within the input data, enabling it to for ec",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "36",
+      "page_start": 49,
+      "page_end": 49,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "36 prefixes 'w1' to 'w4', indicating the temporal aspect of the dataset. The target variable comprises both weekly meteorological data and malaria case counts ('w1' to 'w4') to predict future malaria incidences. To",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "37",
+      "page_start": 50,
+      "page_end": 50,
+      "child_sections": [],
+      "key_entities": [
+        "Conversely"
+      ],
+      "summary": "37 resulting to poor performance. Conversely, a lower learning rate would cause learning to proceed too slowly and would cause the model to become trapped in local minima. The chosen learning rate ensures that weigh",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "38",
+      "page_start": 51,
+      "page_end": 51,
+      "child_sections": [],
+      "key_entities": [
+        "Tools"
+      ],
+      "summary": "38 of malaria with a high degree of accuracy, which helps to build early warning systems that are essential for proactive disease management and resource distribution in impacted areas. 3.5 Tools For this res",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "39",
+      "page_start": 52,
+      "page_end": 52,
+      "child_sections": [],
+      "key_entities": [
+        "Jupyter",
+        "Notebook",
+        "This",
+        "Jupiter",
+        "Python"
+      ],
+      "summary": "39 Jupyter Notebook: is the most popular and handy IDE among AI and deep learning researchers to work with python. This thesis work uses Jupiter note-book 6.0.0. Python: - Python programming used to implement and d",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "40",
+      "page_start": 53,
+      "page_end": 53,
+      "child_sections": [],
+      "key_entities": [
+        "Introduction",
+        "This"
+      ],
+      "summary": "40 CHAPTER 4: RESULTS AND DISCUSSION 4.1. Introduction This chapter discusses experimental evaluation of the proposed model for the malaria prediction. We present the results of our experimental assessment of",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "41",
+      "page_start": 54,
+      "page_end": 54,
+      "child_sections": [],
+      "key_entities": [
+        "Table"
+      ],
+      "summary": "41 data is partitioned into 80/20 for training and testing dataset.80 percent of the data is assigned for training and 20 percent of the data is allocated for testing. Table 7:sample of the dataset (to show da",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "42",
+      "page_start": 55,
+      "page_end": 55,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "42 4.4 IMPLEMENTATION The proposed model has a batch size of 64 and is trained for 50 epochs, with a starting learning rate of 0.0001. In ord er to ensure that weight changes happen gradually, it is helpful for",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "43",
+      "page_start": 56,
+      "page_end": 56,
+      "child_sections": [],
+      "key_entities": [
+        "Mean",
+        "Squared",
+        "Error",
+        "Lower"
+      ],
+      "summary": "43 Mean Squared Error (MSE): MSE measures the average squared difference between the actual and predicted values. Lower MSE values indicate better predictive performance, with a value of 0 indicating perfect predict",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "44",
+      "page_start": 57,
+      "page_end": 57,
+      "child_sections": [],
+      "key_entities": [
+        "Because"
+      ],
+      "summary": "44 starts. Because it directly impacts the machine learning model's effectiveness and performance, fine-tuning these hyperparameters is essential [42]. The purpose of the code's hyperparameters tuning procedure is t",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "45",
+      "page_start": 58,
+      "page_end": 58,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Training",
+        "Validation",
+        "Loss",
+        "Table",
+        "Summary",
+        "Tuned",
+        "Hyperparameters",
+        "Hyperparameter",
+        "Tested"
+      ],
+      "summary": "45 Figure 4.1 Training and Validation Loss curve Table 8 : Summary Table for the Tuned Hyperparameters Hyperparameter Tested Values Selected Value Learning Rate 0.001, 0.0001 0.0001 Batch Size 32, 64 64 N",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "46",
+      "page_start": 59,
+      "page_end": 59,
+      "child_sections": [],
+      "key_entities": [
+        "Evaluation",
+        "Root",
+        "Mean",
+        "Squared",
+        "Error"
+      ],
+      "summary": "46 4.7 Evaluation of the model The performance of the artificial neural network (ANN) feedforward model was assessed using various evaluation metrics, inclu ding Root Mean Squared Error (RMSE), Mean Squared Error (",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "47",
+      "page_start": 60,
+      "page_end": 60,
+      "child_sections": [],
+      "key_entities": [
+        "Artificial",
+        "Neural",
+        "Network"
+      ],
+      "summary": "47 The evaluation of the Artificial Neural Network (ANN) feedforward model acr oss different provinces reveals varying levels of predictive accuracy. The training and testing values for RMSE are continuously low t",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "48",
+      "page_start": 61,
+      "page_end": 61,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "48 In summary, the ANN feedforward model demonstrates high predictive accuracy and generalization across different phases and provinces. The consistently low error rates and high R² values across training, cross-val",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "49",
+      "page_start": 62,
+      "page_end": 62,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "49 predictions astonishingly match the real data, even with small changes being precisely captured. The model accurately predicts the significant increase in malaria cases around week 40, but it somewhat overestimat",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "50",
+      "page_start": 63,
+      "page_end": 63,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Boricha",
+        "District",
+        "Malaria",
+        "Prediction",
+        "Dale"
+      ],
+      "summary": "50 Figure 4.2: Boricha District Malaria Prediction Figure 4.3: Dale District Malaria Prediction",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "51",
+      "page_start": 64,
+      "page_end": 64,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Hawassa",
+        "Zuriya",
+        "District",
+        "Malaria",
+        "Prediction",
+        "Shebdino"
+      ],
+      "summary": "51 Figure 4.4: Hawassa Zuriya District Malaria Prediction Figure 4.5: Shebdino District Malaria Prediction",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "52",
+      "page_start": 65,
+      "page_end": 65,
+      "child_sections": [],
+      "key_entities": [
+        "Comparison",
+        "Proposed",
+        "Model",
+        "Related",
+        "Works",
+        "Artificial",
+        "Neural",
+        "Network",
+        "Feed",
+        "Boricha"
+      ],
+      "summary": "52 4.9 Comparison of the Proposed Model with the Related Works In this study, the Artificial Neural Network (ANN) Feed -forward model was used to predict malaria incidence across four districts: Boricha, Dale, Hawas",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "53",
+      "page_start": 66,
+      "page_end": 66,
+      "child_sections": [],
+      "key_entities": [
+        "Comparison",
+        "Univariate",
+        "Model",
+        "Buru",
+        "Bujumbura",
+        "Gitega"
+      ],
+      "summary": "53 Comparison with the Univariate LSTM Model (Burundi) A Univariate LSTM model was employed in a related study conducted in Buru ndi to forecast the incidence of malaria. In provinces like Bujumbura and Gitega, th",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "54",
+      "page_start": 67,
+      "page_end": 67,
+      "child_sections": [],
+      "key_entities": [
+        "This",
+        "Artificial",
+        "Neural",
+        "Network",
+        "Sidama",
+        "Regional",
+        "State"
+      ],
+      "summary": "54 CHAPTER 5: CONCLUSION AND RECOMMENDATION 5.1 conclusion This study used an Artificial Neural Network (ANN) feed -forward model to forecast malaria incidence in the Sidama Regional State by combining case loa",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "55",
+      "page_start": 68,
+      "page_end": 68,
+      "child_sections": [],
+      "key_entities": [
+        "Improve",
+        "Data",
+        "Collection",
+        "Meteor",
+        "More"
+      ],
+      "summary": "55 5.2Recommendations Improve Data Collection: Meteor ological and malaria case data should be regularly enhanced in terms of availability and quality in order to increase the accuracy of predictive models. More",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "56",
+      "page_start": 69,
+      "page_end": 69,
+      "child_sections": [],
+      "key_entities": [
+        "Development",
+        "Malaria",
+        "Prediction",
+        "Model"
+      ],
+      "summary": "56 5.3 contributions  Development of a Malaria Prediction Model: In order to anticipate the incidence of malaria, this study created a machine learning-based prediction model that makes use of an ANN feed-forward",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "57",
+      "page_start": 70,
+      "page_end": 70,
+      "child_sections": [],
+      "key_entities": [
+        "Reference",
+        "World",
+        "Health",
+        "Organization",
+        "Vries",
+        "Giao",
+        "Binh",
+        "Chong"
+      ],
+      "summary": "57 Reference [1] “https://www.who.int/news-room/questions-and-answers/item/malaria.” [2] “WHO. World malaria report 2015. World Health Organization; 2016”. [3] “Hung Q, Vries PJ, Giao PT, Nam NV, Binh TQ, Chong MT,",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "58",
+      "page_start": 71,
+      "page_end": 71,
+      "child_sections": [],
+      "key_entities": [
+        "Shashi",
+        "Atmospheric",
+        "International",
+        "Journal",
+        "Computer",
+        "Theory",
+        "Engineering",
+        "Duda",
+        "Hart"
+      ],
+      "summary": "58 [19] “Radhika, Y., & Shashi, M. (2009). Atmospheric temperature prediction using support vector machines. International Journal of Computer Theory and Engineering, 1(1), 1793-8201.”. [20] Duda, R. O., Hart, P. E.",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "59",
+      "page_start": 72,
+      "page_end": 72,
+      "child_sections": [],
+      "key_entities": [
+        "Taddese",
+        "Baraki",
+        "Gelaye",
+        "Ethiopia,”",
+        "Res",
+        "Notes",
+        "Dec"
+      ],
+      "summary": "59 [35] A. A. Taddese, A. G. Baraki, and K. A. Gelaye, “Spatial modeling, prediction and seasonal variation of malaria in northwest Ethiopia,” BMC Res. Notes, vol. 12, no. 1, p. 273, Dec. 2019, doi: 10.1186/s13104- 0",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "60",
+      "page_start": 73,
+      "page_end": 73,
+      "child_sections": [],
+      "key_entities": [
+        "Appendix",
+        "Sample",
+        "Defining"
+      ],
+      "summary": "60 APPENDICES Appendix A: Sample code for importing necessary packages Appendix B: Sample code for Defining features and target Appendix C: Sample code for preprocessing",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "61",
+      "page_start": 74,
+      "page_end": 74,
+      "child_sections": [],
+      "key_entities": [
+        "Appendix",
+        "Sample",
+        "Defining",
+        "Training",
+        "Evaluation",
+        "Append"
+      ],
+      "summary": "61 Appendix D: Sample code for Defining the neural network architecture Appendix E: Sample code for Training the model with early stopping Appendix F: Sample code for calculating the Evaluation metrics Append",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "list",
+    "text"
+  ]
+}

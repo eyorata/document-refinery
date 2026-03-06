@@ -45,6 +45,7 @@ class FastTextConfig(BaseModel):
     confidence_weight_chars: float = Field(default=0.45, ge=0.0, le=1.0)
     confidence_weight_density: float = Field(default=0.35, ge=0.0, le=1.0)
     confidence_weight_image_penalty: float = Field(default=0.20, ge=0.0, le=1.0)
+    confidence_weight_font_metadata: float = Field(default=0.10, ge=0.0, le=1.0)
     table_bbox_height_ratio: float = Field(default=0.45, ge=0.0, le=1.0)
     table_min_columns: int = Field(default=3, ge=2)
     table_min_lines: int = Field(default=2, ge=2)
@@ -54,6 +55,12 @@ class VisionConfig(BaseModel):
     confidence_if_text_present_min: float = Field(default=0.9, ge=0.0, le=1.0)
     confidence_if_ocr_only: float = Field(default=0.88, ge=0.0, le=1.0)
     figure_bbox_height: float = Field(default=260.0, ge=0.0)
+    require_model_for_ocr: bool = True
+    strategy_config_path: str = "rubric/vision_strategy.yaml"
+    page_extraction_prompt: str = (
+        "Extract visible document text and tables from this page. "
+        "Return plain text with table rows represented using pipe separators."
+    )
     openrouter: dict[str, Any] = Field(
         default_factory=lambda: {
             "enabled": False,
@@ -111,10 +118,24 @@ class ChunkingConfig(BaseModel):
     rules: list[str] = Field(default_factory=list)
 
 
+class PageIndexConfig(BaseModel):
+    llm_summaries_enabled: bool = True
+    openrouter: dict[str, Any] = Field(
+        default_factory=lambda: {
+            "enabled": False,
+            "api_base": "https://openrouter.ai/api/v1",
+            "model": "openai/gpt-4o-mini",
+            "api_key_env": "OPENROUTER_API_KEY",
+            "max_output_tokens": 140,
+        }
+    )
+
+
 class RefineryConfig(BaseModel):
     triage: TriageConfig
     extraction: ExtractionConfig
     chunking: ChunkingConfig
+    pageindex: PageIndexConfig = Field(default_factory=PageIndexConfig)
 
 
 def load_config(path: str | Path) -> dict[str, Any]:

@@ -2,7 +2,13 @@ import json
 from pathlib import Path
 
 from src.models import BoundingBox, CostTier, DocumentProfile, LayoutComplexity, OriginType, TextBlock
-from src.strategies.layout_aware import DoclingLayoutAdapter, ExternalPayloadLayoutAdapter, build_layout_adapter
+from src.strategies.layout_aware import (
+    ChainLayoutAdapter,
+    DoclingLayoutAdapter,
+    ExternalPayloadLayoutAdapter,
+    MineruLayoutAdapter,
+    build_layout_adapter,
+)
 
 
 def _profile() -> DocumentProfile:
@@ -76,3 +82,39 @@ def test_external_payload_adapter_maps_to_internal_schema(tmp_path: Path):
     assert tables[0].page_number == 2
     assert tables[0].headers == ["col_a", "col_b"]
     assert tables[0].title == "Imported Table"
+
+
+def test_build_layout_adapter_both_uses_chain():
+    adapter = build_layout_adapter({"adapter": {"provider": "both", "options": {}}})
+    assert isinstance(adapter, ChainLayoutAdapter)
+
+
+def test_mineru_adapter_supports_payload_json(tmp_path: Path):
+    payload = {
+        "tables": [
+            {
+                "page_number": 1,
+                "headers": ["metric", "value"],
+                "rows": [["assets", "100"]],
+                "title": "MinerU Table",
+            }
+        ]
+    }
+    payload_path = tmp_path / "mineru_tables.json"
+    payload_path.write_text(json.dumps(payload), encoding="utf-8")
+
+    adapter = build_layout_adapter(
+        {
+            "adapter": {
+                "provider": "mineru",
+                "options": {
+                    "strict": True,
+                    "payload_json_path": str(payload_path),
+                },
+            }
+        }
+    )
+    assert isinstance(adapter, MineruLayoutAdapter)
+    tables = adapter.promote_tables([], "dummy.pdf", _profile())
+    assert len(tables) == 1
+    assert tables[0].title == "MinerU Table"

@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
 
+import pdfplumber
 from pypdf import PdfReader
 
 from src.config import TriageThresholds
@@ -16,7 +17,9 @@ from src.utils.hashing import stable_hash
 class PageStat:
     char_count: int
     page_area: float
-    image_count: int
+    image_ratio: float
+    whitespace_ratio: float
+    font_metadata_present: bool
 
 
 class DomainClassifier(Protocol):
@@ -59,7 +62,8 @@ class TriageAgent:
 
         avg_density = self._avg_char_density(page_stats)
         avg_image_ratio = self._avg_image_ratio(page_stats)
-        origin = self._origin_type(avg_density, avg_image_ratio, self._is_form_fillable(path))
+        font_signal_present = any(s.font_metadata_present for s in page_stats)
+        origin = self._origin_type(avg_density, avg_image_ratio, self._is_form_fillable(path), font_signal_present)
         complexity = self._layout_complexity(text_by_page)
         domain = self._domain_hint(flat_text)
         cost = self._cost_tier(origin, complexity)
@@ -83,17 +87,64 @@ class TriageAgent:
         )
 
     def _read_pdf(self, path: Path) -> tuple[list[str], list[PageStat]]:
-        reader = PdfReader(str(path))
         texts: list[str] = []
         stats: list[PageStat] = []
-        for page in reader.pages:
-            text = page.extract_text() or ""
-            width = float(page.mediabox.width or 612)
-            height = float(page.mediabox.height or 792)
-            images = len(getattr(page, "images", []))
-            texts.append(text)
-            stats.append(PageStat(char_count=len(text), page_area=max(width * height, 1.0), image_count=images))
-        return texts, stats
+        try:
+            with pdfplumber.open(str(path)) as pdf:
+                for page in pdf.pages:
+                    width = float(page.width or 612)
+                    height = float(page.height or 792)
+                    page_area = max(width * height, 1.0)
+                    text = page.extract_text() or ""
+                    chars = page.chars or []
+                    images = page.images or []
+
+                    image_area = 0.0
+                    for img in images:
+                        x0 = float(img.get("x0", 0.0) or 0.0)
+                        x1 = float(img.get("x1", x0) or x0)
+                        top = float(img.get("top", 0.0) or 0.0)
+                        bottom = float(img.get("bottom", top) or top)
+                        image_area += max(0.0, (x1 - x0) * (bottom - top))
+                    image_ratio = max(0.0, min(1.0, image_area / page_area))
+
+                    words = page.extract_words() or []
+                    word_chars = sum(len(str(w.get("text", ""))) for w in words)
+                    whitespace_ratio = 1.0 if len(text) == 0 else max(0.0, min(1.0, 1.0 - (word_chars / max(len(text), 1))))
+                    font_present = any(bool(c.get("fontname")) for c in chars) if chars else False
+
+                    texts.append(text)
+                    stats.append(
+                        PageStat(
+                            char_count=len(text),
+                            page_area=page_area,
+                            image_ratio=image_ratio,
+                            whitespace_ratio=whitespace_ratio,
+                            font_metadata_present=font_present,
+                        )
+                    )
+            return texts, stats
+        except Exception:
+            # Fallback to pypdf when pdfplumber parsing fails.
+            reader = PdfReader(str(path))
+            for page in reader.pages:
+                text = page.extract_text() or ""
+                width = float(page.mediabox.width or 612)
+                height = float(page.mediabox.height or 792)
+                page_area = max(width * height, 1.0)
+                images = len(getattr(page, "images", []))
+                image_ratio = min(images / max(int(self.thresholds["max_images_for_ratio"]), 1), 1.0)
+                texts.append(text)
+                stats.append(
+                    PageStat(
+                        char_count=len(text),
+                        page_area=page_area,
+                        image_ratio=image_ratio,
+                        whitespace_ratio=0.0,
+                        font_metadata_present=False,
+                    )
+                )
+            return texts, stats
 
     def _avg_char_density(self, stats: list[PageStat]) -> float:
         if not stats:
@@ -103,20 +154,27 @@ class TriageAgent:
     def _avg_image_ratio(self, stats: list[PageStat]) -> float:
         if not stats:
             return 0.0
-        max_images = max(int(self.thresholds["max_images_for_ratio"]), 1)
-        return sum(min(s.image_count / max_images, 1.0) for s in stats) / len(stats)
+        return sum(s.image_ratio for s in stats) / len(stats)
 
-    def _origin_type(self, avg_density: float, avg_image_ratio: float, form_fillable: bool) -> OriginType:
+    def _origin_type(
+        self,
+        avg_density: float,
+        avg_image_ratio: float,
+        form_fillable: bool,
+        font_signal_present: bool = True,
+    ) -> OriginType:
         if form_fillable:
             return OriginType.FORM_FILLABLE
         low_density = float(self.thresholds["low_density_threshold"])
         high_density = float(self.thresholds["high_density_threshold"])
         image_heavy = float(self.thresholds["image_heavy_threshold"])
 
-        if avg_density < low_density and avg_image_ratio >= image_heavy:
+        if (avg_density < low_density and avg_image_ratio >= image_heavy) or (
+            avg_density < low_density and not font_signal_present
+        ):
             return OriginType.SCANNED_IMAGE
         native_max_image_ratio = float(self.thresholds["native_digital_max_image_ratio"])
-        if avg_density >= high_density and avg_image_ratio < native_max_image_ratio:
+        if avg_density >= high_density and avg_image_ratio < native_max_image_ratio and font_signal_present:
             return OriginType.NATIVE_DIGITAL
         return OriginType.MIXED
 

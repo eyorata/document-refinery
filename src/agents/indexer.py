@@ -1,5 +1,9 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
+import json
+import os
+import urllib.error
+import urllib.request
 from collections import defaultdict
 from typing import Callable
 
@@ -7,6 +11,16 @@ from src.models import LDU, PageIndexNode
 
 
 class PageIndexBuilder:
+    def __init__(self, pageindex_cfg: dict | None = None) -> None:
+        cfg = pageindex_cfg or {}
+        self.llm_summaries_enabled = bool(cfg.get("llm_summaries_enabled", True))
+        openrouter = cfg.get("openrouter", {}) or {}
+        self.openrouter_enabled = bool(openrouter.get("enabled", False))
+        self.openrouter_api_base = str(openrouter.get("api_base", "https://openrouter.ai/api/v1")).rstrip("/")
+        self.openrouter_model = str(openrouter.get("model", "openai/gpt-4o-mini"))
+        self.openrouter_api_key_env = str(openrouter.get("api_key_env", "OPENROUTER_API_KEY"))
+        self.openrouter_max_output_tokens = int(openrouter.get("max_output_tokens", 140))
+
     def build(self, chunks: list[LDU]) -> PageIndexNode:
         if not chunks:
             return PageIndexNode(
@@ -28,7 +42,7 @@ class PageIndexBuilder:
         for sec, sec_chunks in section_groups.items():
             pages = [r.page_number for c in sec_chunks for r in c.page_refs]
             data_types = sorted(set(c.chunk_type for c in sec_chunks))
-            content_blob = " ".join(c.content[:220] for c in sec_chunks[:3])
+            content_blob = " ".join(c.content[:320] for c in sec_chunks[:3])
             children.append(
                 PageIndexNode(
                     title=sec,
@@ -36,7 +50,7 @@ class PageIndexBuilder:
                     page_end=max(pages),
                     child_sections=[],
                     key_entities=self._extract_entities(content_blob),
-                    summary=self._summary(content_blob),
+                    summary=self._summary(content_blob, section_title=sec),
                     data_types_present=data_types,
                 )
             )
@@ -86,11 +100,56 @@ class PageIndexBuilder:
         baseline_precision = self._precision_at_k(baseline, q_tokens)
         return {"with_pageindex": with_precision, "without_pageindex": baseline_precision}
 
-    def _summary(self, content: str) -> str:
+    def _summary(self, content: str, section_title: str) -> str:
+        if not content.strip():
+            return "No content."
+        if not self.llm_summaries_enabled:
+            return self._heuristic_summary(content)
+        if self.openrouter_enabled:
+            llm = self._llm_summary(content, section_title=section_title)
+            if llm:
+                return llm
+        return self._heuristic_summary(content)
+
+    def _heuristic_summary(self, content: str) -> str:
         words = content.split()
         if not words:
             return "No content."
         return " ".join(words[:40])
+
+    def _llm_summary(self, content: str, section_title: str) -> str | None:
+        api_key = os.environ.get(self.openrouter_api_key_env, "").strip()
+        if not api_key:
+            return None
+        prompt = (
+            f"Summarize document section '{section_title}' in 2-3 concise sentences. "
+            "Focus on key facts and entities.\n\n"
+            f"Section content:\n{content}"
+        )
+        payload = {
+            "model": self.openrouter_model,
+            "temperature": 0.1,
+            "max_tokens": self.openrouter_max_output_tokens,
+            "messages": [{"role": "user", "content": prompt}],
+        }
+        req = urllib.request.Request(
+            f"{self.openrouter_api_base}/chat/completions",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=45) as resp:
+                body = json.loads(resp.read().decode("utf-8", errors="replace"))
+        except urllib.error.HTTPError:
+            return None
+        choices = body.get("choices", []) if isinstance(body, dict) else []
+        if not choices:
+            return None
+        msg = choices[0].get("message", {}) if isinstance(choices[0], dict) else {}
+        content = msg.get("content", "") if isinstance(msg, dict) else ""
+        text = str(content).strip()
+        return text or None
 
     def _extract_entities(self, content: str) -> list[str]:
         out = []

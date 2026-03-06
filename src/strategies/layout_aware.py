@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-import re
 import json
+import re
 from pathlib import Path
 from typing import Protocol
 
@@ -17,6 +17,13 @@ class LayoutToolAdapter(Protocol):
 
     def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
         ...
+
+
+class NoopLayoutAdapter:
+    name = "noop"
+
+    def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
+        return []
 
 
 class HeuristicLayoutAdapter:
@@ -251,11 +258,107 @@ class DoclingLayoutAdapter:
 class MineruLayoutAdapter:
     name = "mineru"
 
+    def __init__(self, options: dict | None = None, fallback: LayoutToolAdapter | None = None) -> None:
+        self.options = options or {}
+        self.fallback = fallback or HeuristicLayoutAdapter()
+
     def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
-        raise NotImplementedError(
-            "MinerU adapter selected but not wired yet. "
-            "Provide integration in MineruLayoutAdapter.promote_tables."
-        )
+        strict = bool(self.options.get("strict", False))
+        try:
+            payload_rows = self._extract_rows_with_payload()
+            if payload_rows:
+                return self._to_tables(payload_rows)
+            lib_rows = self._extract_rows_with_mineru_lib(document_path)
+            if lib_rows:
+                return self._to_tables(lib_rows)
+        except Exception:
+            if strict:
+                raise
+        return self.fallback.promote_tables(blocks, document_path, profile)
+
+    def _extract_rows_with_payload(self) -> list[ExternalTablePayload]:
+        path_str = str(self.options.get("payload_json_path", "")).strip()
+        if not path_str:
+            return []
+        payload_path = Path(path_str)
+        raw = json.loads(payload_path.read_text(encoding="utf-8"))
+        return normalize_external_tables(raw)
+
+    def _extract_rows_with_mineru_lib(self, document_path: str) -> list[ExternalTablePayload]:
+        # Optional integration path: we attempt common MinerU-style converter APIs when available.
+        try:
+            from mineru.document_converter import DocumentConverter  # type: ignore[import-not-found]
+        except Exception:
+            return []
+        converter = DocumentConverter()
+        result = converter.convert(document_path)
+        document = getattr(result, "document", None)
+        if document is None:
+            return []
+        tables = getattr(document, "tables", None) or []
+        out: list[ExternalTablePayload] = []
+        for table in tables:
+            headers = []
+            rows = []
+            for attr in ("export_to_dataframe", "to_dataframe", "as_dataframe"):
+                fn = getattr(table, attr, None)
+                if callable(fn):
+                    try:
+                        df = fn()
+                        if df is not None and not getattr(df, "empty", True):
+                            headers = [str(c).strip() for c in list(df.columns)]
+                            rows = [[str(v).strip() for v in row] for row in df.fillna("").values.tolist()]
+                            break
+                    except Exception:
+                        pass
+            if not headers and not rows:
+                continue
+            page = 1
+            for attr in ("page_no", "page", "page_number"):
+                v = getattr(table, attr, None)
+                if isinstance(v, int) and v >= 1:
+                    page = v
+                    break
+            out.append(
+                ExternalTablePayload(
+                    page_number=page,
+                    headers=headers or ["col_1"],
+                    rows=rows or [[""]],
+                    title=str(getattr(table, "caption", None) or getattr(table, "title", None) or "MinerU table"),
+                    bbox=None,
+                )
+            )
+        return out
+
+    def _to_tables(self, payloads: list[ExternalTablePayload]) -> list[TableObject]:
+        return ExternalPayloadLayoutAdapter(options=self.options)._to_tables(payloads)
+
+
+class ChainLayoutAdapter:
+    name = "chain"
+
+    def __init__(self, adapters: list[LayoutToolAdapter], fallback: LayoutToolAdapter | None = None) -> None:
+        self.adapters = adapters
+        self.fallback = fallback or HeuristicLayoutAdapter()
+
+    def promote_tables(self, blocks: list[TextBlock], document_path: str, profile: DocumentProfile) -> list[TableObject]:
+        out: list[TableObject] = []
+        seen: set[str] = set()
+        for adapter in self.adapters:
+            tables = adapter.promote_tables(blocks, document_path, profile)
+            for t in tables:
+                sig = self._signature(t)
+                if sig not in seen:
+                    seen.add(sig)
+                    out.append(t)
+        if out:
+            return out
+        return self.fallback.promote_tables(blocks, document_path, profile)
+
+    def _signature(self, t: TableObject) -> str:
+        first_row = "|".join(t.rows[0]) if t.rows else ""
+        headers = "|".join(t.headers)
+        return f"{t.page_number}:{headers}:{first_row}:{t.title or ''}"
 
 
 def build_layout_adapter(layout_cfg: dict | None) -> LayoutToolAdapter:
@@ -263,6 +366,10 @@ def build_layout_adapter(layout_cfg: dict | None) -> LayoutToolAdapter:
     adapter_cfg = cfg.get("adapter", cfg)
     provider = str(adapter_cfg.get("provider", "heuristic")).lower()
     options = adapter_cfg.get("options", {}) or {}
+    provider_chain = adapter_cfg.get("providers")
+    if isinstance(provider_chain, list) and provider_chain:
+        adapters = _build_provider_chain(provider_chain, options)
+        return ChainLayoutAdapter(adapters=adapters, fallback=HeuristicLayoutAdapter())
     if provider == "heuristic":
         return HeuristicLayoutAdapter()
     if provider == "docling":
@@ -270,8 +377,32 @@ def build_layout_adapter(layout_cfg: dict | None) -> LayoutToolAdapter:
     if provider == "external_payload":
         return ExternalPayloadLayoutAdapter(options=options, fallback=HeuristicLayoutAdapter())
     if provider == "mineru":
-        return MineruLayoutAdapter()
+        return MineruLayoutAdapter(options=options, fallback=HeuristicLayoutAdapter())
+    if provider in {"both", "docling_mineru"}:
+        adapters = _build_provider_chain(["docling", "mineru"], options)
+        return ChainLayoutAdapter(adapters=adapters, fallback=HeuristicLayoutAdapter())
+    if provider in {"mineru_docling"}:
+        adapters = _build_provider_chain(["mineru", "docling"], options)
+        return ChainLayoutAdapter(adapters=adapters, fallback=HeuristicLayoutAdapter())
     raise ValueError(f"Unsupported layout adapter provider: {provider}")
+
+
+def _build_provider_chain(provider_names: list[str], options: dict) -> list[LayoutToolAdapter]:
+    out: list[LayoutToolAdapter] = []
+    noop = NoopLayoutAdapter()
+    for name in provider_names:
+        low = str(name).lower().strip()
+        if low == "docling":
+            out.append(DoclingLayoutAdapter(options=options, fallback=noop))
+        elif low == "mineru":
+            out.append(MineruLayoutAdapter(options=options, fallback=noop))
+        elif low == "external_payload":
+            out.append(ExternalPayloadLayoutAdapter(options=options, fallback=noop))
+        elif low == "heuristic":
+            out.append(HeuristicLayoutAdapter())
+    if not out:
+        out.append(HeuristicLayoutAdapter())
+    return out
 
 
 class LayoutExtractor(FastTextExtractor):

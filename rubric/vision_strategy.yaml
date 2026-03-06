@@ -1,0 +1,14 @@
+# Strategy C (vision_augmented) dedicated config.
+vision:
+  require_model_for_ocr: true
+  page_extraction_prompt: >
+    Extract all visible text, key-value pairs, and tables from this page.
+    Preserve row/column structure using pipe-delimited lines when tables are present.
+    Keep numeric precision exactly as written in the source.
+  openrouter:
+    enabled: false
+    api_base: "https://openrouter.ai/api/v1"
+    model: "openai/gpt-4o-mini"
+    api_key_env: "OPENROUTER_API_KEY"
+    max_output_tokens: 700
+    temperature: 0.0

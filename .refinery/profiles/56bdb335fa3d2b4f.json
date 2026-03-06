@@ -1,0 +1,14 @@
+{
+  "doc_id": "56bdb335fa3d2b4f",
+  "document_name": "tmp_41o_lv2.pdf",
+  "page_count": 3,
+  "origin_type": "native_digital",
+  "layout_complexity": "table_heavy",
+  "language_code": "en",
+  "language_confidence": 0.85,
+  "domain_hint": "technical",
+  "estimated_extraction_cost": "needs_layout_model",
+  "avg_char_density": 0.0023771684859630227,
+  "avg_image_ratio": 0.0,
+  "triage_confidence": 1.0
+}

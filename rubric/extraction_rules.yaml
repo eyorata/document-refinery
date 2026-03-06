@@ -48,6 +48,7 @@ extraction:
     confidence_weight_chars: 0.45            # Confidence blend weight for avg chars/page.
     confidence_weight_density: 0.35          # Confidence blend weight for avg char density.
     confidence_weight_image_penalty: 0.20    # Confidence blend weight for image penalty term.
+    confidence_weight_font_metadata: 0.10    # Confidence blend weight for font metadata presence signal.
     table_bbox_height_ratio: 0.45            # Height ratio used for detected pipe-table bbox.
     table_min_columns: 3                     # Minimum pipe-separated columns to consider table line.
     table_min_lines: 2                       # Minimum table lines to promote as table.
@@ -55,16 +56,18 @@ extraction:
     confidence_if_tables_present: 0.72       # Confidence floor when layout strategy finds tables.
     estimated_cost_usd: 0.02                 # Returned cost estimate for layout strategy.
     adapter:
-      provider: heuristic                    # Adapter options: heuristic, docling, external_payload, mineru.
+      provider: both                         # Adapter options: heuristic, docling, mineru, both, docling_mineru, mineru_docling, external_payload.
       options:
         strict: false                        # For docling: raise on adapter failure instead of fallback.
         default_table_bbox_height: 250.0     # Default bbox height used for normalized docling tables.
         default_table_bbox_width: 612.0      # Default bbox width used for normalized external/docling tables.
-        payload_json_path: ""                # For external_payload: path to JSON table payload file.
+        payload_json_path: ""                # For external_payload/mineru payload mode: path to JSON table payload file.
   vision:
     confidence_if_text_present_min: 0.9      # Confidence floor when fast text is already available.
     confidence_if_ocr_only: 0.88             # Confidence used when OCR/VLM path is used.
     figure_bbox_height: 260.0                # Height used for synthetic vision figure provenance bbox.
+    require_model_for_ocr: true              # If true, fail with actionable message when no VLM/LLM is configured.
+    strategy_config_path: "rubric/vision_strategy.yaml"  # Dedicated strategy C config file.
     openrouter:
       enabled: false                          # Set true to call OpenRouter vision endpoint for OCR extraction.
       api_base: "https://openrouter.ai/api/v1"
@@ -89,3 +92,13 @@ chunking:
     - numbered_list_single_ldu_unless_too_large
     - section_header_propagates_to_children
     - cross_references_resolved
+
+# PAGEINDEX: summary generation settings.
+pageindex:
+  llm_summaries_enabled: true                # If true, attempt cheap LLM section summaries with fallback.
+  openrouter:
+    enabled: false                           # Enable OpenRouter for section summaries.
+    api_base: "https://openrouter.ai/api/v1"
+    model: "openai/gpt-4o-mini"
+    api_key_env: "OPENROUTER_API_KEY"
+    max_output_tokens: 140
