@@ -9,7 +9,7 @@ from src.agents.indexer import PageIndexBuilder
 from src.agents.query_agent import QueryInterfaceAgent
 from src.agents.triage import TriageAgent
 from src.config import load_config
-from src.storage import FactTableStore, SimpleVectorStore
+from src.storage import FactTableStore, build_vector_store
 
 
 class RefineryPipeline:
@@ -28,15 +28,23 @@ class RefineryPipeline:
             enabled_rules=list(self.config["chunking"].get("rules", [])),
         )
         self.indexer = PageIndexBuilder(pageindex_cfg=self.config.get("pageindex", {}))
-        self.vector_store = SimpleVectorStore()
+        self.vector_store = build_vector_store(self.config.get("storage", {}))
         self.fact_table = FactTableStore(str(self.output_dir / "facts.db"))
-        self.query_agent = QueryInterfaceAgent(self.vector_store, self.fact_table)
+        self.query_agent = QueryInterfaceAgent(
+            self.vector_store,
+            self.fact_table,
+            router_cfg=self.config.get("query_agent", {}).get("router", {}),
+        )
 
     def run(self, document_path: str):
         # Ensure retrieval state is scoped to the currently processed document.
-        self.vector_store = SimpleVectorStore()
+        self.vector_store = build_vector_store(self.config.get("storage", {}))
         self.fact_table.clear()
-        self.query_agent = QueryInterfaceAgent(self.vector_store, self.fact_table)
+        self.query_agent = QueryInterfaceAgent(
+            self.vector_store,
+            self.fact_table,
+            router_cfg=self.config.get("query_agent", {}).get("router", {}),
+        )
 
         profile = self.triage.profile(document_path)
         self._save_profile(profile)

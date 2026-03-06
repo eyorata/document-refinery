@@ -6,6 +6,14 @@ from typing import Any
 import yaml
 from pydantic import BaseModel, Field, ValidationError
 
+try:
+    from dotenv import load_dotenv
+except Exception:  # pragma: no cover - optional at import-time for robustness
+    load_dotenv = None
+
+
+_ENV_LOADED = False
+
 
 class TriageThresholds(BaseModel):
     low_density_threshold: float = 0.0002
@@ -120,13 +128,39 @@ class ChunkingConfig(BaseModel):
 
 class PageIndexConfig(BaseModel):
     llm_summaries_enabled: bool = True
-    openrouter: dict[str, Any] = Field(
+    llm: dict[str, Any] = Field(
         default_factory=lambda: {
+            "provider": "openrouter",  # openrouter | gemini
             "enabled": False,
-            "api_base": "https://openrouter.ai/api/v1",
+            "api_base": "https://openrouter.ai/api/v1",  # used for openrouter
             "model": "openai/gpt-4o-mini",
             "api_key_env": "OPENROUTER_API_KEY",
             "max_output_tokens": 140,
+            "temperature": 0.1,
+        }
+    )
+
+
+class QueryAgentConfig(BaseModel):
+    router: dict[str, Any] = Field(
+        default_factory=lambda: {
+            "provider": "heuristic",  # heuristic | openrouter | gemini
+            "enabled": False,
+            "api_base": "https://openrouter.ai/api/v1",  # used for openrouter
+            "model": "openai/gpt-4o-mini",
+            "api_key_env": "OPENROUTER_API_KEY",
+            "max_output_tokens": 250,
+            "temperature": 0.0,
+        }
+    )
+
+
+class StorageConfig(BaseModel):
+    vector_store: dict[str, Any] = Field(
+        default_factory=lambda: {
+            "backend": "simple",  # simple | faiss
+            "embedding_dim": 256,
+            "similarity": "cosine",
         }
     )
 
@@ -136,9 +170,17 @@ class RefineryConfig(BaseModel):
     extraction: ExtractionConfig
     chunking: ChunkingConfig
     pageindex: PageIndexConfig = Field(default_factory=PageIndexConfig)
+    query_agent: QueryAgentConfig = Field(default_factory=QueryAgentConfig)
+    storage: StorageConfig = Field(default_factory=StorageConfig)
 
 
 def load_config(path: str | Path) -> dict[str, Any]:
+    global _ENV_LOADED
+    if not _ENV_LOADED and load_dotenv is not None:
+        # Load .env from project root/current working directory.
+        load_dotenv()
+        _ENV_LOADED = True
+
     p = Path(path)
     with p.open("r", encoding="utf-8") as f:
         cfg = yaml.safe_load(f)

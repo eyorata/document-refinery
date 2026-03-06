@@ -29,6 +29,7 @@ Production-oriented baseline for the Week 3 TRP1 challenge: a typed, multi-stage
 python -m venv .venv
 . .venv/Scripts/activate  # Windows PowerShell: .\.venv\Scripts\Activate.ps1
 pip install -e .[dev]
+copy .env.example .env  # then add your API keys
 ```
 
 ## Run
@@ -60,6 +61,8 @@ pytest
 - Extraction ledger includes optional vision `token_usage` and `provider` metadata for cost audits.
 - Query agent exposes explicit 3-tool surface (`pageindex_navigate`, `semantic_search`, `structured_query`) and optional LangGraph wiring.
 - PageIndex builder includes retrieval precision evaluation helper (`with_pageindex` vs `without_pageindex`).
+- Vector storage supports `simple` or `faiss` backend via config (`storage.vector_store.backend`).
+- PageIndex summaries and query-router can use `openrouter` or `gemini` via config.
 
 ## Configuration reference
 
@@ -102,6 +105,9 @@ All runtime behavior is driven from `rubric/extraction_rules.yaml`, validated th
 - `escalation.continue_on_strategy_error` (`bool`): continue chain on strategy failure.
 - `escalation.require_human_review_on_low_confidence` (`bool`): enforce review for low-confidence final output.
 - `escalation.chains` (`map[str,list[str]]`): explicit per-entry strategy chain order.
+- `pageindex.llm.provider` (`openrouter|gemini`): provider for section summaries.
+- `query_agent.router.provider` (`heuristic|openrouter|gemini`): tool-routing provider in LangGraph agent.
+- `storage.vector_store.backend` (`simple|faiss`): retrieval backend.
 
 ### `chunking`
 - `max_tokens` (`int`): max tokens per LDU chunk.
@@ -112,8 +118,8 @@ All runtime behavior is driven from `rubric/extraction_rules.yaml`, validated th
 - `docling` is wired with optional dependency + heuristic fallback; `mineru` remains an extension point.
 - Vision extraction keeps an explicit budget/paging guard and can call OpenRouter when configured; default remains placeholder-safe.
 - Strategy C supports a dedicated config file at `rubric/vision_strategy.yaml` for prompt/model tuning.
-- Semantic retrieval currently uses a local cosine-over-token baseline vector store.
-- Section summaries are heuristic; swap in cheap LLM call if available.
+- FAISS backend uses lightweight hashed-token embeddings (dependency optional).
+- LLM summaries/router fall back to heuristic mode when provider is disabled or credentials are missing.
 
 ## Next hardening steps
 

@@ -8,7 +8,8 @@ from dataclasses import dataclass
 from typing import Any
 
 from src.models import BoundingBox, LDU, PageIndexNode, ProvenanceChain, ProvenanceItem, QueryAnswer
-from src.storage import FactTableStore, SimpleVectorStore
+from src.storage import FactTableStore
+from src.storage.vector_store import VectorStore
 from src.utils.hashing import stable_hash
 
 
@@ -124,10 +125,74 @@ class OpenRouterToolRouter:
         return {}
 
 
+class GeminiToolRouter:
+    def __init__(
+        self,
+        api_key_env: str = "GEMINI_API_KEY",
+        model: str = "gemini-1.5-flash",
+        max_output_tokens: int = 250,
+        temperature: float = 0.0,
+    ) -> None:
+        self.api_key_env = api_key_env
+        self.model = model
+        self.max_output_tokens = max_output_tokens
+        self.temperature = temperature
+
+    def decide(self, question: str, state: dict[str, Any]) -> ToolDecision:
+        api_key = os.environ.get(self.api_key_env, "").strip()
+        if not api_key:
+            raise RuntimeError(f"Missing Gemini API key in env var `{self.api_key_env}`.")
+        prompt = (
+            "Route to one tool: pageindex_navigate, semantic_search, structured_query, finish.\n"
+            "Return strict JSON object with fields next_tool, sql (or null), reason.\n"
+            f"Question: {question}\n"
+            f"State: {json.dumps(OpenRouterToolRouter()._state_snapshot(state), ensure_ascii=True)}"
+        )
+        req = urllib.request.Request(
+            f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent?key={api_key}",
+            data=json.dumps(
+                {
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    "generationConfig": {
+                        "temperature": self.temperature,
+                        "maxOutputTokens": self.max_output_tokens,
+                    },
+                }
+            ).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                body = json.loads(resp.read().decode("utf-8", errors="replace"))
+        except urllib.error.HTTPError as exc:
+            raise RuntimeError(f"Gemini routing HTTP error: {exc.code}") from exc
+
+        text = self._extract_text(body)
+        data = OpenRouterToolRouter()._parse_json(text)
+        next_tool = str(data.get("next_tool", "semantic_search")).strip().lower()
+        if next_tool not in {"pageindex_navigate", "semantic_search", "structured_query", "finish"}:
+            next_tool = "semantic_search"
+        sql = data.get("sql")
+        return ToolDecision(next_tool=next_tool, sql=str(sql) if sql else None, reason=str(data.get("reason", "")))
+
+    def _extract_text(self, body: object) -> str:
+        if not isinstance(body, dict):
+            return ""
+        cands = body.get("candidates", [])
+        if not cands:
+            return ""
+        cand0 = cands[0] if isinstance(cands[0], dict) else {}
+        content = cand0.get("content", {}) if isinstance(cand0, dict) else {}
+        parts = content.get("parts", []) if isinstance(content, dict) else []
+        return " ".join(str(p.get("text", "")) for p in parts if isinstance(p, dict)).strip()
+
+
 class QueryInterfaceAgent:
-    def __init__(self, vector_store: SimpleVectorStore, fact_table: FactTableStore) -> None:
+    def __init__(self, vector_store: VectorStore, fact_table: FactTableStore, router_cfg: dict | None = None) -> None:
         self.vector_store = vector_store
         self.fact_table = fact_table
+        self.router_cfg = router_cfg or {}
 
     def pageindex_navigate(self, index: PageIndexNode, topic: str, k: int = 3) -> list[PageIndexNode]:
         low = topic.lower()
@@ -151,13 +216,13 @@ class QueryInterfaceAgent:
             "structured_query": self.structured_query,
         }
 
-    def build_langgraph(self, question: str, page_index: PageIndexNode, max_steps: int = 4, use_openrouter_router: bool = False):
+    def build_langgraph(self, question: str, page_index: PageIndexNode, max_steps: int = 4):
         try:
             from langgraph.graph import END, StateGraph  # type: ignore[import-not-found]
         except Exception:
             return None
 
-        router = OpenRouterToolRouter() if use_openrouter_router else HeuristicToolRouter()
+        router = self._build_router()
 
         def merged(state: dict[str, Any], **updates: Any) -> dict[str, Any]:
             out = dict(state)
@@ -237,7 +302,7 @@ class QueryInterfaceAgent:
         return graph.compile()
 
     def answer(self, question: str, page_index: PageIndexNode) -> QueryAnswer:
-        app = self.build_langgraph(question=question, page_index=page_index, max_steps=4, use_openrouter_router=False)
+        app = self.build_langgraph(question=question, page_index=page_index, max_steps=4)
         if app is None:
             # Fallback if langgraph is not available.
             return self._fallback_answer(question, page_index)
@@ -262,6 +327,26 @@ class QueryInterfaceAgent:
                 ProvenanceChain(bbox=BoundingBox(x0=0.0, y0=0.0, x1=0.0, y1=0.0), content_hash="", citations=[]),
             ),
         )
+
+    def _build_router(self):
+        provider = str(self.router_cfg.get("provider", "heuristic")).lower().strip()
+        enabled = bool(self.router_cfg.get("enabled", False))
+        if not enabled or provider == "heuristic":
+            return HeuristicToolRouter()
+        if provider == "openrouter":
+            return OpenRouterToolRouter(
+                api_key_env=str(self.router_cfg.get("api_key_env", "OPENROUTER_API_KEY")),
+                api_base=str(self.router_cfg.get("api_base", "https://openrouter.ai/api/v1")),
+                model=str(self.router_cfg.get("model", "openai/gpt-4o-mini")),
+            )
+        if provider == "gemini":
+            return GeminiToolRouter(
+                api_key_env=str(self.router_cfg.get("api_key_env", "GEMINI_API_KEY")),
+                model=str(self.router_cfg.get("model", "gemini-1.5-flash")),
+                max_output_tokens=int(self.router_cfg.get("max_output_tokens", 250)),
+                temperature=float(self.router_cfg.get("temperature", 0.0)),
+            )
+        return HeuristicToolRouter()
 
     def audit_claim(self, claim: str, page_index: PageIndexNode) -> dict[str, object]:
         ans = self.answer(claim, page_index)

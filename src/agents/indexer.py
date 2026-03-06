@@ -14,12 +14,26 @@ class PageIndexBuilder:
     def __init__(self, pageindex_cfg: dict | None = None) -> None:
         cfg = pageindex_cfg or {}
         self.llm_summaries_enabled = bool(cfg.get("llm_summaries_enabled", True))
-        openrouter = cfg.get("openrouter", {}) or {}
-        self.openrouter_enabled = bool(openrouter.get("enabled", False))
-        self.openrouter_api_base = str(openrouter.get("api_base", "https://openrouter.ai/api/v1")).rstrip("/")
-        self.openrouter_model = str(openrouter.get("model", "openai/gpt-4o-mini"))
-        self.openrouter_api_key_env = str(openrouter.get("api_key_env", "OPENROUTER_API_KEY"))
-        self.openrouter_max_output_tokens = int(openrouter.get("max_output_tokens", 140))
+        llm = cfg.get("llm")
+        # Backward compatibility: support old `pageindex.openrouter` config shape.
+        if not isinstance(llm, dict):
+            old = cfg.get("openrouter", {}) or {}
+            llm = {
+                "provider": "openrouter",
+                "enabled": bool(old.get("enabled", False)),
+                "api_base": old.get("api_base", "https://openrouter.ai/api/v1"),
+                "model": old.get("model", "openai/gpt-4o-mini"),
+                "api_key_env": old.get("api_key_env", "OPENROUTER_API_KEY"),
+                "max_output_tokens": old.get("max_output_tokens", 140),
+                "temperature": 0.1,
+            }
+        self.llm_provider = str(llm.get("provider", "openrouter")).lower().strip()
+        self.llm_enabled = bool(llm.get("enabled", False))
+        self.llm_api_base = str(llm.get("api_base", "https://openrouter.ai/api/v1")).rstrip("/")
+        self.llm_model = str(llm.get("model", "openai/gpt-4o-mini"))
+        self.llm_api_key_env = str(llm.get("api_key_env", "OPENROUTER_API_KEY"))
+        self.llm_max_output_tokens = int(llm.get("max_output_tokens", 140))
+        self.llm_temperature = float(llm.get("temperature", 0.1))
 
     def build(self, chunks: list[LDU]) -> PageIndexNode:
         if not chunks:
@@ -105,10 +119,9 @@ class PageIndexBuilder:
             return "No content."
         if not self.llm_summaries_enabled:
             return self._heuristic_summary(content)
-        if self.openrouter_enabled:
-            llm = self._llm_summary(content, section_title=section_title)
-            if llm:
-                return llm
+        llm = self._llm_summary(content, section_title=section_title)
+        if llm:
+            return llm
         return self._heuristic_summary(content)
 
     def _heuristic_summary(self, content: str) -> str:
@@ -118,7 +131,9 @@ class PageIndexBuilder:
         return " ".join(words[:40])
 
     def _llm_summary(self, content: str, section_title: str) -> str | None:
-        api_key = os.environ.get(self.openrouter_api_key_env, "").strip()
+        if not self.llm_enabled:
+            return None
+        api_key = os.environ.get(self.llm_api_key_env, "").strip()
         if not api_key:
             return None
         prompt = (
@@ -126,30 +141,60 @@ class PageIndexBuilder:
             "Focus on key facts and entities.\n\n"
             f"Section content:\n{content}"
         )
-        payload = {
-            "model": self.openrouter_model,
-            "temperature": 0.1,
-            "max_tokens": self.openrouter_max_output_tokens,
-            "messages": [{"role": "user", "content": prompt}],
-        }
-        req = urllib.request.Request(
-            f"{self.openrouter_api_base}/chat/completions",
-            data=json.dumps(payload).encode("utf-8"),
-            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-            method="POST",
-        )
+        if self.llm_provider == "gemini":
+            req = urllib.request.Request(
+                f"https://generativelanguage.googleapis.com/v1beta/models/{self.llm_model}:generateContent?key={api_key}",
+                data=json.dumps(
+                    {
+                        "contents": [{"parts": [{"text": prompt}]}],
+                        "generationConfig": {
+                            "temperature": self.llm_temperature,
+                            "maxOutputTokens": self.llm_max_output_tokens,
+                        },
+                    }
+                ).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+        else:
+            req = urllib.request.Request(
+                f"{self.llm_api_base}/chat/completions",
+                data=json.dumps(
+                    {
+                        "model": self.llm_model,
+                        "temperature": self.llm_temperature,
+                        "max_tokens": self.llm_max_output_tokens,
+                        "messages": [{"role": "user", "content": prompt}],
+                    }
+                ).encode("utf-8"),
+                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                method="POST",
+            )
         try:
             with urllib.request.urlopen(req, timeout=45) as resp:
                 body = json.loads(resp.read().decode("utf-8", errors="replace"))
         except urllib.error.HTTPError:
             return None
-        choices = body.get("choices", []) if isinstance(body, dict) else []
-        if not choices:
-            return None
-        msg = choices[0].get("message", {}) if isinstance(choices[0], dict) else {}
-        content = msg.get("content", "") if isinstance(msg, dict) else ""
-        text = str(content).strip()
+        text = self._extract_text_from_llm_body(body)
         return text or None
+
+    def _extract_text_from_llm_body(self, body: object) -> str:
+        if not isinstance(body, dict):
+            return ""
+        if "choices" in body:
+            choices = body.get("choices", [])
+            if choices:
+                msg = choices[0].get("message", {}) if isinstance(choices[0], dict) else {}
+                content = msg.get("content", "") if isinstance(msg, dict) else ""
+                return str(content).strip()
+        candidates = body.get("candidates", [])
+        if candidates:
+            cand0 = candidates[0] if isinstance(candidates[0], dict) else {}
+            content = cand0.get("content", {}) if isinstance(cand0, dict) else {}
+            parts = content.get("parts", []) if isinstance(content, dict) else []
+            texts = [str(p.get("text", "")) for p in parts if isinstance(p, dict)]
+            return " ".join(t for t in texts if t).strip()
+        return ""
 
     def _extract_entities(self, content: str) -> list[str]:
         out = []

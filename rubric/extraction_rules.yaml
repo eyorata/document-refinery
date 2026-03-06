@@ -96,9 +96,29 @@ chunking:
 # PAGEINDEX: summary generation settings.
 pageindex:
   llm_summaries_enabled: true                # If true, attempt cheap LLM section summaries with fallback.
-  openrouter:
-    enabled: false                           # Enable OpenRouter for section summaries.
-    api_base: "https://openrouter.ai/api/v1"
-    model: "openai/gpt-4o-mini"
-    api_key_env: "OPENROUTER_API_KEY"
+  llm:
+    provider: openrouter                     # openrouter | gemini
+    enabled: false
+    api_base: "https://openrouter.ai/api/v1" # used for openrouter only
+    model: "openai/gpt-4o-mini"             # or gemini-1.5-flash when provider=gemini
+    api_key_env: "OPENROUTER_API_KEY"       # set to GEMINI_API_KEY if provider=gemini
     max_output_tokens: 140
+    temperature: 0.1
+
+# QUERY AGENT: tool-router model configuration.
+query_agent:
+  router:
+    provider: heuristic                      # heuristic | openrouter | gemini
+    enabled: false                           # Enable model-based tool routing if true.
+    api_base: "https://openrouter.ai/api/v1" # used for openrouter only
+    model: "openai/gpt-4o-mini"             # or gemini-1.5-flash when provider=gemini
+    api_key_env: "OPENROUTER_API_KEY"       # set to GEMINI_API_KEY if provider=gemini
+    max_output_tokens: 250
+    temperature: 0.0
+
+# STORAGE: vector backend configuration.
+storage:
+  vector_store:
+    backend: simple                          # simple | faiss
+    embedding_dim: 256                       # Used by FAISS hashed-token embeddings.
+    similarity: cosine                       # cosine | l2 (FAISS backend)

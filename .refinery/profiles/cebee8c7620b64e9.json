@@ -1,0 +1,14 @@
+{
+  "doc_id": "cebee8c7620b64e9",
+  "document_name": "ETHSWITCH-Annual-Report-202122.pdf",
+  "page_count": 84,
+  "origin_type": "native_digital",
+  "layout_complexity": "table_heavy",
+  "language_code": "en",
+  "language_confidence": 0.85,
+  "domain_hint": "financial",
+  "estimated_extraction_cost": "needs_layout_model",
+  "avg_char_density": 0.004313936823760494,
+  "avg_image_ratio": 0.21371508763668562,
+  "triage_confidence": 1.0
+}

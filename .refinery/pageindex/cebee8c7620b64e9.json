@@ -1,0 +1,173 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 84,
+  "child_sections": [
+    {
+      "title": "EthSwitch",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Share",
+        "Company"
+      ],
+      "summary": "EthSwitch Share Company ANNUAL REPORT 2021/22",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "WELCOME TO",
+      "page_start": 2,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Banks",
+        "Payment",
+        "Switch",
+        "Annual",
+        "Report",
+        "Table",
+        "Contents",
+        "Welcome",
+        "Statement",
+        "Chairman"
+      ],
+      "summary": "WELCOME TO WELCOME TO THE WORLD OF THE WORLD OF PAYMENTS PAYMENTS INTEROPERABILITY INTEROPERABILITY & SHARED SERVICES & SHARED SERVICES OPEN FOR OPEN FOR MEMBERSHIP & PARTICIPATION TO MEMBERSHIP & PARTICIPATION TO Banks Payment POS ATM Switch Payment Banks InPsatyrummeennt",
+      "data_types_present": [
+        "table",
+        "text"
+      ]
+    },
+    {
+      "title": "Annual Report | 2021/22",
+      "page_start": 4,
+      "page_end": 82,
+      "child_sections": [],
+      "key_entities": [
+        "Annual",
+        "Report",
+        "Strategic",
+        "Aspirations",
+        "Ethiopia",
+        "Goals",
+        "Vision",
+        "Goal",
+        "Provide",
+        "Develop"
+      ],
+      "summary": "Annual Report | 2021/22 Strategic Aspirations To scale up digital payments transactions in Ethiopia by being a best-in-class switch that enables all value chain participants. Strategic Goals – Vision 2025 Goal 1: Provide complete channel interoperability Goal 2: Develop &",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "2021/22 Annual Report",
+      "page_start": 22,
+      "page_end": 34,
+      "child_sections": [],
+      "key_entities": [
+        "Annual",
+        "Report",
+        "Mobile",
+        "Banking",
+        "Internet",
+        "Wallet",
+        "Operational",
+        "Performance",
+        "Towards",
+        "Accordingly"
+      ],
+      "summary": "2021/22 Annual Report 100,000,000 90,000,000 80,000,000 70,000,000 60,000,000 50,000,000 40,000,000 30,000,000 20,000,000 10,000,000 0 2018/19 2019/20 2020/21 2021/22 Mobile Banking 4,526,434 11,623,265 39,561,000 88,012,896 Internet Banking 547,694 525,284 2,411,000 1,094,038 Mobile Wallet 3,599,057 4,241,512 7,247,00 2021/22 Annual Report 3. Operational",
+      "data_types_present": [
+        "table",
+        "text"
+      ]
+    },
+    {
+      "title": "Responsibilities of Directors and Management for the Financial Statements",
+      "page_start": 37,
+      "page_end": 37,
+      "child_sections": [],
+      "key_entities": [
+        "Responsibilities",
+        "Directors",
+        "Management",
+        "Financial",
+        "Statements",
+        "International",
+        "Reporting",
+        "Standards"
+      ],
+      "summary": "Responsibilities of Directors and Management for the Financial Statements The Directors of the company are responsible for the preparation and fair presentation of the financial statements in accordance with International Financial Reporting Standards, and for such internal control as management",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "FINANCIAL STATEMENTS AND AUDIT REPORT",
+      "page_start": 38,
+      "page_end": 80,
+      "child_sections": [],
+      "key_entities": [
+        "Currency",
+        "Ethiopian",
+        "Birr",
+        "Notes",
+        "Assets",
+        "Non-current",
+        "Property",
+        "Plant",
+        "Equipment",
+        "Right-of-use"
+      ],
+      "summary": "FINANCIAL STATEMENTS AND AUDIT REPORT ETHSWITCH SHARE COMPANY STATEMENT OF FINANCIAL POSITION AS AT 30 JUNE 2022 Currency: Ethiopian Birr Notes 2022 2021 Assets Non-current assets Property, Plant and Equipment 11 73,914,632 58,806,516 Right-of-use asset 19 1,068,629 3,791,651 Lease Improvement",
+      "data_types_present": [
+        "list",
+        "table",
+        "text"
+      ]
+    },
+    {
+      "title": "81",
+      "page_start": 83,
+      "page_end": 83,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "81",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Address:",
+      "page_start": 84,
+      "page_end": 84,
+      "child_sections": [],
+      "key_entities": [
+        "Address",
+        "Joseph",
+        "Tito",
+        "St",
+        "Nega",
+        "City",
+        "Mall",
+        "Floor",
+        "Kazanchis",
+        "Addis"
+      ],
+      "summary": "Address: Joseph Tito St., Nega City Mall 4th Floor, Kazanchis, Addis Ababa +251 115 571204 info@ethswitch.com www.ethswitch.com",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "list",
+    "table",
+    "text"
+  ]
+}
