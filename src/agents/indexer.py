@@ -8,6 +8,7 @@ from collections import defaultdict
 from typing import Callable
 
 from src.models import LDU, PageIndexNode
+from src.utils.llm_client import call_chat_text_openai_compatible, should_use_langchain_wrapper
 
 
 class PageIndexBuilder:
@@ -157,6 +158,24 @@ class PageIndexBuilder:
                 method="POST",
             )
         else:
+            if should_use_langchain_wrapper():
+                try:
+                    return (
+                        call_chat_text_openai_compatible(
+                            prompt,
+                            model=self.llm_model,
+                            api_base=self.llm_api_base,
+                            api_key=api_key,
+                            max_tokens=self.llm_max_output_tokens,
+                            temperature=self.llm_temperature,
+                        )
+                        or None
+                    )
+                except Exception:
+                    pass
+            headers = {"Content-Type": "application/json"}
+            if api_key:
+                headers["Authorization"] = f"Bearer {api_key}"
             req = urllib.request.Request(
                 f"{self.llm_api_base}/chat/completions",
                 data=json.dumps(
@@ -167,7 +186,7 @@ class PageIndexBuilder:
                         "messages": [{"role": "user", "content": prompt}],
                     }
                 ).encode("utf-8"),
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+                headers=headers,
                 method="POST",
             )
         try:

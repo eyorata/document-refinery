@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 
@@ -187,6 +188,50 @@ def load_config(path: str | Path) -> dict[str, Any]:
     if not isinstance(cfg, dict):
         raise ValueError("Config must be a mapping")
     try:
-        return RefineryConfig.model_validate(cfg).model_dump(mode="python")
+        validated = RefineryConfig.model_validate(cfg).model_dump(mode="python")
+        return _apply_env_overrides(validated)
     except ValidationError as exc:
         raise ValueError(f"Invalid configuration in {p}: {exc}") from exc
+
+
+def _apply_env_overrides(cfg: dict[str, Any]) -> dict[str, Any]:
+    """
+    Optional env-based overrides for local model serving (e.g., LM Studio).
+    """
+    out = cfg
+    lm_base = os.getenv("LMSTUDIO_API_BASE", "").strip().rstrip("/")
+    lm_api_key_env = os.getenv("LMSTUDIO_API_KEY_ENV", "").strip()
+    vision_model = os.getenv("LMSTUDIO_VISION_MODEL", "").strip()
+    reasoning_model = os.getenv("LMSTUDIO_REASONING_MODEL", "").strip()
+    use_lm_for_vision = os.getenv("USE_LMSTUDIO_FOR_VISION", "false").strip().lower() in {"1", "true", "yes"}
+    use_lm_for_pageindex = os.getenv("USE_LMSTUDIO_FOR_PAGEINDEX", "false").strip().lower() in {"1", "true", "yes"}
+    use_lm_for_router = os.getenv("USE_LMSTUDIO_FOR_ROUTER", "false").strip().lower() in {"1", "true", "yes"}
+
+    if lm_base:
+        if use_lm_for_vision:
+            vis_or = out["extraction"]["vision"]["openrouter"]
+            vis_or["enabled"] = True
+            vis_or["api_base"] = lm_base
+            if vision_model:
+                vis_or["model"] = vision_model
+            if lm_api_key_env:
+                vis_or["api_key_env"] = lm_api_key_env
+        if use_lm_for_pageindex:
+            llm_cfg = out["pageindex"]["llm"]
+            llm_cfg["provider"] = "openrouter"
+            llm_cfg["enabled"] = True
+            llm_cfg["api_base"] = lm_base
+            if reasoning_model:
+                llm_cfg["model"] = reasoning_model
+            if lm_api_key_env:
+                llm_cfg["api_key_env"] = lm_api_key_env
+        if use_lm_for_router:
+            router_cfg = out["query_agent"]["router"]
+            router_cfg["provider"] = "openrouter"
+            router_cfg["enabled"] = True
+            router_cfg["api_base"] = lm_base
+            if reasoning_model:
+                router_cfg["model"] = reasoning_model
+            if lm_api_key_env:
+                router_cfg["api_key_env"] = lm_api_key_env
+    return out

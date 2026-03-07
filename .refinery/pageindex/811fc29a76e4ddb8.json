@@ -1,0 +1,2442 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 155,
+  "child_sections": [
+    {
+      "title": "Assessment of Financial",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Assessment",
+        "Financial",
+        "Transparency",
+        "Accountability",
+        "Implementation",
+        "Ethiopia",
+        "Final",
+        "Report",
+        "Ministry",
+        "Finance"
+      ],
+      "summary": "Assessment of Financial Transparency and Accountability (FTA) Implementation in Ethiopia Final Report RFP No: ET-NCB-MOFEC-COPCU-129904-CS-QCBS SUBMITTED TO: Ministry of Finance (MoF) Addis Ababa, Ethiopia SUBMITTED BY: TAK-Innovative Research and Development Institute PLC (TAK-IRDI) Addis Ababa, Ethiopia August 2022",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Contents",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Contents",
+        "List",
+        "Figures",
+        "Tables"
+      ],
+      "summary": "Contents List of Figures ........................................................................................................................................ iii List of Tables ..........................................................................................................................................",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3.2.3. Engagement of stakeholders ..............................................",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Engagement",
+        "Implementation",
+        "Federal",
+        "Effectiveness"
+      ],
+      "summary": "3.2.3. Engagement of stakeholders ............................................................................................... 34 3.2.4. Implementation challenges at Federal budgetary institution level ...................................... 35 4. Effectiveness and impact of FTA initiatives ..........................",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "List of Figures",
+      "page_start": 4,
+      "page_end": 4,
+      "child_sections": [],
+      "key_entities": [
+        "List",
+        "Figures",
+        "Figure",
+        "Logical",
+        "Proportion"
+      ],
+      "summary": "List of Figures Figure 1: Logical framework of FTA initiatives ..................................................................................... 9 Figure 2: Proportion of woredas that conducted awareness raising training to their citizens ............... 17 Figure 3: Proportion of woredas that received BLT training",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 36: Citizens’ understanding of FTA initiative in their areas ............",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Citizens’",
+        "Changes",
+        "Citizen"
+      ],
+      "summary": "Figure 36: Citizens’ understanding of FTA initiative in their areas ..................................................... 43 Figure 37: Changes in citizens’ understanding of the FTA initiative ................................................... 44 Figure 38: Citizen understands of local government budget ..............",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 70: Community’s assessment of the grievance handling system over the past",
+      "page_start": 6,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Community’s",
+        "List",
+        "Tables",
+        "Table",
+        "Sample",
+        "Distribution"
+      ],
+      "summary": "Figure 70: Community’s assessment of the grievance handling system over the past 5 years ............. 81 List of Tables Table 1: Sample Distribution ................................................................................................................ 11 Table 2: Key informant interviews ....................",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Acknowledgements",
+      "page_start": 7,
+      "page_end": 7,
+      "child_sections": [],
+      "key_entities": [
+        "Acknowledgements",
+        "This",
+        "Abate",
+        "Mekuriaw",
+        "Kaleb",
+        "Shiferaw",
+        "Abraham",
+        "Hailemariam",
+        "Tamirat",
+        "Badi"
+      ],
+      "summary": "Acknowledgements This report was prepared by a core team consisting of Abate Mekuriaw, Kaleb Shiferaw, Abraham Hailemariam, and Tamirat Badi. The report benefitted from inputs from officials of the Public Expenditure Management Reform Directorate/Ministry of Finance. Comments and inputs by",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Acronyms",
+      "page_start": 8,
+      "page_end": 8,
+      "child_sections": [],
+      "key_entities": [
+        "Acronyms",
+        "Budget",
+        "Literacy",
+        "Training",
+        "Bureau",
+        "Finance",
+        "Economic",
+        "Development",
+        "Corona",
+        "Virus"
+      ],
+      "summary": "Acronyms BLT Budget Literacy Training BoFED Bureau of Finance and Economic Development COVID Corona Virus Disease CRC Citizens Report Card CSA Central Statistical Agency CSOs Civil Society Organizations DPs Development Partners ESPES Enhancing Shared Prosperity through Equitable Services ESPES-AF Enhancing",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Executive Summary",
+      "page_start": 9,
+      "page_end": 9,
+      "child_sections": [],
+      "key_entities": [
+        "Executive",
+        "Summary",
+        "Background",
+        "Protection",
+        "Basic",
+        "Services",
+        "Ethiopia"
+      ],
+      "summary": "Executive Summary Background: Protection of Basic Services program has been under implementation in Ethiopia since 2006 with the aims of expanding citizens’ access to basic services particularly in education, health, water supply, sanitation, agriculture and rural roads, and improving the",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Assessment methods: The assessment was carried out through a wide participation ",
+      "page_start": 10,
+      "page_end": 10,
+      "child_sections": [],
+      "key_entities": [
+        "Assessment"
+      ],
+      "summary": "Assessment methods: The assessment was carried out through a wide participation of all relevant stakeholders such as federal, regional, woreda kebele representatives, and the community by employing both qualitative and quantitative data. The assessment covered 39 federal institutions, 10 regions,",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "institutions (36%) lack awareness about the initiative. In similar line, the exp",
+      "page_start": 11,
+      "page_end": 11,
+      "child_sections": [],
+      "key_entities": [
+        "While"
+      ],
+      "summary": "institutions (36%) lack awareness about the initiative. In similar line, the experience among the federal institutions in engaging stakeholders in budget process is limited, where only a quarter of the institutions conducted discussion with key stakeholders and citizens. While it",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "of the officials. The community also recognize the effectiveness of the in enabl",
+      "page_start": 12,
+      "page_end": 12,
+      "child_sections": [],
+      "key_entities": [
+        "Providing"
+      ],
+      "summary": "of the officials. The community also recognize the effectiveness of the in enabling them to interpret the budget information better. Providing easy-to-understand information allow the citizens to know how to actively participate and ask the right questions and ask how",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Encouragingly, there has been an upward trend in both quality of life and genera",
+      "page_start": 13,
+      "page_end": 13,
+      "child_sections": [],
+      "key_entities": [
+        "Encouragingly",
+        "Determinant"
+      ],
+      "summary": "Encouragingly, there has been an upward trend in both quality of life and general satisfaction with the delivery of essential services (education, health, agriculture, and water) over the course of PBS II, III, and ESPES. CROSS CUTTING ISSUES Determinant of",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "However, the extent of linkage is moderate in the majority of the woredas (54%) ",
+      "page_start": 14,
+      "page_end": 14,
+      "child_sections": [],
+      "key_entities": [
+        "However",
+        "Project"
+      ],
+      "summary": "However, the extent of linkage is moderate in the majority of the woredas (54%) and it is only half of the woredas that the status of linkages and coordination were jointly assessed. Project management: The parent program of the FTA",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Overall satisfaction with the quality of life is increasing",
+      "page_start": 15,
+      "page_end": 15,
+      "child_sections": [],
+      "key_entities": [
+        "Overall",
+        "These"
+      ],
+      "summary": " Overall satisfaction with the quality of life is increasing These improvements can be attributed to the huge investment and efforts made by the parent programs, namely, PBSs and ESPES programs. In recent years, however, citizen engagement–compared with the 2016",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Encourage women's participation: Enhance women's participation in accessing",
+      "page_start": 16,
+      "page_end": 16,
+      "child_sections": [],
+      "key_entities": [
+        "Encourage",
+        "Enhance",
+        "More"
+      ],
+      "summary": " Encourage women's participation: Enhance women's participation in accessing budget information, budget process awareness, pre-budget discussions, and BLT training.  More resources to regain the ground you've lost due to COVID-19 and other shocks: The impact of the pandemic on",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "1. Introduction",
+      "page_start": 17,
+      "page_end": 17,
+      "child_sections": [],
+      "key_entities": [
+        "Introduction",
+        "Background",
+        "Transparency",
+        "Nevertheless"
+      ],
+      "summary": "1. Introduction 1.1. Background Transparency and accountability initiatives have emerged over the past decade as a key for improving public service delivery. The initiatives have been also seen as one of the major strategies to address both developmental failures and",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "administration of such units. As regards transparency and accountability, the Co",
+      "page_start": 18,
+      "page_end": 18,
+      "child_sections": [],
+      "key_entities": [
+        "Constitution",
+        "Article",
+        "Further"
+      ],
+      "summary": "administration of such units. As regards transparency and accountability, the Constitution clearly stipulates in Article 12:1 that ―the conduct of affairs of government shall be transparent‖. Further, sub-Article 2 states that any public official or an elected representative is accountable",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "The PBS program was extended through successive programs, namely, Enhancing Shar",
+      "page_start": 19,
+      "page_end": 19,
+      "child_sections": [],
+      "key_entities": [
+        "Enhancing",
+        "Shared",
+        "Prosperity",
+        "Equitable",
+        "Services",
+        "Additional",
+        "Financing"
+      ],
+      "summary": "The PBS program was extended through successive programs, namely, Enhancing Shared Prosperity through Equitable Services (ESPES) program and its Additional Financing (ESPES-AF). ESPES is devised as a new framework for engaging in decentralized basic services in the country by replacing",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "As part of the monitoring and supervision of the implementation of the FTA initi",
+      "page_start": 20,
+      "page_end": 20,
+      "child_sections": [],
+      "key_entities": [
+        "Ethiopia",
+        "Objective"
+      ],
+      "summary": "As part of the monitoring and supervision of the implementation of the FTA initiative, an independent and systematic assessment of the effectiveness and impact of the FTA initiative in Ethiopia has been conducted2. 1.2. Objective of the assessment The overall",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " To assess the pre-budget discussion modality and its effectiveness and provide",
+      "page_start": 21,
+      "page_end": 21,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": " To assess the pre-budget discussion modality and its effectiveness and provide expert opinion on how to improve citizens’ participation in decision making process in prioritization of needs and allocation of budget for improved basic service delivery.  To assess",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "1.4. Brief overview of FTA Program in Ethiopia",
+      "page_start": 22,
+      "page_end": 22,
+      "child_sections": [],
+      "key_entities": [
+        "Brief",
+        "Program",
+        "Ethiopia",
+        "Context",
+        "Towards"
+      ],
+      "summary": "1.4. Brief overview of FTA Program in Ethiopia 1.4.1. Context Ethiopia has taken major reform programs to empower citizens as well as enhance public sector efficiency, effectiveness, transparency, and accountability, particularly in the last decade (MoFED, 2009). Towards citizens’ empowerment",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "and Grievance Redress Mechanisms (GRM); and has been operational since 2015 with",
+      "page_start": 23,
+      "page_end": 23,
+      "child_sections": [],
+      "key_entities": [
+        "Grievance",
+        "Redress",
+        "Mechanisms",
+        "September",
+        "These"
+      ],
+      "summary": "and Grievance Redress Mechanisms (GRM); and has been operational since 2015 with additional financing approved in September 2017. These three interrelated intervention areas were designed and executed with the aim of strengthening the system and building the capacity for intended",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "1.4.3. Logical framework of FTA",
+      "page_start": 24,
+      "page_end": 24,
+      "child_sections": [],
+      "key_entities": [
+        "Logical",
+        "Input",
+        "Outputs",
+        "Outcomes",
+        "Impact"
+      ],
+      "summary": "1.4.3. Logical framework of FTA The logical framework FTA (Figure 1 below) highlights identify the elements of the initiatives such as Input, Outputs, Outcomes, and Impact and highlight the logical linkages between them. The initiative aims to improve transparency and",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 1: Logical framework of FTA initiatives",
+      "page_start": 25,
+      "page_end": 25,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Logical",
+        "Source",
+        "Implementation",
+        "Since"
+      ],
+      "summary": "Figure 1: Logical framework of FTA initiatives Source: Own conceptualization based on FTA documents and information from MoF website (URL: http://197.156.84.34/en/programmes-projects/fta/) 1.4.4. Implementation status of FTA initiative so far Since the inception of FTA in 2006, a baseline in 2009",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "environment to encourage discussion and reflection among the community to come u",
+      "page_start": 26,
+      "page_end": 26,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "environment to encourage discussion and reflection among the community to come up with ways and mechanisms to make officials accountable to the community. The 2013 assessment also found that the coverage of the FTA training was limited–only about one in",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "2.1. Study design",
+      "page_start": 27,
+      "page_end": 27,
+      "child_sections": [],
+      "key_entities": [
+        "Study",
+        "Structured",
+        "Focus"
+      ],
+      "summary": "2.1. Study design A mixed-method is used, which involves collecting both quantitative and qualitative data. Structured and semi-structured survey tools were used to collect data from citizens and key informants. Focus group discussions were also conducted to collect qualitative data.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Sidama 5 15 60 165 225",
+      "page_start": 28,
+      "page_end": 28,
+      "child_sections": [],
+      "key_entities": [
+        "Sidama",
+        "Somali",
+        "Gambella",
+        "Harari",
+        "Addis",
+        "Ababa",
+        "Dire",
+        "Dawa",
+        "Total",
+        "Data"
+      ],
+      "summary": "Sidama 5 15 60 165 225 SWEP 9 27 120 285 405 Somali 12 36 162 378 540 Gambella 4 12 60 120 180 Harari 3 9 30 105 135 Benishangul-Gumuz 3 9 45 90 135 Addis Ababa 17 51",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " በጋም/ሕ/ብ/ክ/መንግስት የገን/ኢኮ/ልማ/ቢሮ (ታህሳስ 2008)፣ የተሻሻለዉ የበጀት ወጪ",
+      "page_start": 29,
+      "page_end": 29,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": " በጋም/ሕ/ብ/ክ/መንግስት የገን/ኢኮ/ልማ/ቢሮ (ታህሳስ 2008)፣ የተሻሻለዉ የበጀት ወጪ እና አገልግሎት አቅርቦት መረጃ አመላካች ማኑዋል፣PBS-III: የፋይናንስ ግልጽነትና ተጠያቂነት ፕሮጀክት፤  የገንዘብና ኢኮኖሚ ልማት ሚኒስቴር (ነሐሴ 2001)፣ በክልል ደረጃ የሚካሄደውን የበጀት ዝግጅት ሂደት አስመልክቶ የተዘጋጀ መመሪያ፣ ለክልሎች የተዘጋጀ ናሙና፤  የወረዳ ገንዘብና",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "2.3.4. Focus group discussions",
+      "page_start": 30,
+      "page_end": 30,
+      "child_sections": [],
+      "key_entities": [
+        "Focus",
+        "Participants",
+        "Data",
+        "Descriptive"
+      ],
+      "summary": "2.3.4. Focus group discussions One focus group discussion (FGD) per kebele was conducted. Participants for the FGDs were community leaders/influencers, representatives from community-based organizations (CBOs), women groups, and knowledgeable individuals. 2.4. Data analysis Descriptive statistics were used to analyses",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " The other limitation is the attribution problem. Since a lot of factors affect",
+      "page_start": 31,
+      "page_end": 31,
+      "child_sections": [],
+      "key_entities": [
+        "Since",
+        "Though"
+      ],
+      "summary": " The other limitation is the attribution problem. Since a lot of factors affect the transparency and accountability of the local government it is difficult to identify the exact impact of FTA, and it would not be correct to attribute",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "3. Achievement against expectations",
+      "page_start": 32,
+      "page_end": 32,
+      "child_sections": [],
+      "key_entities": [
+        "Achievement",
+        "Under",
+        "Federal",
+        "This"
+      ],
+      "summary": "3. Achievement against expectations Under this section, activities performed by the regions/city administrations and Federal budgetary institutions are presented. The achievement is measured against the expectations. This section deals with the achievements of the regions/city administrations and the federal budgetary",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Afar, Somali, and Amhara organized the training, and the achievement in light of",
+      "page_start": 33,
+      "page_end": 33,
+      "child_sections": [],
+      "key_entities": [
+        "Afar",
+        "Somali",
+        "Amhara",
+        "However",
+        "Benishangul",
+        "Gumuz"
+      ],
+      "summary": "Afar, Somali, and Amhara organized the training, and the achievement in light of the proportion of the woredas is moderate. However, organizing awareness-enhancing training in the Benishangul Gumuz region is very low, where only 33% of the woredas reported positively.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "the training, respectively. It seems that the same woredas that did not provide ",
+      "page_start": 34,
+      "page_end": 34,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Proportion"
+      ],
+      "summary": "the training, respectively. It seems that the same woredas that did not provide awareness- enhancing training to the communities and CSOs in Benishangul-Gumuz did the same in BLT training as well. Figure 3: Proportion of woredas that received BLT training",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 4: Provision of BLT to the community as compared to the 2014 budget year ",
+      "page_start": 35,
+      "page_end": 35,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Provision",
+        "Disaggregating",
+        "With",
+        "However"
+      ],
+      "summary": "Figure 4: Provision of BLT to the community as compared to the 2014 budget year plan Disaggregating participants of BLT by sex shows that 56% are male and 44% are female. With respect to promoting and ensuring gender equality, the",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "The provision of BLT should take into account the literacy status of the communi",
+      "page_start": 36,
+      "page_end": 36,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "The provision of BLT should take into account the literacy status of the community and both literate and those with no education should be represented. In this regard, the results indicate that those with primary education account for 51% followed",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 7: The topics covered during the BLT",
+      "page_start": 37,
+      "page_end": 37,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Budgetary",
+        "Local"
+      ],
+      "summary": "Figure 7: The topics covered during the BLT 3.1.3. Budgetary information provision The provision of budgetary information in a timely manner is the key aspect of the FTA initiative. Local governments are expected to provide information on the government budget,",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 8: Proportion of visited woredas that posted budget information",
+      "page_start": 38,
+      "page_end": 38,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Proportion",
+        "Budget",
+        "Expenditure"
+      ],
+      "summary": "Figure 8: Proportion of visited woredas that posted budget information In terms of the type of information provided, the most common information posted is Budget and Expenditure (reported by 74% of the visited woredas), which is followed by services standards",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Public budget information is disseminated using different mechanisms. Reports ar",
+      "page_start": 39,
+      "page_end": 39,
+      "child_sections": [],
+      "key_entities": [
+        "Public",
+        "Reports",
+        "Information",
+        "Figure",
+        "Medium"
+      ],
+      "summary": "Public budget information is disseminated using different mechanisms. Reports are posted in public places (such as woreda administration and sectoral offices). Information is also provided through mass media, billboards, school clubs, and websites to a certain extent. Figure 10: Medium",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Budget information is useful when they are disseminated in a timely manner. Wore",
+      "page_start": 40,
+      "page_end": 40,
+      "child_sections": [],
+      "key_entities": [
+        "Budget",
+        "Woredas"
+      ],
+      "summary": "Budget information is useful when they are disseminated in a timely manner. Woredas were asked at what they disseminate different types of budget information, and the results are summarised in the following figure. For instance, the media disclosure guideline states",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 13: Media disclosure approaches",
+      "page_start": 41,
+      "page_end": 41,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Media",
+        "Pre-budget",
+        "These"
+      ],
+      "summary": "Figure 13: Media disclosure approaches 3.1.4. Pre-budget discussions The local governments are expected to conduct a pre-budget discussion with the community. These discussion forums allow the community to voice their views on future priorities and services delivery. To facilitate discussions,",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 14: Composition participants during pre-budget discussion by sex",
+      "page_start": 42,
+      "page_end": 42,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Composition",
+        "Those"
+      ],
+      "summary": "Figure 14: Composition participants during pre-budget discussion by sex Those woredas that conducted the pre-budget discussion (63% of the visited woredas), where asked when they conducted the discussion. As stated in the pre-budget discussion directive, the discussion is expected to",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 15: Approaches to the pre-budget discussion",
+      "page_start": 43,
+      "page_end": 43,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Approaches"
+      ],
+      "summary": "Figure 15: Approaches to the pre-budget discussion As stated in the pre-budget discussion, the plan for the current year8 and the achievement of the last year are expected to be covered. In this regard, the assessment showed that most of",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3.1.5. Accountability mechanism",
+      "page_start": 44,
+      "page_end": 44,
+      "child_sections": [],
+      "key_entities": [
+        "Accountability",
+        "Putting"
+      ],
+      "summary": "3.1.5. Accountability mechanism Putting in place robust accountability mechanisms at the local government level increases resource use efficiencies. It is also important to recognize that the local governments not only need to operate lawfully and ethically, but they need to",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 17: Element of the accountability and its performance",
+      "page_start": 45,
+      "page_end": 45,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Element",
+        "Implementation",
+        "These"
+      ],
+      "summary": "Figure 17: Element of the accountability and its performance 3.1.6. Implementation challenges at regional/city administration and woreda level The main implementation challenges were the security situations of the country and the COVID-19 pandemic. These unprecedented shocks limit the movement of",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3.2 Achievement at Federal budgetary institutions",
+      "page_start": 46,
+      "page_end": 46,
+      "child_sections": [],
+      "key_entities": [
+        "Achievement",
+        "Federal",
+        "Awareness"
+      ],
+      "summary": "3.2 Achievement at Federal budgetary institutions Federal institutions are expected to be aware of the FTA initiatives, provide budgetary information, and engage their key stakeholders in the budget planning process. The achievements so far in these areas are presented below.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "depiction in organogram might not be necessary but the initiative should be supp",
+      "page_start": 47,
+      "page_end": 47,
+      "child_sections": [],
+      "key_entities": [
+        "Figure"
+      ],
+      "summary": "depiction in organogram might not be necessary but the initiative should be supported by responsible personnel or work force. As it stands now with different institutions, it warrants taking and selecting best practices and working towards institutionalization of the practices.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "procurement process (Williams-Elegbe, 2012)12. Similarly, audits increase accoun",
+      "page_start": 48,
+      "page_end": 48,
+      "child_sections": [],
+      "key_entities": [
+        "Similarly",
+        "Frederic",
+        "Ethiopia",
+        "Frede"
+      ],
+      "summary": "procurement process (Williams-Elegbe, 2012)12. Similarly, audits increase accountability, reduce misuse of public resources, and improve compliance with laws and regulations (Ferraz and Frederic, 2008)13. In countries like Ethiopia, audits become more effective when audit results are widely publicized (Ferraz and",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Table 3: Frequency of information provision",
+      "page_start": 49,
+      "page_end": 49,
+      "child_sections": [],
+      "key_entities": [
+        "Table",
+        "Frequency",
+        "Achievement",
+        "Type",
+        "Expectation15",
+        "Quarterly",
+        "Semi-annually",
+        "Annually",
+        "Budget",
+        "Basic"
+      ],
+      "summary": "Table 3: Frequency of information provision Achievement Type of information Expectation15 Quarterly Semi-annually Annually Budget and expenditure Quarterly 14% 36% 50% Basic service standards and provision Annually 0% 0% 100% Procurement plan Annually 0% 0% 100% Procurement performance Quarterly 20%",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "3.2.3. Engagement of stakeholders",
+      "page_start": 50,
+      "page_end": 50,
+      "child_sections": [],
+      "key_entities": [
+        "Engagement"
+      ],
+      "summary": "3.2.3. Engagement of stakeholders The federal institutions are also lagging in terms of involving and engaging key stakeholders in the budgeting process. Out of the visited institutions, only 9 (23%) reported that they conducted discussion with key stakeholders and citizens",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "stakeholders feel that key stakeholders are highly engaged in the budget plannin",
+      "page_start": 51,
+      "page_end": 51,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Level"
+      ],
+      "summary": "stakeholders feel that key stakeholders are highly engaged in the budget planning phase. The awareness level and capacity of the stakeholders as well as the commitments of the institutions are mentioned as the major hurdle that limits stakeholders’ participation in",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "4. Effectiveness and impact of FTA initiatives",
+      "page_start": 52,
+      "page_end": 52,
+      "child_sections": [],
+      "key_entities": [
+        "Effectiveness",
+        "This"
+      ],
+      "summary": "4. Effectiveness and impact of FTA initiatives This section presents the effectiveness of the above activities in increasing citizen awareness and understanding level and in encouraging citizens to actively engage and participate in the local government. The section also discussed",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 25: Literacy status of respondent by place of residence",
+      "page_start": 53,
+      "page_end": 53,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Literacy",
+        "Martial"
+      ],
+      "summary": "Figure 25: Literacy status of respondent by place of residence The results of respondents' marital status are shown in the following graph. A little over half (45%) have never been married, while 43% are currently married, 4% are widowed, 3%",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 27: Housing ownership",
+      "page_start": 54,
+      "page_end": 54,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Housing",
+        "Based"
+      ],
+      "summary": "Figure 27: Housing ownership Based on the self-reported income level and using the national poverty line16, respondents were categorized into poor and non-poor. The results indicate that about a quarter of the respondents (26%) are poor. The poverty rate respondent",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "where they live, impoverished households tend to have larger households on avera",
+      "page_start": 55,
+      "page_end": 55,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Household",
+        "Citizen"
+      ],
+      "summary": "where they live, impoverished households tend to have larger households on average than non-poor households. Figure 29: Household size by poverty status and place of residence 4.2. Citizen awareness and understanding To effectively participate in the local government and to",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 30: Proportion of respondents that report that they understand the budget",
+      "page_start": 56,
+      "page_end": 56,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Proportion",
+        "Disaggregating"
+      ],
+      "summary": "Figure 30: Proportion of respondents that report that they understand the budget process. Disaggregating the understanding level of the budget process by education level and location of respondents reveals that those with formal education and those in urban areas have",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 32: Understanding level of the budget process over time",
+      "page_start": 57,
+      "page_end": 57,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Understanding",
+        "Participants",
+        "About"
+      ],
+      "summary": "Figure 32: Understanding level of the budget process over time Participants of the focus group discussion were also asked how their awareness and understanding level of the budgeting process of their local government is progressing over time (over the last",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "reginal/city administration results please see figure 30 above). The results ind",
+      "page_start": 58,
+      "page_end": 58,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "reginal/city administration results please see figure 30 above). The results indicate that when it comes to their knowledge about the specific activities of the budgeting process, the results of the focus group discussions indicate that there is a lot to",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 35: Citizens’ awareness level of FTA initiative by region/city administra",
+      "page_start": 59,
+      "page_end": 59,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Citizens’",
+        "Most"
+      ],
+      "summary": "Figure 35: Citizens’ awareness level of FTA initiative by region/city administration The community was further asked detailed questions about the FTA initiative to measure the depth of their understanding. Most of them correctly reported that their local government is expected",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 37: Changes in citizens’ understanding of the FTA initiative",
+      "page_start": 60,
+      "page_end": 60,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Changes"
+      ],
+      "summary": "Figure 37: Changes in citizens’ understanding of the FTA initiative 44",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "4.3. Access to budget information",
+      "page_start": 61,
+      "page_end": 61,
+      "child_sections": [],
+      "key_entities": [
+        "Access",
+        "Discussion",
+        "Compared",
+        "Looking",
+        "Ethiopians"
+      ],
+      "summary": "4.3. Access to budget information Discussion with citizens shows that 62% of them know their local government budget and expenditure. Compared to the situation in 2009, the performance significantly improved (62% as compared to 9%). Looking at the recent performance,",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 39: Proportion of respondents who reported that they know the budget and",
+      "page_start": 62,
+      "page_end": 62,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Proportion",
+        "Note",
+        "Knowledge"
+      ],
+      "summary": "Figure 39: Proportion of respondents who reported that they know the budget and expenditure by region Note: N denotes number of observations for each region/city administrations for 2022. Knowledge of the local budget seems to be different based on the",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "During the citizen survey, respondents were asked to state their main source of ",
+      "page_start": 63,
+      "page_end": 63,
+      "child_sections": [],
+      "key_entities": [
+        "During",
+        "Figure",
+        "Source"
+      ],
+      "summary": "During the citizen survey, respondents were asked to state their main source of budgetary information. The results revealed that meetings with the local government and community bulletin boards are the most common sources of budget information. Figure 41: Source of",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 42: Citizens who ever participated in BLT",
+      "page_start": 64,
+      "page_end": 64,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Citizens",
+        "Those",
+        "Participation"
+      ],
+      "summary": "Figure 42: Citizens who ever participated in BLT Those with formal education and those who live in urban areas are more likely to participate in BLT than their counterparts (58% as compared with 43% for education and 62% as compared",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 44: Composition BLT training participants by age",
+      "page_start": 65,
+      "page_end": 65,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Composition",
+        "Discussion"
+      ],
+      "summary": "Figure 44: Composition BLT training participants by age As stated above, to support high-quality community engagement practice, proving training should be an ongoing activity where regular refresher training based on contextual changes and gaps is part of the implementation of",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 45: When was the training taken",
+      "page_start": 66,
+      "page_end": 66,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "When",
+        "Focus",
+        "Their"
+      ],
+      "summary": "Figure 45: When was the training taken Focus group participants were asked in what way they benefited as a result of participating in training. Their responses are coded, categorized, and summarized in the following figure. The majority of participants reported",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "performance. The results are presented in a matrix where the ease of access is p",
+      "page_start": 67,
+      "page_end": 67,
+      "child_sections": [],
+      "key_entities": [
+        "Access"
+      ],
+      "summary": "performance. The results are presented in a matrix where the ease of access is presented on the vertical axis while the ease of understating the information is presented on the horizontal axis. Access to and the understandability of budget and",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "annual performance review meetings, now know how the budget is being utilized an",
+      "page_start": 68,
+      "page_end": 68,
+      "child_sections": [],
+      "key_entities": [
+        "Citizens’"
+      ],
+      "summary": "annual performance review meetings, now know how the budget is being utilized and whether the target set out in the beginning are achieved or not. 4.4. Citizens’ participation in local government The purpose of providing awareness creation training to citizens",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Benishangul Gumuz22 region to 72% in SNNP. Respondents in Afar, Amhara, and Orom",
+      "page_start": 69,
+      "page_end": 69,
+      "child_sections": [],
+      "key_entities": [
+        "Benishangul",
+        "Gumuz22",
+        "Respondents",
+        "Afar",
+        "Amhara",
+        "Oromia",
+        "This",
+        "Figure",
+        "Proportion"
+      ],
+      "summary": "Benishangul Gumuz22 region to 72% in SNNP. Respondents in Afar, Amhara, and Oromia are less likely to meet with their representatives in 2022 than in 2016. This has much to do with the instability these regions experience. Figure 49: Proportion",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "the visited regions and city administrations reported that they have participate",
+      "page_start": 70,
+      "page_end": 70,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Extent",
+        "Participation"
+      ],
+      "summary": "the visited regions and city administrations reported that they have participated in the budget planning. Figure 50: Extent of community participation in budget planning in the last 12 months. Participation in budget planning is disaggregated by education, location of residence",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Information collected during focus group discussion revealed that the community ",
+      "page_start": 71,
+      "page_end": 71,
+      "child_sections": [],
+      "key_entities": [
+        "Information"
+      ],
+      "summary": "Information collected during focus group discussion revealed that the community participates in different activities that affect their lives. In this regard, relatively the majority of respondents of the household survey participated in the identification of community needs (61%) and provision",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "communicating their opinions and ideas to their local government in greater numb",
+      "page_start": 72,
+      "page_end": 72,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "communicating their opinions and ideas to their local government in greater numbers. The percentage of citizens who express their opinions has increased more than sevenfold since the baseline year–47% in 2022 as compared to 6% in 2009. As was the",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 54: Proportion of citizen that provided their opinion on local government",
+      "page_start": 73,
+      "page_end": 73,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Proportion",
+        "Simply",
+        "Looking"
+      ],
+      "summary": "Figure 54: Proportion of citizen that provided their opinion on local government service provision. Simply, having a voice in the decision-making process of the local government may not be enough. A voice that is perceived to have no influence is",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 55: Proportion of respondents who feel that their ideas and opinion have ",
+      "page_start": 74,
+      "page_end": 74,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Proportion",
+        "Note",
+        "Basic"
+      ],
+      "summary": "Figure 55: Proportion of respondents who feel that their ideas and opinion have no impact on their local government’s decisions. Note: The dotted line represents the trend. Basic services standards are expected to be posted/ provided to empower the citizen",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 56: Accessibility of information on basic service standards (2013-2022)",
+      "page_start": 75,
+      "page_end": 75,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Accessibility",
+        "Region/city",
+        "Somali",
+        "Harari",
+        "Addis",
+        "Ababa"
+      ],
+      "summary": "Figure 56: Accessibility of information on basic service standards (2013-2022) Region/city administration-wise, Somali, SNNP and Harari region, and Addis Ababa city administration performed well (more than 50% of the respondent accessed information on basic service delivery standards) as compared to",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 57: Proportion of citizens who accessed information on basic service deli",
+      "page_start": 76,
+      "page_end": 76,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Proportion",
+        "Creating",
+        "Those"
+      ],
+      "summary": "Figure 57: Proportion of citizens who accessed information on basic service delivery standards Creating a favorable environment for a citizen to participate in local government is also expected to encourage citizens to voice their concerns and grievances. Those who had",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 58: Proportion of respondent who logged their grievances",
+      "page_start": 77,
+      "page_end": 77,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Proportion",
+        "Focus"
+      ],
+      "summary": "Figure 58: Proportion of respondent who logged their grievances Focus group participants were asked whether the number of grievances in their area is increasing or decreasing over the last four years. The results show that the majority of the participants",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "4.5. Transparency and accountability in basic services delivery",
+      "page_start": 78,
+      "page_end": 78,
+      "child_sections": [],
+      "key_entities": [
+        "Transparency",
+        "Program",
+        "Development",
+        "Objective",
+        "Since"
+      ],
+      "summary": "4.5. Transparency and accountability in basic services delivery The Program Development Objective of the parent program of FTA (namely the ESPES Program) is to improve equitable access to basic services and strengthen accountability systems at the decentralized level. Since FTA",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 60: Citizen Assessment of transparency and accountability in basic servic",
+      "page_start": 79,
+      "page_end": 79,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Citizen",
+        "Assessment"
+      ],
+      "summary": "Figure 60: Citizen Assessment of transparency and accountability in basic service delivery 63",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Apart from providing the above rating on the importance and performance of FTA a",
+      "page_start": 80,
+      "page_end": 80,
+      "child_sections": [],
+      "key_entities": [
+        "Apart",
+        "When"
+      ],
+      "summary": "Apart from providing the above rating on the importance and performance of FTA activities as it relates to basic services, the following issues were raised by focus group participants more broadly. When the information on service standards is made available",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 61: Satisfaction level on basic service delivery by its components",
+      "page_start": 81,
+      "page_end": 81,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Satisfaction",
+        "Citizen",
+        "Health",
+        "Agriculture"
+      ],
+      "summary": "Figure 61: Satisfaction level on basic service delivery by its components To assess how the satisfaction level is progressing over time, we compare the overall satisfaction level with previous assessment. Citizen survey shows that overall satisfaction levels on basic service",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Looking at the aggregate indicator, a different story emerges28. Overall service",
+      "page_start": 82,
+      "page_end": 82,
+      "child_sections": [],
+      "key_entities": [
+        "Looking",
+        "Overall"
+      ],
+      "summary": "Looking at the aggregate indicator, a different story emerges28. Overall service satisfaction grew over the PBS II, III, and ESPES periods, albeit only little, from 55% in 2009 to 56% in 2022. The improvement is attributable to the investments made",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "budget process, accessibility of public budget information, and citizens’ partic",
+      "page_start": 83,
+      "page_end": 83,
+      "child_sections": [],
+      "key_entities": [
+        "Worryingly"
+      ],
+      "summary": "budget process, accessibility of public budget information, and citizens’ participation in local government budgeting, planning, and implementation. Worryingly, however, the gains made in the areas of improving transparency and accountability started to be reversed in recent years, particularly over the",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "5. Determinants of local government transparency",
+      "page_start": 84,
+      "page_end": 84,
+      "child_sections": [],
+      "key_entities": [
+        "Determinants",
+        "Transpar"
+      ],
+      "summary": "5. Determinants of local government transparency In this section, we explore the economic, social, and institutional determinants that affect the transparency of local governments. The analysis builds on existing empirical literature on local government transparency. We start by developing the",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "(PBSP) and satisfaction on basic service (SBSP). The major limitation of this ap",
+      "page_start": 85,
+      "page_end": 85,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "(PBSP) and satisfaction on basic service (SBSP). The major limitation of this approach is that the assessment did not include important indicators such as the capital expenditure of woreda and tax collected by the woredas. The selection of variables depends",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "existence of better-off households which in turn indicate the availability of de",
+      "page_start": 86,
+      "page_end": 86,
+      "child_sections": [],
+      "key_entities": [
+        "These"
+      ],
+      "summary": "existence of better-off households which in turn indicate the availability of demand for a product or service. These results are consistent with the literature that those areas with the high economic viability and high economic activities enjoy better government transparency.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "governments and develop a sense of accountability where authorities internalize ",
+      "page_start": 87,
+      "page_end": 87,
+      "child_sections": [],
+      "key_entities": [
+        "Concerning",
+        "Bett"
+      ],
+      "summary": "governments and develop a sense of accountability where authorities internalize the notion of being held responsible for their actions. Concerning institutional factors, access to courts and the professionalism of local government employees are found to be significant factors that affect",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Frequency of contact with local officials 0.269*** 0.269*** 0.686***",
+      "page_start": 88,
+      "page_end": 88,
+      "child_sections": [],
+      "key_entities": [
+        "Frequency",
+        "Commitment",
+        "Institutional",
+        "Distance"
+      ],
+      "summary": "Frequency of contact with local officials 0.269*** 0.269*** 0.686*** (FQCNT) (0.0904) (0.0923) (0.231) Commitment of the community to -0.016 -0.016 -0.042 participate in local meeting (CMMIT) (0.0760) (0.0758) (0.189) Institutional variables Distance to market center (walking distance 1.45e-05 1.45e-05 3.43e-05",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "6. Gender and FTA",
+      "page_start": 89,
+      "page_end": 89,
+      "child_sections": [],
+      "key_entities": [
+        "Gender",
+        "Women"
+      ],
+      "summary": "6. Gender and FTA The extent to which FTA initiatives promote equal participation of both sex in their local government is presented in this section. 6.1. Women representation in local government The sampled households were asked if any female member",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "(8.8%). These figures depict that female participation in leadership positions i",
+      "page_start": 90,
+      "page_end": 90,
+      "child_sections": [],
+      "key_entities": [
+        "These"
+      ],
+      "summary": "(8.8%). These figures depict that female participation in leadership positions is still very low, and it has several lines of implications. As the literature shows, the more females are in leadership positions, the governments tend to be more trustworthy, responsive,",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "implement FTA initiatives. Relevant gender-disaggregated data (participants in B",
+      "page_start": 91,
+      "page_end": 91,
+      "child_sections": [],
+      "key_entities": [
+        "Relevant",
+        "However"
+      ],
+      "summary": "implement FTA initiatives. Relevant gender-disaggregated data (participants in BLT training and pre-budget discussion) is also collected and reported at a national level. However, the experience of assessing the performance of basic services and monitoring FTA implementation in light of gender-segregated",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 66: Participation in local government FTA initiative",
+      "page_start": 92,
+      "page_end": 92,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Participation"
+      ],
+      "summary": "Figure 66: Participation in local government FTA initiative The existence of a favorable environment for equal participation in the local government is expected to empower women, increase their participation, and make women community members feel that they are heard. The",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Figure 67: Change in women participation over the last 5 years",
+      "page_start": 93,
+      "page_end": 93,
+      "child_sections": [],
+      "key_entities": [
+        "Figure",
+        "Change",
+        "Overall",
+        "Though"
+      ],
+      "summary": "Figure 67: Change in women participation over the last 5 years Overall, in terms of putting in place a favorable environment to increase women's participation in the local government, there is a lot of room for improvement. Though the national-wide",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "themselves as having opportunities to hold a leadership position in the local go",
+      "page_start": 94,
+      "page_end": 94,
+      "child_sections": [],
+      "key_entities": [
+        "Other"
+      ],
+      "summary": "themselves as having opportunities to hold a leadership position in the local government, just 11% of women feel the same way. The community also acknowledges the impact of these obstacles—71% agree that it is easier for men to reach top",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "7. Linkage and coordination",
+      "page_start": 95,
+      "page_end": 95,
+      "child_sections": [],
+      "key_entities": [
+        "Linkage",
+        "Social",
+        "Accountability",
+        "Grievance",
+        "Redress",
+        "Mechanism"
+      ],
+      "summary": "7. Linkage and coordination In order to reduce inconsistency and inefficiency among programs that have citizen engagement sub-components, there are efforts to create linkage and coordination between FTA and Social Accountability (SA) as well as the overall Grievance Redress Mechanism",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "observed in the area of facilitation of information flow to citizens, where only",
+      "page_start": 96,
+      "page_end": 96,
+      "child_sections": [],
+      "key_entities": [
+        "Figure"
+      ],
+      "summary": "observed in the area of facilitation of information flow to citizens, where only 42% of woredas reported doing so. Figure 68: The extent of linkage and coordination between FTA and other initiatives with citizen engagement sub-components It is reported that",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Strong and effective linkage with other programs and government existing systems",
+      "page_start": 97,
+      "page_end": 97,
+      "child_sections": [],
+      "key_entities": [
+        "Strong",
+        "Households"
+      ],
+      "summary": "Strong and effective linkage with other programs and government existing systems is expected to reduce inefficiencies, contribute towards institutionalizing transparency and accountability, and is a key to ensuring the sustainability of the positive achievements. Households were asked to assess the",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "do not resolve within sectoral offices, complains will be heard in the woreda le",
+      "page_start": 98,
+      "page_end": 98,
+      "child_sections": [],
+      "key_entities": [
+        "Woreda",
+        "Complaints",
+        "Hearing",
+        "Committee",
+        "Finally"
+      ],
+      "summary": "do not resolve within sectoral offices, complains will be heard in the woreda level grievance body. The Woreda Complaints Hearing Committee will then reviews and respond to the grievances. Finally, the selected community members inform the results of complaints through",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "8. Project management",
+      "page_start": 99,
+      "page_end": 99,
+      "child_sections": [],
+      "key_entities": [
+        "Project",
+        "Putting",
+        "Enhancing",
+        "Shared",
+        "Prosperity",
+        "Equi"
+      ],
+      "summary": "8. Project management Putting in place effective monitoring and evaluation (M&E) mechanism is a key for sound governance. It is also necessary to the achievement of evidence-based policy making, budget decisions, management, and accountability. The parent program of FTA, namely,",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "The results indicate that some recommendations seem to be implemented. For insta",
+      "page_start": 100,
+      "page_end": 100,
+      "child_sections": [],
+      "key_entities": [
+        "This",
+        "Similarly"
+      ],
+      "summary": "The results indicate that some recommendations seem to be implemented. For instance, the 2016 assessment identified a need to expand the BLT training. This assessment showed that more and more citizens are being training on BLT. Similarly, creating more opportunities",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "(e.g. “strengthening the health sector at large and improving the medicine and s",
+      "page_start": 101,
+      "page_end": 101,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "(e.g. “strengthening the health sector at large and improving the medicine and supplies needs be considered for the future as this is noted as gray area. “This calls for the supply of adequate books in terms of type, number, and",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "9. Lesson learned",
+      "page_start": 102,
+      "page_end": 102,
+      "child_sections": [],
+      "key_entities": [
+        "Lesson",
+        "Putting",
+        "Women"
+      ],
+      "summary": "9. Lesson learned The assessment identifies the following key lessons. Putting more women in leadership positions improves transparency: One of the findings of our assessment is that local government transparency positively correlates with the number of women in the leadership",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "follow up on the planned activities. For instance, providing detailed informatio",
+      "page_start": 103,
+      "page_end": 103,
+      "child_sections": [],
+      "key_entities": [
+        "Focus"
+      ],
+      "summary": "follow up on the planned activities. For instance, providing detailed information on planned infrastructure and allowing them to use it to demand greater accountability. Focus group participants stated that since these infrastructure projects benefit them, they have an incentive to",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "focus group discussions. The policy and legal framework are already in place (e.",
+      "page_start": 104,
+      "page_end": 104,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "focus group discussions. The policy and legal framework are already in place (e.g. directive no. 48/2008) and the only thing missing is the commitment to implement the directive. 88",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "10. Conclusions and Recommendations",
+      "page_start": 105,
+      "page_end": 105,
+      "child_sections": [],
+      "key_entities": [
+        "Conclusions",
+        "Recommendations",
+        "Conclusion"
+      ],
+      "summary": "10. Conclusions and Recommendations 10.1. Conclusion The assessment set out to evaluate the current FTA implementation status and review its implementation modalities that would help to mainstream the initiative in all government institutions throughout the country. The main objective of",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "satisfaction of citizens with basic service delivery has significantly declined ",
+      "page_start": 106,
+      "page_end": 106,
+      "child_sections": [],
+      "key_entities": [
+        "Covid-19"
+      ],
+      "summary": "satisfaction of citizens with basic service delivery has significantly declined in the current assessment period (2022) as compared to the situation in 2016 and that of the 2009 baseline. The political instability, the war and the Covid-19 pandemic are the",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Overall, the assessment revealed a mixed result. Encouraging results emerge if o",
+      "page_start": 107,
+      "page_end": 107,
+      "child_sections": [],
+      "key_entities": [
+        "Overall",
+        "Encouraging",
+        "Understanding",
+        "Engagement",
+        "More"
+      ],
+      "summary": "Overall, the assessment revealed a mixed result. Encouraging results emerge if one looks at the progress since 2009 (the baseline period).  Understanding of the budget process is increasing  Engagement in the local government is increasing  More and",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "2. Expand the practice of inviting community members in performance review",
+      "page_start": 108,
+      "page_end": 108,
+      "child_sections": [],
+      "key_entities": [
+        "Expand",
+        "Regular"
+      ],
+      "summary": "2. Expand the practice of inviting community members in performance review meetings and provide explanation/justification for any gap in achievement as compared to the target. 3. Regular awareness creation activities on how the community can use the budgetary information to",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "4. Create mechanisms to encourage the participation of the community and CSOs",
+      "page_start": 109,
+      "page_end": 109,
+      "child_sections": [],
+      "key_entities": [
+        "Create",
+        "Allocate",
+        "Taking"
+      ],
+      "summary": "4. Create mechanisms to encourage the participation of the community and CSOs in the M&E process. 5. Allocate adequate resources (financial and human) M&E activities. IV. Taking timely corrective actions when rule and directives are not implemented 1. Create awareness",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "2. Use community-based organizations that have women as members to",
+      "page_start": 110,
+      "page_end": 110,
+      "child_sections": [],
+      "key_entities": [
+        "Expand",
+        "Create"
+      ],
+      "summary": "2. Use community-based organizations that have women as members to disseminate budget information and create awareness about FTA initiatives. 3. Expand the practice of collecting and reporting of the FTA implementation using sex disaggregated data. 4. Create forums that are",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Annexes",
+      "page_start": 111,
+      "page_end": 111,
+      "child_sections": [],
+      "key_entities": [
+        "Annexes",
+        "Annex",
+        "Additional",
+        "Tables",
+        "Table",
+        "Descriptive",
+        "Variable",
+        "Std",
+        "Mean",
+        "Transparency"
+      ],
+      "summary": "Annexes Annex A: Additional Tables Table A5: Descriptive statistics Variable Std. label Obs Mean dev. Min Max DEPENDENT VARIABLE Transparency Score TS 139 0.47 0.13 0.18 0.67 EX PLANATORY VARIABLES Economic variables Proportion of the household whose WEMP 139 0.13",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Annex B: List of Sample Woredas and Towns",
+      "page_start": 112,
+      "page_end": 112,
+      "child_sections": [],
+      "key_entities": [
+        "Annex",
+        "List",
+        "Sample",
+        "Woredas",
+        "Towns",
+        "Region",
+        "Afar",
+        "Zone",
+        "Dupti",
+        "Afambo"
+      ],
+      "summary": "Annex B: List of Sample Woredas and Towns No Region Zone/Sub-city Wereda/Town 1 Afar Zone 1 Dupti 2 Afar Zone 1 Afambo 3 Afar Zone 3 Awash Fentale 4 Afar Zone 3 Amibara 5 Afar Zone 5 Semurobi 6 Amhara",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "No Region Zone Wereda/Town",
+      "page_start": 113,
+      "page_end": 114,
+      "child_sections": [],
+      "key_entities": [
+        "Region",
+        "Zone",
+        "Oromia",
+        "Bale",
+        "Goba",
+        "Robe",
+        "Abbabora",
+        "Chora",
+        "Darimu",
+        "Metu"
+      ],
+      "summary": "No Region Zone Wereda/Town 41 Oromia Bale Goba 42 Oromia Bale Robe 43 Oromia Ilu Abbabora Chora 44 Oromia Ilu Abbabora Darimu 45 Oromia Ilu Abbabora Metu 46 Oromia Jimma Kersa 47 Oromia Jimma Omo Nada 48 Oromia Jimma Gomma",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "No Region/City Administration Zone/Sub-city Wereda/ City",
+      "page_start": 115,
+      "page_end": 115,
+      "child_sections": [],
+      "key_entities": [
+        "Administration",
+        "Wereda/",
+        "City",
+        "Addis",
+        "Ababa",
+        "Kolfe",
+        "Keraniyo",
+        "Gulele",
+        "Lideta",
+        "Cherkos"
+      ],
+      "summary": "No Region/City Administration Zone/Sub-city Wereda/ City 123 Addis Ababa Kolfe Keraniyo 08/09 124 Addis Ababa Kolfe Keraniyo 06 125 Addis Ababa Gulele 03/04/05 126 Addis Ababa Gulele 19/20/21 127 Addis Ababa Lideta 09/10 128 Addis Ababa Cherkos 08/09 129 Addis",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Annex C: List of selected Federal Budgetary Institutions",
+      "page_start": 116,
+      "page_end": 116,
+      "child_sections": [],
+      "key_entities": [
+        "Annex",
+        "List",
+        "Federal",
+        "Budgetary",
+        "Institutions",
+        "Institutes",
+        "Ministry",
+        "Finance",
+        "Revenue",
+        "Plan"
+      ],
+      "summary": "Annex C: List of selected Federal Budgetary Institutions No. Federal Budgetary Institutes 1 Ministry of Finance 2 Ministry of Revenue 3 Ministry of Plan and Development 4 Federal Ethics And Anti-Corruption Commission 5 Ethiopian News Agency 6 National Educational Assessment",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Annex D: Matrix of evaluation questions and data sources",
+      "page_start": 117,
+      "page_end": 117,
+      "child_sections": [],
+      "key_entities": [
+        "Annex",
+        "Matrix",
+        "Specific",
+        "Objectives",
+        "Some",
+        "Data",
+        "Sources",
+        "Document"
+      ],
+      "summary": "Annex D: Matrix of evaluation questions and data sources No. Specific Objectives Some questions Data Sources 1 To review the implementation  Is there an active team, committee, officer or employee at the  Document review, such as progress of",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "participation and different budget process?",
+      "page_start": 118,
+      "page_end": 118,
+      "child_sections": [],
+      "key_entities": [
+        "Have"
+      ],
+      "summary": "participation and different budget process? representative modalities.  Have the citizen participated in the budget processes via direct participation and different representative modalities?  Has the government disclosed woreda’s budget for the citizen on regular basis?  Have the citizens",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "inequalities and promoting more reducing gender inequalities and promoting more ",
+      "page_start": 119,
+      "page_end": 119,
+      "child_sections": [],
+      "key_entities": [
+        "Survey",
+        "Informant",
+        "Interview",
+        "Focus"
+      ],
+      "summary": "inequalities and promoting more reducing gender inequalities and promoting more equal relations  Survey equal relations between women and between women and men related to FTA initiative?  Key Informant Interview men related to FTA initiative.  Do the citizens’/",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "hold officials, employees and committees within the woreda/city",
+      "page_start": 120,
+      "page_end": 120,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "hold officials, employees and committees within the woreda/city accountable?  How do you evaluate level of financial/budget transparency to the citizen?  Has the procurement and audit information disclosure process been effective and contributed toward transparency and accountability? 7 To",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "9 To examine the economic, social, and  What are the determinants of local gove",
+      "page_start": 121,
+      "page_end": 121,
+      "child_sections": [],
+      "key_entities": [
+        "What",
+        "Document",
+        "Ethiopian"
+      ],
+      "summary": "9 To examine the economic, social, and  What are the determinants of local government transparency in  Document review, such as institutional determinants of local the Ethiopian context, specifically at regional and woreda level progress reports, literatures government transparency",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Annex E. Household Survey Instruments (Questionnaire)",
+      "page_start": 122,
+      "page_end": 122,
+      "child_sections": [],
+      "key_entities": [
+        "Annex",
+        "Household",
+        "Survey",
+        "Instruments",
+        "Section",
+        "Identification",
+        "Region/city",
+        "Name",
+        "Tigrai",
+        "Amhara"
+      ],
+      "summary": "Annex E. Household Survey Instruments (Questionnaire) Section A: Identification 1 Region/city administration Name 1. Tigrai 2. Amhara 3. Afar 4. Oromia 5. Somali 6. Gambella 7. Benishangul-Gumuz 8. Harari 9. SNNPR 10. Sidamaa 11. South West Region 12. Addis Ababa",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "3. Birr 2001-4000",
+      "page_start": 123,
+      "page_end": 123,
+      "child_sections": [],
+      "key_entities": [
+        "Birr",
+        "Above",
+        "Which",
+        "Very",
+        "Poor",
+        "Medium",
+        "Rich",
+        "Place",
+        "Urban",
+        "Rural"
+      ],
+      "summary": "3. Birr 2001-4000 4. Birr 4001-7000 5. Above 7000 6 No answer 7.I don’t know 18 Which of the following categories would 1. Very poor you categorize yourself belong as 2. Poor compared to with your neighborhood? 3. Medium 4.",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "(Multiple Response possible) 4. Provision of labour and other in-kind",
+      "page_start": 124,
+      "page_end": 124,
+      "child_sections": [],
+      "key_entities": [
+        "Response",
+        "Provision",
+        "Approving",
+        "Performance",
+        "Overseeing",
+        "Others"
+      ],
+      "summary": "(Multiple Response possible) 4. Provision of labour and other in-kind inputs for implementation 5. Approving works before final payment 6. Performance review of sectoral offices 7. Overseeing and monitoring implementation 8. Others 22.3. If yes to Q22.1, how well they",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "5. I don’t know",
+      "page_start": 125,
+      "page_end": 151,
+      "child_sections": [],
+      "key_entities": [
+        "Which",
+        "Councils",
+        "Council",
+        "Increased",
+        "Weak",
+        "Citizen"
+      ],
+      "summary": "5. I don’t know 27 Which of the following statements best 1. Councils approve the final budget describes the roles councils play with 2. Council review the final budget but regard to the budget? may not approves it 3. Councils",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "locality have direct impact on the lives of 2. No",
+      "page_start": 126,
+      "page_end": 126,
+      "child_sections": [],
+      "key_entities": [
+        "List"
+      ],
+      "summary": "locality have direct impact on the lives of 2. No citizens in your district? 3. I don`t know 39 If you were the one deciding the budget 1. allocation in your district, on which items 2. would you spend the",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "5. . Listening to the radio",
+      "page_start": 127,
+      "page_end": 127,
+      "child_sections": [],
+      "key_entities": [
+        "Listening",
+        "From",
+        "Other",
+        "Section",
+        "Citizen",
+        "Engagement",
+        "Have"
+      ],
+      "summary": "5. . Listening to the radio 6. From a leaflet/brochure distributed by the government 7. From television 8. From the newspaper 9. From an organization in my community 10. From talking with friends or neighbors 11. Other source (specify) Section",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "B. Local resources generated at the 1.Yes 2.No",
+      "page_start": 128,
+      "page_end": 128,
+      "child_sections": [],
+      "key_entities": [
+        "Local",
+        "Kebele",
+        "Increased",
+        "Decreased",
+        "Section",
+        "Have"
+      ],
+      "summary": "B. Local resources generated at the 1.Yes 2.No Kebele level C. Local contributions to the Kebele 55 How do you compare your engagement as 1. Increased compared with the before 5 years 2. No change situation? 3. Decreased 4. I",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "the woreda or kebelle so far?",
+      "page_start": 129,
+      "page_end": 129,
+      "child_sections": [],
+      "key_entities": [
+        "Write",
+        "Section",
+        "Service",
+        "Delivery",
+        "Have",
+        "Healt"
+      ],
+      "summary": "the woreda or kebelle so far? 66 If yes, what measure taken on the issue? Write the measures …………………………………………. Section G: Service Delivery 67 Have you ever seen typical budget and 1. Yes expenditure as well as services delivery 2.",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "posting?",
+      "page_start": 130,
+      "page_end": 130,
+      "child_sections": [],
+      "key_entities": [
+        "Radio",
+        "News",
+        "Templates",
+        "Public",
+        "Drama",
+        "Social",
+        "Media"
+      ],
+      "summary": "posting? 78 If yes, what media was used to disclose 1. TV budget and media information? (Choose 2. Radio all that apply) 3. News paper 4. Templates (tabular or pictorial) 5. broacher and news paper 6. Public workshop or community",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "about the service the services the Woreda 2. No",
+      "page_start": 131,
+      "page_end": 131,
+      "child_sections": [],
+      "key_entities": [
+        "Woreda",
+        "Never",
+        "Rarely",
+        "Often",
+        "Which",
+        "Other"
+      ],
+      "summary": "about the service the services the Woreda 2. No provides? 89 In general, how often do citizens like you 1. Never have an opportunity to express your views 2. Rarely about the budget of the Woreda 3. Often 4. No",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "were courteous and",
+      "page_start": 132,
+      "page_end": 132,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "were courteous and helpful to me F The buildings are in 1 2 3 4 99 good physical shape and well-maintained G I would get better 1 2 3 4 99 service if paid a small informal fee H I",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "school",
+      "page_start": 133,
+      "page_end": 133,
+      "child_sections": [],
+      "key_entities": [
+        "Other",
+        "Recalling",
+        "Strongly",
+        "Agree",
+        "Disagree",
+        "Don’t",
+        "Somehow",
+        "Know"
+      ],
+      "summary": "school Other 6 102 Recalling the experience your children have had when they attended school, please evaluate the following Strongly Agree Disagree Disagree Don’t Agree Somehow Strongly Know A The school is at a 1 2 3 4 99 convenient",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Forming or joining a cooperative 1 2",
+      "page_start": 134,
+      "page_end": 134,
+      "child_sections": [],
+      "key_entities": [
+        "Forming",
+        "Obtaining",
+        "Marketing",
+        "Establishing",
+        "Creating",
+        "Training",
+        "Farm"
+      ],
+      "summary": "Forming or joining a cooperative 1 2 Obtaining a loan 1 2 Marketing goods and services 1 2 Establishing food processing facilities/mills 1 2 Creating income generating activities 1 2 Training related to women’s health, finances, or education 1 2",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "1 Yes 2 No",
+      "page_start": 135,
+      "page_end": 135,
+      "child_sections": [],
+      "key_entities": [
+        "Section",
+        "Water",
+        "Services",
+        "Delivery",
+        "Which",
+        "From",
+        "Woreda"
+      ],
+      "summary": "1 Yes 2 No Section G.4 Water Services Delivery I would like to ask you questions about water service 109 Which of the following is your main source for water? Yes No From a communal spigot not connected to Woreda",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "7.Complaining was not really",
+      "page_start": 136,
+      "page_end": 136,
+      "child_sections": [],
+      "key_entities": [
+        "Embarrassment",
+        "Others"
+      ],
+      "summary": "7.Complaining was not really worth the trouble for fear of receiving no response 8.Fear of approaching people of authority 9.Fear of appearing ungrateful 10. Embarrassment 11. Others (Specify) 114 If Yes to Q1, In which types of services you 1.Health,",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "Impacts",
+      "page_start": 137,
+      "page_end": 137,
+      "child_sections": [],
+      "key_entities": [
+        "Impacts",
+        "Strongly",
+        "Agree",
+        "Neutral",
+        "Quality"
+      ],
+      "summary": "Impacts 124 The visibility of citizens in shaping budget, 1. Strongly agree expenditure and quality service delivery improved 2. Agree 3. Neutral 4. Not agree 5. Strongly not agree 125 Quality of services( health, water, education and 1. Strongly agree",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "135 Quality of services( health, education, water and 1. Highly sustainable",
+      "page_start": 138,
+      "page_end": 138,
+      "child_sections": [],
+      "key_entities": [
+        "Quality",
+        "Highly",
+        "Sustainable",
+        "Engagement",
+        "Consideration"
+      ],
+      "summary": "135 Quality of services( health, education, water and 1. Highly sustainable agricultural extension) 2. Sustainable 3. Not sustainable 125 Engagement of citizen in shaping their 1. Highly sustainable 136 development 2. Sustainable 3. Not sustainable 137 Consideration of citizen voice",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Annex F: Key Informant Interview (KII) Instrument",
+      "page_start": 139,
+      "page_end": 139,
+      "child_sections": [],
+      "key_entities": [
+        "Annex",
+        "Informant",
+        "Interview",
+        "Instrument",
+        "Section",
+        "Identification",
+        "Region/city",
+        "Tigrai",
+        "Name",
+        "Amhara"
+      ],
+      "summary": "Annex F: Key Informant Interview (KII) Instrument Section A: Identification A1 Region/city 1. Tigrai administration Name 2. Amhara 3. Afar 4. Oromia 5. Somali 6. Gambella 7. Benishangul-Gumuz 8. Harari 9. SNNPR 10. Sidamaa 11. West South 12. Addis Ababa",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "5. Graduate",
+      "page_start": 140,
+      "page_end": 140,
+      "child_sections": [],
+      "key_entities": [
+        "Graduate",
+        "Post",
+        "Which",
+        "Education",
+        "Agriculture",
+        "Water",
+        "Road",
+        "Less",
+        "Above"
+      ],
+      "summary": "5. Graduate 6. Post graduate and above B7 Which office are you 1. MoFED working for? 2. PBS sector offices (Health, Education, Agriculture, Water, Road) 3. Non PBS sector office 4. others B8 How many years did you 1. Less",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "adequate services to",
+      "page_start": 141,
+      "page_end": 141,
+      "child_sections": [],
+      "key_entities": [
+        "Services"
+      ],
+      "summary": "adequate services to ensure transparency and accountability? C6 If not adequate, do you 1. Yes think that service 2. No delivery was poor due to 3. I don’t know limited capacity of staff? C7 If yes for Q C6, what",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "withdrawal of the",
+      "page_start": 142,
+      "page_end": 142,
+      "child_sections": [],
+      "key_entities": [
+        "Donor’s",
+        "Yes",
+        "Section"
+      ],
+      "summary": "withdrawal of the Donor’s support? C15 Do you think that the 1. Yes project enhanced the 2. No capacity of your office to 3. I don’t know implement FTA initiatives? C16 Do you believe that FTA 1. Yes structure created",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "D7 Which part/s of the 1. Its content",
+      "page_start": 143,
+      "page_end": 143,
+      "child_sections": [],
+      "key_entities": [
+        "Which",
+        "Language",
+        "Being",
+        "Other"
+      ],
+      "summary": "D7 Which part/s of the 1. Its content training was/were more 2. Language relevant? ( multiple 3. Being pictorial response is possible) 4. The duration 5. Other D8 Did you participate in 1. Yes rolling out the training? 2. No",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "E3 If yes, do you think that 1. Yes, all the time",
+      "page_start": 144,
+      "page_end": 144,
+      "child_sections": [],
+      "key_entities": [
+        "Yes",
+        "Never",
+        "Increased",
+        "Decreased"
+      ],
+      "summary": "E3 If yes, do you think that 1. Yes, all the time required actions were 2. Yes, most of the time taken timely? 3. Yes, now and then 4. Never E4 In general, how do you 1. Increased progressively compare",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "providers by the local government",
+      "page_start": 145,
+      "page_end": 145,
+      "child_sections": [],
+      "key_entities": [
+        "Audit",
+        "Woreda",
+        "City",
+        "Proceedings",
+        "Which",
+        "Operations",
+        "Service"
+      ],
+      "summary": "providers by the local government 7. Audit reports 8. Woreda or City council session proceedings or the council’s decisions 9. Proceedings of public consultations F3 Which of the following 1. Operations policy and procedures manual 2. enabling/ empowering Service delivery",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "poor services and",
+      "page_start": 146,
+      "page_end": 146,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "poor services and unacceptable practices in the health, education, agriculture or any other sector? F10 Is there any feedback 1. Yes mechanism to collect 2. No and disseminate 3. I don’t know information from/ to the community about the operationalization",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "regulations",
+      "page_start": 147,
+      "page_end": 147,
+      "child_sections": [],
+      "key_entities": [
+        "Commensurate",
+        "Others(specify",
+        "Please",
+        "Yes",
+        "Officials",
+        "Accountable"
+      ],
+      "summary": "regulations 6. Commensurate penalty for wrong doers 7. Others(specify) G3 Please rank the 1. 2. 3. 4. 5. 6. 7. accountability mechanisms listed above (in G2). G4 Do you believe that there 1. Yes, there are systems to make Officials",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "6. Others",
+      "page_start": 148,
+      "page_end": 148,
+      "child_sections": [],
+      "key_entities": [
+        "Others",
+        "Which",
+        "Budgetary",
+        "Posted",
+        "Evaluate",
+        "Create",
+        "Administration"
+      ],
+      "summary": "6. Others G11.2 Which actions are taken 1. Budgetary information provision on time by your woreda in the 2. Posted the performance report of the service last five years? delivery standards 3. Evaluate the service delivery standards 4. Create awareness",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "your strategic plan?",
+      "page_start": 149,
+      "page_end": 149,
+      "child_sections": [],
+      "key_entities": [
+        "Confirmed",
+        "Partially"
+      ],
+      "summary": "your strategic plan? H4 If, yes for Q H3 can you 1. Confirmed show us the document? ( 2. Not confirmed check the document and confirm) H5 Do you feel that the 1. Yes M&E system is adequate 2. Partially",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "component 2. Support of Grievance Redress Mechanisms",
+      "page_start": 150,
+      "page_end": 150,
+      "child_sections": [],
+      "key_entities": [
+        "Support",
+        "Grievance",
+        "Redress",
+        "Mechanisms",
+        "Local",
+        "Public",
+        "Finance",
+        "Management",
+        "Managing",
+        "Results"
+      ],
+      "summary": "component 2. Support of Grievance Redress Mechanisms (GRM) sub component 3. Local Public Finance Management component 4. Managing for Results component 5. Others I3 If yes, with which 1. FTA works with citizen engagement sub component component 2. Facilitation information",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "bank/donors",
+      "page_start": 152,
+      "page_end": 152,
+      "child_sections": [],
+      "key_entities": [
+        "Critical",
+        "Over",
+        "What"
+      ],
+      "summary": "bank/donors 3. CSO/Local NGO 4. I don`t know L. Critical success factors L1 Over the project implementation period what are the most significant changes (MSC) with respect to enhancing transparency and accountability around public budget process in your area (region,",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Annex G: Focus Group Discussions (FGD) Guide (Protocol)",
+      "page_start": 153,
+      "page_end": 153,
+      "child_sections": [],
+      "key_entities": [
+        "Annex",
+        "Focus",
+        "Group",
+        "Discussions",
+        "Guide",
+        "Instructions",
+        "And",
+        "Relevance",
+        "Discuss"
+      ],
+      "summary": "Annex G: Focus Group Discussions (FGD) Guide (Protocol) Instructions: The following pertinent points have been identified to ensure effective and relevant discussion. And, hence, discuss with the team and jot down the main points of the discussion for the analysis.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "benefits of women from improving basic services, attitude of officials and emplo",
+      "page_start": 154,
+      "page_end": 154,
+      "child_sections": [],
+      "key_entities": [
+        "Stakeholders",
+        "Does"
+      ],
+      "summary": "benefits of women from improving basic services, attitude of officials and employees of the local administration towards women’s demand on improving 7. Stakeholders participation and ability to promote their interests Does women, girls, men and boys from different stakeholders groups",
+      "data_types_present": [
+        "list"
+      ]
+    },
+    {
+      "title": "14. Strength and Weakness",
+      "page_start": 155,
+      "page_end": 155,
+      "child_sections": [],
+      "key_entities": [
+        "Strength",
+        "Weakness",
+        "Three",
+        "What"
+      ],
+      "summary": "14. Strength and Weakness Three most important strengths and limitations of the FTA initiative? What do you suggest to improve the limitations? (5 important methods of improving FTA activities), any other comments / issues 139",
+      "data_types_present": [
+        "list"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "list",
+    "text"
+  ]
+}

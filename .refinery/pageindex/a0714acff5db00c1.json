@@ -1,0 +1,26 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 1,
+  "child_sections": [
+    {
+      "title": "INDEPENDENT AUDiTOR’S REPORT",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Your",
+        "Development"
+      ],
+      "summary": "INDEPENDENT AUDiTOR’S REPORT AND FiNANCiAL STATEMENTS 30 JUNE 2023 DEVELOPMENT BANK OF ETHIOPIA Your Development partner!",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

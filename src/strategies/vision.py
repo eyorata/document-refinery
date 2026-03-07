@@ -210,13 +210,13 @@ class VisionExtractor(FastTextExtractor):
                 }
             ],
         }
+        headers = {"Content-Type": "application/json"}
+        if api_key:
+            headers["Authorization"] = f"Bearer {api_key}"
         req = urllib.request.Request(
             f"{self.openrouter_api_base}/chat/completions",
             data=json.dumps(payload).encode("utf-8"),
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json",
-            },
+            headers=headers,
             method="POST",
         )
         try:

@@ -11,6 +11,7 @@ from src.models import BoundingBox, LDU, PageIndexNode, ProvenanceChain, Provena
 from src.storage import FactTableStore
 from src.storage.vector_store import VectorStore
 from src.utils.hashing import stable_hash
+from src.utils.llm_client import call_chat_text_openai_compatible, should_use_langchain_wrapper
 
 
 @dataclass
@@ -58,8 +59,6 @@ class OpenRouterToolRouter:
 
     def decide(self, question: str, state: dict[str, Any]) -> ToolDecision:
         api_key = os.environ.get(self.api_key_env, "").strip()
-        if not api_key:
-            raise RuntimeError(f"Missing OpenRouter API key in env var `{self.api_key_env}`.")
 
         prompt = (
             "You are routing a query agent with tools: pageindex_navigate, semantic_search, structured_query, finish.\n"
@@ -74,10 +73,32 @@ class OpenRouterToolRouter:
             "max_tokens": 250,
             "messages": [{"role": "user", "content": prompt}],
         }
+        if should_use_langchain_wrapper():
+            try:
+                content = call_chat_text_openai_compatible(
+                    prompt,
+                    model=self.model,
+                    api_base=self.api_base,
+                    api_key=api_key,
+                    max_tokens=250,
+                    temperature=0.0,
+                )
+                data = self._parse_json(content)
+                next_tool = str(data.get("next_tool", "semantic_search")).strip().lower()
+                if next_tool not in {"pageindex_navigate", "semantic_search", "structured_query", "finish"}:
+                    next_tool = "semantic_search"
+                sql = data.get("sql")
+                return ToolDecision(next_tool=next_tool, sql=str(sql) if sql else None, reason=str(data.get("reason", "")))
+            except Exception:
+                pass
+
+        headers = {"Content-Type": "application/json"}
+        if api_key:
+            headers["Authorization"] = f"Bearer {api_key}"
         req = urllib.request.Request(
             f"{self.api_base}/chat/completions",
             data=json.dumps(payload).encode("utf-8"),
-            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            headers=headers,
             method="POST",
         )
         try:

@@ -39,7 +39,10 @@ def main() -> None:
         st.info("Awaiting document upload.")
         return
 
-    initial_question = st.text_input("Initial question to run after processing", value="Summarize key points")
+    run_initial_qa = st.checkbox("Run an initial question after processing (optional)", value=False)
+    initial_question = ""
+    if run_initial_qa:
+        initial_question = st.text_input("Initial question", value="Summarize key points")
     process_clicked = st.button("Process Uploaded Files", type="primary", use_container_width=True)
 
     pipeline = get_pipeline()
@@ -61,7 +64,12 @@ def main() -> None:
                 with st.spinner(f"Processing {uploaded.name}..."):
                     try:
                         processed = pipeline.process_document(str(tmp_path))
-                        answer = pipeline.answer_question(initial_question.strip() or "Summarize key points", processed["chunks"], processed["page_index"])
+                        if run_initial_qa:
+                            answer = pipeline.answer_question(
+                                initial_question.strip() or "Summarize key points",
+                                processed["chunks"],
+                                processed["page_index"],
+                            )
                     except HumanReviewRequiredError as exc:
                         status = f"human_review_required: {exc}"
                     except BudgetExceededError as exc:
@@ -70,7 +78,7 @@ def main() -> None:
                         status = f"error: {exc}"
 
             history = []
-            if answer is not None:
+            if run_initial_qa and answer is not None:
                 history.append({"question": initial_question.strip() or "Summarize key points", "answer": answer})
 
             st.session_state["doc_runs"][doc_id] = {
