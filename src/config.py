@@ -16,6 +16,26 @@ except Exception:  # pragma: no cover - optional at import-time for robustness
 _ENV_LOADED = False
 
 
+def _load_env_file_fallback(path: str = ".env") -> None:
+    p = Path(path)
+    if not p.exists():
+        return
+    for raw in p.read_text(encoding="utf-8", errors="ignore").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, val = line.split("=", 1)
+        key = key.strip()
+        if not key:
+            continue
+        val = val.strip().strip("'").strip('"')
+        # Normalize accidental literal PowerShell escape remnants like "`n".
+        if val.endswith("`n"):
+            val = val[:-2]
+        if key not in os.environ:
+            os.environ[key] = val
+
+
 class TriageThresholds(BaseModel):
     low_density_threshold: float = 0.0002
     high_density_threshold: float = 0.001
@@ -177,9 +197,12 @@ class RefineryConfig(BaseModel):
 
 def load_config(path: str | Path) -> dict[str, Any]:
     global _ENV_LOADED
-    if not _ENV_LOADED and load_dotenv is not None:
+    if not _ENV_LOADED:
         # Load .env from project root/current working directory.
-        load_dotenv()
+        if load_dotenv is not None:
+            load_dotenv()
+        else:
+            _load_env_file_fallback(".env")
         _ENV_LOADED = True
 
     p = Path(path)

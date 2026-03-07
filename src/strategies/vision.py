@@ -126,7 +126,7 @@ class VisionExtractor(FastTextExtractor):
 
     def _ocr_pages_with_vision(self, reader: PdfReader, document_path: str, max_pages: int) -> List[TextBlock]:
         api_key = os.environ.get(self.openrouter_api_key_env, "").strip()
-        if self.openrouter_enabled and api_key:
+        if self.openrouter_enabled:
             try:
                 return self._ocr_pages_with_openrouter(document_path=document_path, max_pages=max_pages, api_key=api_key)
             except Exception as exc:
@@ -141,10 +141,7 @@ class VisionExtractor(FastTextExtractor):
                     "Vision model required to extract this document. "
                     "Set `extraction.vision.openrouter.enabled=true` and configure API access."
                 )
-            raise BudgetExceededError(
-                f"Vision model required to extract this document. "
-                f"Set `{self.openrouter_api_key_env}` with a valid API key and retry."
-            )
+            raise BudgetExceededError("Vision model required to extract this document, but no provider endpoint is reachable.")
         self.last_provider = "placeholder"
         return self._ocr_pages_with_placeholder(reader=reader, max_pages=max_pages)
 

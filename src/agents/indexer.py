@@ -135,14 +135,14 @@ class PageIndexBuilder:
         if not self.llm_enabled:
             return None
         api_key = os.environ.get(self.llm_api_key_env, "").strip()
-        if not api_key:
-            return None
         prompt = (
             f"Summarize document section '{section_title}' in 2-3 concise sentences. "
             "Focus on key facts and entities.\n\n"
             f"Section content:\n{content}"
         )
         if self.llm_provider == "gemini":
+            if not api_key:
+                return None
             req = urllib.request.Request(
                 f"https://generativelanguage.googleapis.com/v1beta/models/{self.llm_model}:generateContent?key={api_key}",
                 data=json.dumps(

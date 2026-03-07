@@ -1,0 +1,14 @@
+{
+  "doc_id": "7544aa639cd0ac54",
+  "document_name": "Annual_Report_JUNE-2017.pdf",
+  "page_count": 104,
+  "origin_type": "native_digital",
+  "layout_complexity": "figure_heavy",
+  "language_code": "en",
+  "language_confidence": 0.9998368118182599,
+  "domain_hint": "financial",
+  "estimated_extraction_cost": "fast_text_sufficient",
+  "avg_char_density": 0.0033827981174777166,
+  "avg_image_ratio": 0.10728437173014096,
+  "triage_confidence": 1.0
+}

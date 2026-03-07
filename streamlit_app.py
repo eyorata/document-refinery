@@ -39,10 +39,6 @@ def main() -> None:
         st.info("Awaiting document upload.")
         return
 
-    run_initial_qa = st.checkbox("Run an initial question after processing (optional)", value=False)
-    initial_question = ""
-    if run_initial_qa:
-        initial_question = st.text_input("Initial question", value="Summarize key points")
     process_clicked = st.button("Process Uploaded Files", type="primary", use_container_width=True)
 
     pipeline = get_pipeline()
@@ -60,16 +56,9 @@ def main() -> None:
 
                 status = "ok"
                 processed = None
-                answer = None
                 with st.spinner(f"Processing {uploaded.name}..."):
                     try:
                         processed = pipeline.process_document(str(tmp_path))
-                        if run_initial_qa:
-                            answer = pipeline.answer_question(
-                                initial_question.strip() or "Summarize key points",
-                                processed["chunks"],
-                                processed["page_index"],
-                            )
                     except HumanReviewRequiredError as exc:
                         status = f"human_review_required: {exc}"
                     except BudgetExceededError as exc:
@@ -77,15 +66,11 @@ def main() -> None:
                     except Exception as exc:  # noqa: BLE001
                         status = f"error: {exc}"
 
-            history = []
-            if run_initial_qa and answer is not None:
-                history.append({"question": initial_question.strip() or "Summarize key points", "answer": answer})
-
             st.session_state["doc_runs"][doc_id] = {
                 "name": uploaded.name,
                 "status": status,
                 "processed": processed,
-                "history": history,
+                "history": [],
             }
             st.session_state["current_upload_doc_ids"].append(doc_id)
 
@@ -97,38 +82,21 @@ def main() -> None:
         st.info("Click 'Process Uploaded Files' to run the pipeline and start chatting.")
         return
 
-    st.subheader("Answers")
+    st.subheader("Processing Status")
     for doc_id in current_ids:
         run = doc_runs.get(doc_id)
         if not run:
             continue
         st.markdown(f"**{run['name']}**")
         status = run["status"]
-        if status != "ok":
-            if status.startswith("human_review_required"):
-                st.warning(f"Requires human review: {status}")
-            elif status.startswith("budget_exceeded"):
-                st.error(f"Budget exceeded: {status}")
-            else:
-                st.error(f"Processing failed: {status}")
-            continue
-        if run["history"]:
-            latest = run["history"][-1]["answer"]
-            st.write(latest.answer)
-            st.markdown("**Provenance**")
-            if latest.provenance.citations:
-                for i, cit in enumerate(latest.provenance.citations, start=1):
-                    with st.expander(f"Citation {i}: page {cit.page_number}"):
-                        st.json(
-                            {
-                                "document_name": cit.document_name,
-                                "page_number": cit.page_number,
-                                "bbox": cit.bbox.model_dump(),
-                                "content_hash": cit.content_hash,
-                            }
-                        )
-            else:
-                st.write("No citations found.")
+        if status == "ok":
+            st.success("Processed and ready for chat.")
+        elif status.startswith("human_review_required"):
+            st.warning(f"Requires human review: {status}")
+        elif status.startswith("budget_exceeded"):
+            st.error(f"Budget exceeded: {status}")
+        else:
+            st.error(f"Processing failed: {status}")
 
     st.subheader("Chat With Document")
     selectable = [(doc_id, doc_runs[doc_id]["name"]) for doc_id in current_ids if doc_id in doc_runs and doc_runs[doc_id]["status"] == "ok"]
@@ -141,6 +109,18 @@ def main() -> None:
         for turn in selected_run["history"]:
             st.markdown(f"**Q:** {turn['question']}")
             st.markdown(f"**A:** {turn['answer'].answer}")
+            if turn["answer"].provenance.citations:
+                with st.expander("Provenance"):
+                    for i, cit in enumerate(turn["answer"].provenance.citations, start=1):
+                        st.json(
+                            {
+                                "citation": i,
+                                "document_name": cit.document_name,
+                                "page_number": cit.page_number,
+                                "bbox": cit.bbox.model_dump(),
+                                "content_hash": cit.content_hash,
+                            }
+                        )
 
         follow_up = st.text_input("Ask a follow-up question", key=f"follow_{selected_id}")
         if st.button("Send Follow-up", key=f"send_{selected_id}"):
