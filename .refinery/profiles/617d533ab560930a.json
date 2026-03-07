@@ -1,0 +1,14 @@
+{
+  "doc_id": "617d533ab560930a",
+  "document_name": "Interim_trpw3.pdf",
+  "page_count": 16,
+  "origin_type": "native_digital",
+  "layout_complexity": "table_heavy",
+  "language_code": "en",
+  "language_confidence": 1.0,
+  "domain_hint": "financial",
+  "estimated_extraction_cost": "needs_layout_model",
+  "avg_char_density": 0.0020864537944807553,
+  "avg_image_ratio": 0.044971977124183,
+  "triage_confidence": 1.0
+}

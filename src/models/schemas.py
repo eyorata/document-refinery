@@ -138,6 +138,7 @@ class ExtractionLedgerEntry(BaseModel):
     human_review_required: bool = False
     token_usage: int | None = None
     provider: str | None = None
+    provider_attempts: list[str] | None = None
 
 
 class QueryAnswer(BaseModel):

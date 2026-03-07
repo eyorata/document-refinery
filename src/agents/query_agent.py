@@ -216,10 +216,12 @@ class QueryInterfaceAgent:
         self.router_cfg = router_cfg or {}
 
     def pageindex_navigate(self, index: PageIndexNode, topic: str, k: int = 3) -> list[PageIndexNode]:
-        low = topic.lower()
+        q_tokens = self._tokens(topic)
         scored = []
         for node in index.child_sections:
-            score = node.title.lower().count(low) + node.summary.lower().count(low)
+            node_blob = " ".join([node.title, node.summary, " ".join(node.key_entities)]).lower()
+            n_tokens = self._tokens(node_blob)
+            score = len(q_tokens.intersection(n_tokens))
             scored.append((score, node))
         scored.sort(key=lambda x: x[0], reverse=True)
         return [n for s, n in scored[:k]]
@@ -385,6 +387,9 @@ class QueryInterfaceAgent:
         return QueryAnswer(answer=answer, provenance=provenance)
 
     def _synthesize_answer(self, hits: list[LDU], rows: list[tuple]) -> str:
+        llm_answer = self._llm_answer(hits, rows)
+        if llm_answer:
+            return llm_answer
         parts: list[str] = []
         if hits:
             parts.append(" ".join(h.content[:220] for h in hits)[:600])
@@ -398,6 +403,116 @@ class QueryInterfaceAgent:
         if not parts:
             return "No verifiable answer found."
         return " ".join(parts)[:900]
+
+    def _llm_answer(self, hits: list[LDU], rows: list[tuple]) -> str | None:
+        provider = str(self.router_cfg.get("provider", "heuristic")).lower().strip()
+        enabled = bool(self.router_cfg.get("enabled", False))
+        if not enabled or provider not in {"openrouter", "gemini"}:
+            return None
+        if not hits and not rows:
+            return None
+
+        context_parts: list[str] = []
+        for h in hits[:6]:
+            if h.page_refs:
+                context_parts.append(f"[p{h.page_refs[0].page_number}] {h.content[:500]}")
+            else:
+                context_parts.append(h.content[:500])
+        if rows:
+            facts = []
+            for row in rows[:8]:
+                if len(row) >= 2:
+                    facts.append(f"{row[0]}={row[1]}")
+            if facts:
+                context_parts.append("Structured facts: " + "; ".join(facts))
+        context = "\n".join(context_parts)[:6000]
+        instruction = (
+            "Answer the user question using only provided context. "
+            "Return only the final answer in 2-5 sentences. "
+            "Do not include reasoning steps, tool/routing notes, or internal process text. "
+            "If the context is insufficient, say so briefly."
+        )
+        prompt = f"{instruction}\n\nContext:\n{context}"
+
+        try:
+            if provider == "openrouter":
+                api_base = str(self.router_cfg.get("api_base", "https://openrouter.ai/api/v1")).rstrip("/")
+                model = str(self.router_cfg.get("model", "openai/gpt-4o-mini"))
+                api_key_env = str(self.router_cfg.get("api_key_env", "OPENROUTER_API_KEY"))
+                api_key = os.environ.get(api_key_env, "").strip()
+                max_tokens = int(self.router_cfg.get("max_output_tokens", 250))
+                temperature = float(self.router_cfg.get("temperature", 0.0))
+                if should_use_langchain_wrapper():
+                    text = call_chat_text_openai_compatible(
+                        prompt,
+                        model=model,
+                        api_base=api_base,
+                        api_key=api_key,
+                        max_tokens=max_tokens,
+                        temperature=temperature,
+                    )
+                    if isinstance(text, str) and text.strip():
+                        return self._clean_answer_text(text)
+                    return None
+
+                headers = {"Content-Type": "application/json"}
+                if api_key:
+                    headers["Authorization"] = f"Bearer {api_key}"
+                req = urllib.request.Request(
+                    f"{api_base}/chat/completions",
+                    data=json.dumps(
+                        {
+                            "model": model,
+                            "temperature": temperature,
+                            "max_tokens": max_tokens,
+                            "messages": [{"role": "user", "content": prompt}],
+                        }
+                    ).encode("utf-8"),
+                    headers=headers,
+                    method="POST",
+                )
+                with urllib.request.urlopen(req, timeout=60) as resp:
+                    body = json.loads(resp.read().decode("utf-8", errors="replace"))
+                choices = body.get("choices", [])
+                if choices and isinstance(choices[0], dict):
+                    content = choices[0].get("message", {}).get("content", "")
+                    text = str(content).strip()
+                    return self._clean_answer_text(text) if text else None
+                return None
+
+            api_key_env = str(self.router_cfg.get("api_key_env", "GEMINI_API_KEY"))
+            api_key = os.environ.get(api_key_env, "").strip()
+            if not api_key:
+                return None
+            model = str(self.router_cfg.get("model", "gemini-1.5-flash"))
+            max_output_tokens = int(self.router_cfg.get("max_output_tokens", 250))
+            temperature = float(self.router_cfg.get("temperature", 0.0))
+            req = urllib.request.Request(
+                f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}",
+                data=json.dumps(
+                    {
+                        "contents": [{"parts": [{"text": prompt}]}],
+                        "generationConfig": {
+                            "temperature": temperature,
+                            "maxOutputTokens": max_output_tokens,
+                        },
+                    }
+                ).encode("utf-8"),
+                headers={"Content-Type": "application/json"},
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                body = json.loads(resp.read().decode("utf-8", errors="replace"))
+            cands = body.get("candidates", [])
+            if not cands:
+                return None
+            cand0 = cands[0] if isinstance(cands[0], dict) else {}
+            content = cand0.get("content", {}) if isinstance(cand0, dict) else {}
+            parts = content.get("parts", []) if isinstance(content, dict) else []
+            text = " ".join(str(p.get("text", "")) for p in parts if isinstance(p, dict)).strip()
+            return self._clean_answer_text(text) if text else None
+        except Exception:
+            return None
 
     def _build_provenance(self, hits: list[LDU], rows: list[tuple]) -> ProvenanceChain:
         cites: list[ProvenanceItem] = []
@@ -449,3 +564,21 @@ class QueryInterfaceAgent:
         x1 = max(c.bbox.x1 for c in citations)
         y1 = max(c.bbox.y1 for c in citations)
         return BoundingBox(x0=x0, y0=y0, x1=x1, y1=y1)
+
+    def _tokens(self, text: str) -> set[str]:
+        return {t.strip(".,:;()[]{}\"'").lower() for t in text.split() if t.strip(".,:;()[]{}\"'")}
+
+    def _clean_answer_text(self, text: str) -> str:
+        lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+        drop_prefixes = (
+            "route:",
+            "step ",
+            "provenancechain",
+            "tool",
+            "reasoning",
+            "restrict semantic search",
+            "collect top chunks",
+        )
+        kept = [ln for ln in lines if not ln.lower().startswith(drop_prefixes)]
+        out = " ".join(kept).strip()
+        return out or text.strip()

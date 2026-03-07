@@ -26,23 +26,23 @@ triage:
 # EXTRACTION: confidence gate, budget controls, strategy tuning, and escalation policy.
 extraction:
   confidence_minimum: 0.65                   # Minimum confidence needed to stop escalation.
-  budget_per_document_usd: 0.20              # Hard max estimated spend across all strategies per document.
+  budget_per_document_usd: 2.00              # Hard max estimated spend across all strategies per document.
   enforce_hard_caps: true                    # Enforce preflight and post-run budget checks.
   strategy_budgets_usd:
     fast_text: 0.05                          # Hard cap for strategy A.
     layout_aware: 0.15                       # Hard cap for strategy B.
-    vision_augmented: 0.20                   # Hard cap for strategy C.
+    vision_augmented: 2.00                   # Hard cap for strategy C.
   strategy_estimated_costs_usd:
     fast_text: 0.002                         # Preflight estimate used before running strategy A.
     layout_aware: 0.02                       # Preflight estimate used before running strategy B.
     vision_augmented: 0.10                   # Preflight estimate used before running strategy C.
   vlm_budget:
     enabled: true                            # Enables/disables vision model execution.
-    max_pages_per_document: 25               # Hard page cap for vision processing.
+    max_pages_per_document: 120               # Hard page cap for vision processing.
     cost_per_page_usd: 0.01                  # Cost model used for projected/actual VLM spend.
-    max_total_cost_usd: 0.20                 # Hard VLM cost cap per document.
-    stop_on_budget_exceeded: true            # If true, abort vision when caps are exceeded.
-    allow_partial_processing: false          # If true (and stop=false), process only affordable pages.
+    max_total_cost_usd: 2.00                 # Hard VLM cost cap per document.
+    stop_on_budget_exceeded: false            # If true, abort vision when caps are exceeded.
+    allow_partial_processing: true          # If true (and stop=false), process only affordable pages.
   fast_text:
     estimated_cost_usd: 0.002                # Returned cost estimate for fast_text strategy.
     confidence_weight_chars: 0.45            # Confidence blend weight for avg chars/page.
@@ -65,19 +65,45 @@ extraction:
   vision:
     confidence_if_text_present_min: 0.9      # Confidence floor when fast text is already available.
     confidence_if_ocr_only: 0.88             # Confidence used when OCR/VLM path is used.
+    min_confidence_for_accept: 0.78          # Minimum OCR confidence to accept provider output without fallback.
+    escalate_on_low_confidence: true         # If true, try next provider when OCR confidence is low.
+    allow_best_effort_on_low_confidence: true # If all providers are below threshold, keep the best result.
     figure_bbox_height: 260.0                # Height used for synthetic vision figure provenance bbox.
     require_model_for_ocr: true              # If true, fail with actionable message when no VLM/LLM is configured.
     strategy_config_path: "rubric/vision_strategy.yaml"  # Dedicated strategy C config file.
+    providers:
+      - name: "lmstudio_qwen"
+        enabled: true
+        api_base: "http://192.168.6.233:1234/v1"
+        model: "qwen3-vl-32b-instruct"
+        api_key_env: "LMSTUDIO_API_KEY"
+        max_output_tokens: 700
+        temperature: 0.0
+      - name: "openai_fallback"
+        enabled: false
+        api_base: "https://api.openai.com/v1"
+        model: "gpt-4o-mini"
+        api_key_env: "OPENAI_API_KEY"
+        max_output_tokens: 700
+        temperature: 0.0
+      - name: "gemini_fallback"
+        enabled: false
+        api_base: "https://generativelanguage.googleapis.com/v1beta/openai"
+        model: "gemini-2.0-flash"
+        api_key_env: "GEMINI_API_KEY"
+        max_output_tokens: 700
+        temperature: 0.0
     openrouter:
-      enabled: false                          # Set true to call OpenRouter vision endpoint for OCR extraction.
-      api_base: "https://openrouter.ai/api/v1"
-      model: "openai/gpt-4o-mini"
-      api_key_env: "OPENROUTER_API_KEY"      # API key is read from this environment variable.
+      enabled: true                           # Enabled by default for local/OpenAI-compatible vision endpoint.
+      api_base: "http://192.168.6.233:1234/v1"
+      model: "qwen3-vl-32b-instruct"
+      api_key_env: "LMSTUDIO_API_KEY"      # API key is read from this environment variable.
       max_output_tokens: 700
       temperature: 0.0
   escalation:
     continue_on_strategy_error: true         # If true, try next strategy when current strategy errors.
     require_human_review_on_low_confidence: true  # If true, low-confidence final output requires review.
+    initial_strategy_mode: always_fast_text  # always_fast_text | profile
     chains:
       fast_text: ["fast_text", "layout_aware", "vision_augmented"]  # Strategy order when starting from A.
       layout_aware: ["layout_aware", "vision_augmented"]             # Strategy order when starting from B.
@@ -99,9 +125,9 @@ pageindex:
   llm:
     provider: openrouter                     # openrouter | gemini
     enabled: false
-    api_base: "https://openrouter.ai/api/v1" # used for openrouter only
-    model: "openai/gpt-4o-mini"             # or gemini-1.5-flash when provider=gemini
-    api_key_env: "OPENROUTER_API_KEY"       # set to GEMINI_API_KEY if provider=gemini
+    api_base: "http://192.168.6.233:1234/v1" # used for openrouter only
+    model: "google/gemma-3-27b"             # or gemini-1.5-flash when provider=gemini
+    api_key_env: "LMSTUDIO_API_KEY"       # set to GEMINI_API_KEY if provider=gemini
     max_output_tokens: 140
     temperature: 0.1
 
@@ -110,9 +136,9 @@ query_agent:
   router:
     provider: heuristic                      # heuristic | openrouter | gemini
     enabled: false                           # Enable model-based tool routing if true.
-    api_base: "https://openrouter.ai/api/v1" # used for openrouter only
-    model: "openai/gpt-4o-mini"             # or gemini-1.5-flash when provider=gemini
-    api_key_env: "OPENROUTER_API_KEY"       # set to GEMINI_API_KEY if provider=gemini
+    api_base: "http://192.168.6.233:1234/v1" # used for openrouter only
+    model: "google/gemma-3-27b"             # or gemini-1.5-flash when provider=gemini
+    api_key_env: "LMSTUDIO_API_KEY"       # set to GEMINI_API_KEY if provider=gemini
     max_output_tokens: 250
     temperature: 0.0
 

@@ -1,0 +1,380 @@
+{
+  "meta": {
+    "description": "Q&A examples generated from .refinery history artifacts.",
+    "counts_per_class": {
+      "A": 3,
+      "B": 3,
+      "C": 3,
+      "D": 3
+    },
+    "total_examples": 12,
+    "source_artifacts": [
+      ".refinery/extraction_ledger.jsonl",
+      ".refinery/profiles/*.json",
+      ".refinery/chunks/*.json",
+      ".refinery/pageindex/*.json"
+    ]
+  },
+  "examples": [
+    {
+      "class": "A",
+      "document_name": "Interim_trpw3.pdf",
+      "doc_id": "617d533ab560930a",
+      "question": "What cost strategy is recommended for extracting this document?",
+      "answer": "The profile classifies the document as native_digital with table_heavy layout and estimated cost tier needs_layout_model. The executed strategy was fast_text with routing trace ['fast_text']. Section summary: The \"Document Intelligence Refinery\" interim report details Phase 0 efforts to address the challenge of processing **heterogeneous financial documents** \u2013 including **PDFs, legal docs, & fiscal summaries** \u2013 for modern **Financial Data Engineering (FDE)**. The core problem is transforming these diverse sources into **auditable and queryable data**. This phase focuses on establishing foundational domain knowledge for this document ingestion pipeline.",
+      "provenance_chain": {
+        "content_hash": "b078449c7d9d61eb8b1ba579895166a958451331ae4d830693b69576c092e017",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        },
+        "citations": [
+          {
+            "document_name": "Interim_trpw3.pdf",
+            "page_number": 1,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 612.0,
+              "y1": 792.0
+            },
+            "content_hash": "b078449c7d9d61eb8b1ba579895166a958451331ae4d830693b69576c092e017"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "A",
+      "document_name": "Interim_trpw3.pdf",
+      "doc_id": "f0d524070ec1d31f",
+      "question": "Is this document routed to fast text, layout, or vision and why?",
+      "answer": "The profile classifies the document as native_digital with table_heavy layout and estimated cost tier needs_layout_model. The executed strategy was fast_text with routing trace ['fast_text']. Section summary: The \"Document Intelligence Refinery\" interim report focuses on addressing the challenges of ingesting **heterogeneous financial documents** \u2013 including **PDFs, legal docs, & fiscal summaries** \u2013 for use in **Modern Financial Data Engineering (FDE)**. The goal is to transform these diverse sources into **auditable and queryable data**. This report details initial work (\"Phase 0 Deliverable\") outlining the **problem context** for this refinery process.",
+      "provenance_chain": {
+        "content_hash": "726ca932beb4321ee2f8cc81087bf9c094dd76dce4261512f6927de935035765",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        },
+        "citations": [
+          {
+            "document_name": "Interim_trpw3.pdf",
+            "page_number": 2,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 612.0,
+              "y1": 792.0
+            },
+            "content_hash": "726ca932beb4321ee2f8cc81087bf9c094dd76dce4261512f6927de935035765"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "A",
+      "document_name": "Interim_trpw3.pdf",
+      "doc_id": "617d533ab560930a",
+      "question": "What financial extraction details are highlighted in the content?",
+      "answer": "The profile classifies the document as native_digital with table_heavy layout and estimated cost tier needs_layout_model. The executed strategy was fast_text with routing trace ['fast_text']. Section summary: The \"Document Intelligence Refinery\" interim report details Phase 0 efforts to address the challenge of processing **heterogeneous financial documents** \u2013 including **PDFs, legal docs, & fiscal summaries** \u2013 for modern **Financial Data Engineering (FDE)**. The core problem is transforming these diverse sources into **auditable and queryable data**. This phase focuses on establishing foundational domain knowledge for this document ingestion pipeline.",
+      "provenance_chain": {
+        "content_hash": "7d58549b5c710a0e2284846caa8c00d2120b4be2174ffec5af203c8d64e46e9d",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        },
+        "citations": [
+          {
+            "document_name": "Interim_trpw3.pdf",
+            "page_number": 3,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 612.0,
+              "y1": 792.0
+            },
+            "content_hash": "7d58549b5c710a0e2284846caa8c00d2120b4be2174ffec5af203c8d64e46e9d"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "B",
+      "document_name": "2013-E.C-Assigned-regular-budget-and-expense.pdf",
+      "doc_id": "0d7dc20e73a60ed0",
+      "question": "What is the document's extraction pipeline strategy and why?",
+      "answer": "The profile classifies the document as scanned_image with single_column layout and estimated cost tier needs_vision_model. The executed strategy was vision_augmented with routing trace ['fast_text', 'layout_aware', 'vision_augmented']. Section summary: This document section (Appendix 1.4) details the budget allocation and expenditure for fiscal year 2013 (Ethiopian calendar, likely 2020/2021 Gregorian) across two programs: Program 1 \u2013 Work Leadership & Administration, and an Investment Policy Study & Research program. It presents both allocated budgets versus actual spending in thousands of Birr, alongside planned targets and achievements for the same period, specifically focusing on creating a favorable investment climate through studies, forums, and policy improvements (measured by number of studies/forums held and improvement scores). The data is broken down into budget figures for 2012 and 2013, as",
+      "provenance_chain": {
+        "content_hash": "75026919ffa98b450f0b87ab17988b7f5ce3252b1df5483f20d54e9f4dbb94d5",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 1684.0,
+          "y1": 1191.0
+        },
+        "citations": [
+          {
+            "document_name": "2013-E.C-Assigned-regular-budget-and-expense.pdf",
+            "page_number": 1,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 1684.0,
+              "y1": 1191.0
+            },
+            "content_hash": "75026919ffa98b450f0b87ab17988b7f5ce3252b1df5483f20d54e9f4dbb94d5"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "B",
+      "document_name": "2013-E.C-Assigned-regular-budget-and-expense.pdf",
+      "doc_id": "0d7dc20e73a60ed0",
+      "question": "What does the extracted text say about the system architecture or pipeline?",
+      "answer": "The profile classifies the document as scanned_image with single_column layout and estimated cost tier needs_vision_model. The executed strategy was vision_augmented with routing trace ['fast_text', 'layout_aware', 'vision_augmented']. Section summary: This document section (Appendix 1.4) details the budget allocation and expenditure for fiscal year 2013 (Ethiopian calendar, likely 2020/2021 Gregorian) across two programs: Program 1 \u2013 Work Leadership & Administration, and an Investment Policy Study & Research program. It presents both allocated budgets versus actual spending in thousands of Birr, alongside planned targets and achievements for the same period, specifically focusing on creating a favorable investment climate through studies, forums, and policy improvements (measured by number of studies/forums held and improvement scores). The data is broken down into budget figures for 2012 and 2013, as",
+      "provenance_chain": {
+        "content_hash": "c06155e624bbc98a1c66d5aa03ff183d77673dc1eae1613af047bf56774194ba",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 1684.0,
+          "y1": 1191.0
+        },
+        "citations": [
+          {
+            "document_name": "2013-E.C-Assigned-regular-budget-and-expense.pdf",
+            "page_number": 2,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 1684.0,
+              "y1": 1191.0
+            },
+            "content_hash": "c06155e624bbc98a1c66d5aa03ff183d77673dc1eae1613af047bf56774194ba"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "B",
+      "document_name": "2013-E.C-Assigned-regular-budget-and-expense.pdf",
+      "doc_id": "0d7dc20e73a60ed0",
+      "question": "Which section in this technical document is most relevant to implementation?",
+      "answer": "The profile classifies the document as scanned_image with single_column layout and estimated cost tier needs_vision_model. The executed strategy was vision_augmented with routing trace ['fast_text', 'layout_aware', 'vision_augmented']. Section summary: This document section (Appendix 1.4) details the budget allocation and expenditure for fiscal year 2013 (Ethiopian calendar, likely 2020/2021 Gregorian) across two programs: Program 1 \u2013 Work Leadership & Administration, and an Investment Policy Study & Research program. It presents both allocated budgets versus actual spending in thousands of Birr, alongside planned targets and achievements for the same period, specifically focusing on creating a favorable investment climate through studies, forums, and policy improvements (measured by number of studies/forums held and improvement scores). The data is broken down into budget figures for 2012 and 2013, as",
+      "provenance_chain": {
+        "content_hash": "bedac41e5e514d3f04681e5c1e33440d85cf1b93c30838cf997cb56032ee910e",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 1676.0,
+          "y1": 1186.0
+        },
+        "citations": [
+          {
+            "document_name": "2013-E.C-Assigned-regular-budget-and-expense.pdf",
+            "page_number": 3,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 1676.0,
+              "y1": 1186.0
+            },
+            "content_hash": "bedac41e5e514d3f04681e5c1e33440d85cf1b93c30838cf997cb56032ee910e"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "C",
+      "document_name": "trpw3_delivery.pdf",
+      "doc_id": "ce5e10367a162243",
+      "question": "What is the document's extraction pipeline strategy and why?",
+      "answer": "The profile classifies the document as native_digital with single_column layout and estimated cost tier fast_text_sufficient. The executed strategy was fast_text with routing trace ['fast_text']. Section summary: The Client Summary Report preparation begins with a data audit of a received dataset containing 20 transactions from **Customers**. Key fields within the dataset include **Transaction_ID**, **Date**, **Customer**, and **Packages** \u2013 forming the basis for report creation. This document outlines the initial approach to executing this reporting process, prioritizing structured data assessment before analysis.",
+      "provenance_chain": {
+        "content_hash": "f0f1ebf56e0264506a1b5e498f36373066d35c5bd99e24e33dc0ba8fb0b8918a",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        },
+        "citations": [
+          {
+            "document_name": "trpw3_delivery.pdf",
+            "page_number": 1,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 612.0,
+              "y1": 792.0
+            },
+            "content_hash": "f0f1ebf56e0264506a1b5e498f36373066d35c5bd99e24e33dc0ba8fb0b8918a"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "C",
+      "document_name": "trpw3_delivery.pdf",
+      "doc_id": "fa78977dcf97efbd",
+      "question": "What does the extracted text say about the system architecture or pipeline?",
+      "answer": "The profile classifies the document as native_digital with single_column layout and estimated cost tier fast_text_sufficient. The executed strategy was fast_text with routing trace ['fast_text']. Section summary: The Client Summary Report preparation begins with a data audit of a received dataset containing 20 transactions from **Customers**. Key fields within the dataset include **Transaction_ID**, **Date**, **Customer**, and **Packages** \u2013 forming the basis for report creation. This initial step ensures data quality before proceeding with execution.",
+      "provenance_chain": {
+        "content_hash": "ab9652126cd328d5d3a425c97faf3adfd1d47fff53da54ee7e9cf76587476970",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        },
+        "citations": [
+          {
+            "document_name": "trpw3_delivery.pdf",
+            "page_number": 2,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 612.0,
+              "y1": 792.0
+            },
+            "content_hash": "ab9652126cd328d5d3a425c97faf3adfd1d47fff53da54ee7e9cf76587476970"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "C",
+      "document_name": "trpw3_delivery.pdf",
+      "doc_id": "ce5e10367a162243",
+      "question": "Which section in this technical document is most relevant to implementation?",
+      "answer": "The profile classifies the document as native_digital with single_column layout and estimated cost tier fast_text_sufficient. The executed strategy was fast_text with routing trace ['fast_text']. Section summary: The Client Summary Report preparation begins with a data audit of a received dataset containing 20 transactions from **Customers**. Key fields within the dataset include **Transaction_ID**, **Date**, **Customer**, and **Packages** \u2013 forming the basis for report creation. This document outlines the initial approach to executing this reporting process, prioritizing structured data assessment before analysis.",
+      "provenance_chain": {
+        "content_hash": "c9bdba00e01d7ab8b0efe09c71d0342198a5d01d6d4f164f2ecb4b3da551d039",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        },
+        "citations": [
+          {
+            "document_name": "trpw3_delivery.pdf",
+            "page_number": 3,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 612.0,
+              "y1": 792.0
+            },
+            "content_hash": "c9bdba00e01d7ab8b0efe09c71d0342198a5d01d6d4f164f2ecb4b3da551d039"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "D",
+      "document_name": "tax_expenditure_ethiopia_2021_22.pdf",
+      "doc_id": "0c3371dd570d0543",
+      "question": "What cost strategy is recommended for extracting this document?",
+      "answer": "The profile classifies the document as native_digital with figure_heavy layout and estimated cost tier fast_text_sufficient. The executed strategy was fast_text with routing trace ['fast_text']. Section summary: The \"Import Tax Expenditure Report\" from Ethiopia's Ministry of Finance (Tax Policy Directorate) analyzes the financial impact of tax exemptions and preferential treatments related to imports over fiscal years 2018/19 to 2020/21. Published in September 2022, the report quantifies these \"tax expenditures\"\u2014the revenue foregone due to specific import-related policies\u2014providing insights into their cost to the government. It serves as a key document for evaluating the efficiency and effectiveness of Ethiopia's trade tax system.",
+      "provenance_chain": {
+        "content_hash": "d60416ee69b67c0e908e3ac68b5f782453aa0c7e8f5d87c151a9988307318350",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 594.96,
+          "y1": 842.04
+        },
+        "citations": [
+          {
+            "document_name": "tax_expenditure_ethiopia_2021_22.pdf",
+            "page_number": 1,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 594.96,
+              "y1": 842.04
+            },
+            "content_hash": "d60416ee69b67c0e908e3ac68b5f782453aa0c7e8f5d87c151a9988307318350"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "D",
+      "document_name": "tax_expenditure_ethiopia_2021_22.pdf",
+      "doc_id": "0c3371dd570d0543",
+      "question": "Is this document routed to fast text, layout, or vision and why?",
+      "answer": "The profile classifies the document as native_digital with figure_heavy layout and estimated cost tier fast_text_sufficient. The executed strategy was fast_text with routing trace ['fast_text']. Section summary: The \"Import Tax Expenditure Report\" from Ethiopia's Ministry of Finance (Tax Policy Directorate) analyzes the financial impact of tax exemptions and preferential treatments related to imports over fiscal years 2018/19 to 2020/21. Published in September 2022, the report quantifies these \"tax expenditures\"\u2014the revenue foregone due to specific import-related policies\u2014providing insights into their cost to the government. It serves as a key document for evaluating the efficiency and effectiveness of Ethiopia's trade tax system.",
+      "provenance_chain": {
+        "content_hash": "a720a021e4bf0ee03e4c4c9bead95b5b86c7f12cbf142121db7fcb4f54dfc64d",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 594.96,
+          "y1": 842.04
+        },
+        "citations": [
+          {
+            "document_name": "tax_expenditure_ethiopia_2021_22.pdf",
+            "page_number": 2,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 594.96,
+              "y1": 842.04
+            },
+            "content_hash": "a720a021e4bf0ee03e4c4c9bead95b5b86c7f12cbf142121db7fcb4f54dfc64d"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    },
+    {
+      "class": "D",
+      "document_name": "tax_expenditure_ethiopia_2021_22.pdf",
+      "doc_id": "0c3371dd570d0543",
+      "question": "What financial extraction details are highlighted in the content?",
+      "answer": "The profile classifies the document as native_digital with figure_heavy layout and estimated cost tier fast_text_sufficient. The executed strategy was fast_text with routing trace ['fast_text']. Section summary: The \"Import Tax Expenditure Report\" from Ethiopia's Ministry of Finance (Tax Policy Directorate) analyzes the financial impact of tax exemptions and preferential treatments related to imports over fiscal years 2018/19 to 2020/21. Published in September 2022, the report quantifies these \"tax expenditures\"\u2014the revenue foregone due to specific import-related policies\u2014providing insights into their cost to the government. It serves as a key document for evaluating the efficiency and effectiveness of Ethiopia's trade tax system.",
+      "provenance_chain": {
+        "content_hash": "bf15c0bfdd7a49efe3fc0fc154d62f66ed199751e31862ab7e1c99b5ed5e335f",
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 594.96,
+          "y1": 842.04
+        },
+        "citations": [
+          {
+            "document_name": "tax_expenditure_ethiopia_2021_22.pdf",
+            "page_number": 3,
+            "bbox": {
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 594.96,
+              "y1": 842.04
+            },
+            "content_hash": "bf15c0bfdd7a49efe3fc0fc154d62f66ed199751e31862ab7e1c99b5ed5e335f"
+          }
+        ]
+      },
+      "verification_note": "Verify by opening the cited page and matching the extracted statement."
+    }
+  ]
+}

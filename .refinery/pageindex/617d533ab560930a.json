@@ -1,0 +1,300 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 16,
+  "child_sections": [
+    {
+      "title": "Interim Report – Document Intelligence Refinery",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Interim",
+        "Report",
+        "Document",
+        "Intelligence",
+        "Refinery",
+        "Domain",
+        "Notes",
+        "Deliverable",
+        "Problem",
+        "Context"
+      ],
+      "summary": "The \"Document Intelligence Refinery\" interim report details Phase 0 efforts to address the challenge of processing **heterogeneous financial documents** – including **PDFs, legal docs, & fiscal summaries** – for modern **Financial Data Engineering (FDE)**. The core problem is transforming these diverse sources into **auditable and queryable data**. This phase focuses on establishing foundational domain knowledge for this document ingestion pipeline.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Line statistics: presence of pipe (|) characters, short-line frequency.",
+      "page_start": 2,
+      "page_end": 2,
+      "child_sections": [],
+      "key_entities": [
+        "Line",
+        "Keyword",
+        "Step",
+        "Origin",
+        "Type",
+        "Classification"
+      ],
+      "summary": "This section details line-level analysis used for document classification, specifically looking at the occurrence of pipe characters (|) and the frequency of short lines. These statistics are combined with keyword signals (financial, legal, technical, medical, general) to determine a document's \"origin type.\" The initial step in this process classifies documents as “scanned_image” based on low character density and high image ratio thresholds.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " medical: “patient”, “diagnosis”, “clinical”, …",
+      "page_start": 3,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [
+        "Choose",
+        "Step",
+        "Estimated",
+        "Extraction",
+        "Cost",
+        "Else"
+      ],
+      "summary": "This section outlines the process for information extraction, specifically focusing on the \"medical\" domain with entities like “patient”, “diagnosis”, and “clinical” data. The system prioritizes the highest-scoring domain, defaulting to \"general\" if none are prominent. Extraction cost is then estimated based on the document's origin (scanned images require a vision model) and layout complexity (tables/multiple columns increase cost).",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Symptoms: Pipe- or grid-like tables become linear text, columns merge, numeric",
+      "page_start": 4,
+      "page_end": 4,
+      "child_sections": [],
+      "key_entities": [
+        "Symptoms",
+        "Pipe-",
+        "Impact",
+        "Querying",
+        "Mitigation",
+        "Detect",
+        "Promote"
+      ],
+      "summary": "This section describes a symptom where structured tables (pipe- or grid-like) are incorrectly rendered as unstructured linear text, leading to column merging and misaligned numeric data. This impacts the reliability of querying numeric facts and hinders Retrieval Augmented Generation (RAG) by causing it to miss table context. The proposed mitigation involves detecting pipe-delimited lines during text extraction and explicitly identifying suspected tables for better processing.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Every LDU carries:",
+      "page_start": 5,
+      "page_end": 5,
+      "child_sections": [],
+      "key_entities": [
+        "Every",
+        "List",
+        "Cost",
+        "Overrun",
+        "Overuse",
+        "Vision",
+        "Layout",
+        "Models",
+        "Symptoms"
+      ],
+      "summary": "Each Logical Document Unit (LDU) contains metadata including `page_refs` – linking to the source document name, page number, and bounding box – and a `content_hash` for stable identification. A `ProvenanceChain`, detailing the origin of each `QueryAnswer`, is also attached to every answer as a list of `ProvenanceItem` with similar data points (document name, page number, bbox, content hash). This system tracks the source information used in generating responses.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "1.4 Pipeline Diagram (Mermaid)",
+      "page_start": 6,
+      "page_end": 6,
+      "child_sections": [],
+      "key_entities": [
+        "Pipeline",
+        "Diagram"
+      ],
+      "summary": "Please provide the content of section \"1.4 Pipeline Diagram (Mermaid)\". I need the actual Mermaid diagram code or a textual description of the pipeline it represents to summarize it for you. \n\nWithout the diagram's information, I can only state that section 1.4 *describes* a data processing pipeline visually represented using the Mermaid syntax. It likely outlines the stages and flow of data through various entities/components within the system.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "2. Architecture Diagram & 5-Stage Pipeline",
+      "page_start": 7,
+      "page_end": 7,
+      "child_sections": [],
+      "key_entities": [
+        "Architecture",
+        "Diagram",
+        "Pipeline",
+        "This",
+        "Architectural",
+        "Stage",
+        "Triage",
+        "Agent",
+        "Classifier",
+        "Input"
+      ],
+      "summary": "The architecture utilizes a 5-stage pipeline to process PDF documents, beginning with the **Triage Agent** which classifies input PDFs based on characteristics like origin type, layout complexity, and domain. This initial stage takes a **Raw PDF path** as input and outputs a **DocumentProfile** (saved as JSON) containing metadata for downstream processing. The DocumentProfile includes key attributes such as `origin_type`, `layout_complexity`, `domain_hint` and `estimated_extraction_cost`.",
+      "data_types_present": [
+        "table",
+        "text"
+      ]
+    },
+    {
+      "title": "This profile is the contract that governs routing in Stage 2.",
+      "page_start": 8,
+      "page_end": 8,
+      "child_sections": [],
+      "key_entities": [
+        "This",
+        "Stage",
+        "Extraction",
+        "Layer",
+        "Input",
+        "Strategy",
+        "Detect"
+      ],
+      "summary": "This profile defines the routing rules for Stage 2 of a multi-strategy document extraction process. Stage 2 takes a `document_path` as input and outputs an `ExtractedDocument` along with a ledger entry. It employs three extraction strategies – including Strategy A utilizing `FastTextExtractor` and `pypdf` for initial text and bounding box approximation – to achieve this output.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Later: plug in LM Studio VLM/OCR here (render PDF pages to images, send to mod",
+      "page_start": 9,
+      "page_end": 9,
+      "child_sections": [],
+      "key_entities": [
+        "Later",
+        "Studio",
+        "Returns",
+        "Router",
+        "Picks",
+        "Applies",
+        "Enforces"
+      ],
+      "summary": "This section outlines integrating LM Studio's VLM/OCR capabilities to extract text from PDF documents by rendering pages as images and sending them to a language model. The process results in an `ExtractedDocument` containing the parsed text. A router dynamically selects between different extraction methods (A, B, C) based on estimated cost, applying confidence checks and budget limits per document.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " content: chunk text (paragraph, list, table flattening, or caption).",
+      "page_start": 10,
+      "page_end": 10,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "This document section describes a “content” chunk – a discrete piece of text extracted from a larger document, which can be a paragraph, list, table data, or caption. Each chunk is categorized by its `chunk_type` (text, table, figure, or list) and linked to its source location via `page_refs` including document name, page number, and bounding box coordinates. Key metadata includes the `bounding_box` of the chunk itself, a reference to its `parent_section`, and an approximate `token_count`.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " For each section:",
+      "page_start": 11,
+      "page_end": 11,
+      "child_sections": [],
+      "key_entities": [
+        "Determine",
+        "Extract",
+        "Build",
+        "Additionally",
+        "Vector"
+      ],
+      "summary": "Each document section is processed by identifying its page range based on Logical Document Units (LDUs). Key entities – capitalized names and terms – are extracted, and a concise summary is created using the first N words of the section's content. These sections are then organized under a top-level \"Document\" node for hierarchical structure; a vector store utilizing TF/cosine similarity is also employed.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Restrict semantic search to pages in these sections.",
+      "page_start": 12,
+      "page_end": 12,
+      "child_sections": [],
+      "key_entities": [
+        "Restrict",
+        "Collect",
+        "Build",
+        "Audit",
+        "Given",
+        "Reuse"
+      ],
+      "summary": "This section details restricting semantic search results to specific pre-defined **sections** within documents. The process involves collecting top text **chunks** from these sections and synthesizing an answer using both extractive and concatenative methods. A **ProvenanceChain** is then built for each hit, tracking the **document name**, **page number**, bounding box (**bbox**), and **content hash** of the source material.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Token pricing assumptions (illustrative):",
+      "page_start": 13,
+      "page_end": 13,
+      "child_sections": [],
+      "key_entities": [
+        "Token",
+        "Text",
+        "Vision",
+        "Effective",
+        "Budget"
+      ],
+      "summary": "This section outlines illustrative token pricing for two AI models: a text model at $0.25 per 1 million tokens and a vision model (for PDFs) costing an equivalent of $1.00 per 1 million tokens due to larger image file sizes. A budget guard (\"b\") is also established, though its specifics aren't detailed here. These costs are intended to be relatively inexpensive, potentially utilizing local or hosted models.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": "Cost estimate per document (P pages):",
+      "page_start": 14,
+      "page_end": 14,
+      "child_sections": [],
+      "key_entities": [
+        "Cost",
+        "Tokens",
+        "Total",
+        "Typical"
+      ],
+      "summary": "The estimated cost per document with P pages is based on approximately 1,000-1,500 tokens per page, leading to roughly 30-45k tokens for a 30-page document. At a rate of $0.25 per million tokens, this translates to an approximate cost of \\$0.01125 per document; however, a typical range considering retries and longer prompts is \\$0.01 – \\$0.05 for documents between 30-100 pages.",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Tokens: 75–100k.",
+      "page_start": 15,
+      "page_end": 15,
+      "child_sections": [],
+      "key_entities": [
+        "Tokens",
+        "Cost",
+        "Range",
+        "Given",
+        "Even"
+      ],
+      "summary": "This section details the cost of processing documents using tokens, with each document requiring between 75,000 and 100,000 tokens. The token cost is estimated at $0.075–$0.10 USD per document, or $0.03-$0.15 for 20-50 page PDFs based on complexity. A budget guard of $0.20 is implemented to prevent exceeding costs even with large, complex documents (up to 50 pages).",
+      "data_types_present": [
+        "text"
+      ]
+    },
+    {
+      "title": " Route: Primarily B for table-quality extraction.",
+      "page_start": 16,
+      "page_end": 16,
+      "child_sections": [],
+      "key_entities": [
+        "Route",
+        "Primarily",
+        "Expected",
+        "Strategy",
+        "Cost",
+        "These"
+      ],
+      "summary": "This route (\"B\") is focused on extracting data for table creation. It's categorized as \"Strategy B\" requiring careful table handling, with an estimated cost of $0.02–$0.06 per document. Costs are expected to stay below $0.10, and always within a budget of $0.20, even with potential escalation for complex layouts.",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "table",
+    "text"
+  ]
+}

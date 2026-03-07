@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
+import json
 
 from src.agents.chunker import ChunkingEngine
 from src.agents.extractor import ExtractionRouter
@@ -54,14 +55,24 @@ class RefineryPipeline:
         self._save_profile(profile)
 
         extracted = self.router.route(document_path, profile)
+        self._save_extracted(profile.doc_id, extracted)
         chunks = self.chunker.chunk(extracted)
+        self._save_chunks(profile.doc_id, chunks)
 
         self.vector_store.ingest(chunks)
         self.fact_table.ingest(chunks)
 
         page_index = self.indexer.build(chunks)
         self._save_pageindex(profile.doc_id, page_index)
-        return {"profile": profile, "extracted": extracted, "chunks": chunks, "page_index": page_index}
+        precision = self.indexer.evaluate_retrieval_precision(
+            topic="capital expenditure projections q3",
+            chunks=chunks,
+            search_fn=self.vector_store.search,
+            page_index=page_index,
+            top_k=3,
+        )
+        self._save_pageindex_metrics(profile.doc_id, precision)
+        return {"profile": profile, "extracted": extracted, "chunks": chunks, "page_index": page_index, "precision": precision}
 
     def answer_question(self, question: str, chunks, page_index):
         # Rebuild retrieval state from this document's chunks for isolated multi-turn Q&A sessions.
@@ -81,7 +92,23 @@ class RefineryPipeline:
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(profile.model_dump_json(indent=2), encoding="utf-8")
 
+    def _save_extracted(self, doc_id: str, extracted) -> None:
+        p = self.output_dir / "extracted" / f"{doc_id}.json"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(extracted.model_dump_json(indent=2), encoding="utf-8")
+
+    def _save_chunks(self, doc_id: str, chunks) -> None:
+        p = self.output_dir / "chunks" / f"{doc_id}.json"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        payload = [c.model_dump(mode="python") for c in chunks]
+        p.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
     def _save_pageindex(self, doc_id: str, index) -> None:
         p = self.output_dir / "pageindex" / f"{doc_id}.json"
         p.parent.mkdir(parents=True, exist_ok=True)
         p.write_text(index.model_dump_json(indent=2), encoding="utf-8")
+
+    def _save_pageindex_metrics(self, doc_id: str, metrics: dict[str, float]) -> None:
+        p = self.output_dir / "pageindex_metrics" / f"{doc_id}.json"
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text(json.dumps(metrics, indent=2), encoding="utf-8")

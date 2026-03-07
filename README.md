@@ -32,6 +32,31 @@ pip install -e .[dev]
 copy .env.example .env  # then add your API keys
 ```
 
+## 10-Minute Quickstart (Submission Ready)
+
+1. Create and activate virtual environment.
+2. Install package and test dependencies:
+```bash
+pip install -e .[dev]
+```
+3. Copy env template and set local model endpoint:
+```bash
+copy .env.example .env
+```
+4. Start UI:
+```bash
+streamlit run streamlit_app.py
+```
+5. Upload a PDF, click `Process Uploaded Files`, then ask question in chat.
+6. Verify artifacts in `.refinery/`:
+   - `profiles/`, `extracted/`, `chunks/`, `pageindex/`, `extraction_ledger.jsonl`
+7. Run validation:
+```bash
+pytest -q
+python scripts/eval_table_metrics.py
+python scripts/build_qa_examples_from_history.py
+```
+
 ## Run
 
 ```bash
@@ -50,6 +75,27 @@ python -m src.cli "path/to/document.pdf"
 pytest
 ```
 
+## Final Submission Helpers
+
+- Deliverables checklist: `DELIVERABLES.md`
+- Q&A evidence template: `artifacts/qa_examples.json`
+- Gold table labels template: `artifacts/table_gold_labels.json`
+- Table metrics script:
+
+```bash
+python scripts/eval_table_metrics.py
+# or with gold labels
+python scripts/eval_table_metrics.py --gold artifacts/table_gold_labels.json
+python scripts/eval_pageindex_uplift.py --queries artifacts/pageindex_eval_queries.json
+```
+
+## Docker
+
+```bash
+docker build -t document-refinery .
+docker run --rm -p 8501:8501 document-refinery
+```
+
 ## Design notes
 
 - Strategy A/B/C are implemented with confidence-gated escalation and budget guard.
@@ -65,6 +111,18 @@ pytest
 - PageIndex builder includes retrieval precision evaluation helper (`with_pageindex` vs `without_pageindex`).
 - Vector storage supports `simple` or `faiss` backend via config (`storage.vector_store.backend`).
 - PageIndex summaries and query-router can use `openrouter` or `gemini` via config.
+
+## Onboarding New Document Types (No Code Change Path)
+
+For most new layout/domain variants, prefer config-only onboarding in `rubric/extraction_rules.yaml`:
+
+- Add/adjust domain keywords under `triage.domain_keywords`.
+- Tune triage thresholds (`density`, `image ratio`, `table/multi-column` heuristics).
+- Change strategy routing policy and escalation chains.
+- Switch layout adapter provider chain (`docling`, `mineru`, `both`).
+- Update vision provider/model/budget and confidence thresholds.
+
+Use code changes only when parser/model adapters are missing for a new format.
 
 ## Configuration reference
 

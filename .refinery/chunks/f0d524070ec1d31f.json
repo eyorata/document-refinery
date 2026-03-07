@@ -1,0 +1,497 @@
+[
+  {
+    "content": "Interim Report \u2013 Document Intelligence Refinery\n1. Domain Notes (Phase 0 Deliverable)\n1.1 Problem Context\nModern Financial Data Engineering (FDE) work must ingest heterogeneous\ndocuments (native PDFs, scanned legal documents, technical reports, and table-heavy fiscal\nsummaries) and turn them into auditable, queryable knowledge. The primary risks are:\n\uf0b7 Garbage-in \u2192 hallucination-out: weak extraction corrupts downstream RAG.\n\uf0b7 Layout blindness: multi-column and table-heavy layouts often collapse into flat text.\n\uf0b7 Provenance blindness: systems answer confidently without source trace.\nThis refinery is designed as a 5-stage, agentic pipeline that explicitly separates:\n1. Document profiling (Triage)\n2. Structure extraction with multi-strategy routing (A/B/C)\n3. Semantic chunking into Logical Document Units (LDUs)\n4. Page-level navigation structure (PageIndex)\n5. Query + provenance / audit layer\nThe goal is to handle Classes A\u2013D robustly, with explicit escalation from cheap to expensive\nstrategies and cost-aware controls.\n1.2 Extraction Strategy Decision Tree\nSignals computed per document (from PDF parser / heuristics):\n\uf0b7 Per-page character count.\n\uf0b7 Per-page character density chars/page_areachars/page_area.\n\uf0b7 Image ratio\nproxy image_count/max_images_for_ratioimage_count/max_images_for_ratio.",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 1,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "Interim Report \u2013 Document Intelligence Refinery",
+    "token_count": 167,
+    "content_hash": "b078449c7d9d61eb8b1ba579895166a958451331ae4d830693b69576c092e017",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "Interim Report \u2013 Document Intelligence Refinery"
+    }
+  },
+  {
+    "content": "\uf0b7 Line statistics: presence of pipe (|) characters, short-line frequency.\n\uf0b7 Keyword signals for domain hints (financial / legal / technical / medical / general).\nStep 1 \u2013 Origin Type Classification\n\uf0b7 If avg_char_density < low_density_threshold and avg_image_ratio \u2265\nimage_heavy_threshold\n\u2192 origin_type = scanned_image\n\uf0b7 If avg_char_density \u2265 high_density_threshold and avg_image_ratio < 0.3\n\u2192 origin_type = native_digital\n\uf0b7 Else\n\u2192 origin_type = mixedStep 2 \u2013 Layout Complexity ClassificationCompute over concatenated\npage text:\n\uf0b7 Count pipe-like lines (contains | and \u2265 3 segments).\n\uf0b7 Count short lines (length between ~8 and 32 chars).\n\uf0b7 Look for figure keywords (\u201cfigure\u201d, \u201cchart\u201d).\nHeuristic:\n\uf0b7 If pipe_like > 5 \u2192 layout_complexity = table_heavy\n\uf0b7 Else if many_short_lines > max(0.45 * total_lines, 5) \u2192 layout_complexity = multi_column\n\uf0b7 Else if \u201cfigure\u201d or \u201cchart\u201d present \u2192 layout_complexity = figure_heavy\n\uf0b7 Else \u2192 layout_complexity = single_column\nStep 3 \u2013 Domain Hint\n\uf0b7 For each domain, sum keyword counts in lowercased text:\n\uf0b7 financial: \u201crevenue\u201d, \u201cbalance sheet\u201d, \u201cincome statement\u201d, \u201cfiscal\u201d, \u2026\n\uf0b7 legal: \u201cclause\u201d, \u201cagreement\u201d, \u201chereby\u201d, \u2026\n\uf0b7 technical: \u201carchitecture\u201d, \u201cprotocol\u201d, \u201cspecification\u201d, \u2026",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 2,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "\uf0b7 Line statistics: presence of pipe (|) characters, short-line frequency.",
+    "token_count": 175,
+    "content_hash": "726ca932beb4321ee2f8cc81087bf9c094dd76dce4261512f6927de935035765",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "\uf0b7 Line statistics: presence of pipe (|) characters, short-line frequency."
+    }
+  },
+  {
+    "content": "\uf0b7 medical: \u201cpatient\u201d, \u201cdiagnosis\u201d, \u201cclinical\u201d, \u2026\n\uf0b7 Choose domain with highest score; default general.\nStep 4 \u2013 Estimated Extraction Cost TierMapping:\n\uf0b7 If origin_type = scanned_image\n\u2192 estimated_extraction_cost = needs_vision_model\n\uf0b7 Else if layout_complexity \u2208 {table_heavy, multi_column, mixed}\n\u2192 estimated_extraction_cost = needs_layout_model\n\uf0b7 Else\n\u2192 estimated_extraction_cost = fast_text_sufficientStep 5 \u2013 Strategy Routing (A/B/C)Initial\nstrategy selection based on estimated_extraction_cost:\n\uf0b7 fast_text_sufficient \u2192 Strategy A \u2013 FastTextExtractor\n\uf0b7 needs_layout_model \u2192 Strategy B \u2013 LayoutExtractor\n\uf0b7 needs_vision_model \u2192 Strategy C \u2013 VisionExtractor\nConfidence-gated escalation:\n1. Run chosen strategy \u2192 produce (ExtractedDocument, confidence_score, cost_estimate).\n2. If confidence_score < confidence_minimum and strategy is A\n\u2192 escalate to B, recompute.\n3. If still confidence_score < confidence_minimum and strategy is A or B\n\u2192 escalate to C, recompute.\n4. If cost_estimate > budget_per_document_usd\n\u2192 fail fast with a budget guard error (no silent overruns).\n1.3 Failure Modes Observed & Mitigations\n1. Structure Collapse (tables flatten into paragraphs)",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 3,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "\uf0b7 medical: \u201cpatient\u201d, \u201cdiagnosis\u201d, \u201cclinical\u201d, \u2026",
+    "token_count": 150,
+    "content_hash": "7d58549b5c710a0e2284846caa8c00d2120b4be2174ffec5af203c8d64e46e9d",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "\uf0b7 medical: \u201cpatient\u201d, \u201cdiagnosis\u201d, \u201cclinical\u201d, \u2026"
+    }
+  },
+  {
+    "content": "\uf0b7 Symptoms: Pipe- or grid-like tables become linear text, columns merge, numeric columns lose\nalignment.\n\uf0b7 Impact: Querying numeric facts or doing aggregates becomes unreliable; RAG misses\ntable context.\n\uf0b7 Mitigation:\n\uf0b7 Detect pipe-delimited table lines in fast-text extraction.\n\uf0b7 Promote suspected tables to explicit TableObject with headers and rows.\n\uf0b7 In layout-aware strategy, add heuristic promotions when text mentions \u201cbalance sheet\u201d,\n\u201cincome statement\u201d, \u201ctable\u201d, etc.\n\uf0b7 In chunking, enforce \u201ctable cells are never split from headers\u201d.\n2. Context Poverty (chunks are too small or mis-grouped)\n\uf0b7 Symptoms: Answers lose nearby context; cross-references like \u201csee Table 3\u201d\nbecome meaningless.\n\uf0b7 Impact: Embedding search operates on fragments that don\u2019t carry enough semantics;\nretrieval precision drops.\n\uf0b7 Mitigation:\n\uf0b7 Chunk at Logical Document Unit (LDU) level:\n\uf0b7 Group paragraphs under section hints.\n\uf0b7 Keep numbered lists as single LDUs when below max_tokens.\n\uf0b7 Propagate section headers as parent metadata to all child chunks.\n\uf0b7 Resolve cross-references into related_chunk_hashes linking LDUs that mention \u201cTable N\u201d.\n3. Provenance Blindness (no trustworthy citation)\n\uf0b7 Symptoms: System can answer but cannot show exactly which page/region supported\nthe claim.\n\uf0b7 Impact: No auditability, high regulatory/compliance risk.\n\uf0b7 Mitigation:",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 4,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "\uf0b7 Symptoms: Pipe- or grid-like tables become linear text, columns merge, numeric",
+    "token_count": 191,
+    "content_hash": "df1d456bc5ed8bc0a0cc20547569a6d53357932accc0c7bdde2cabe2afd29200",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "\uf0b7 Symptoms: Pipe- or grid-like tables become linear text, columns merge, numeric"
+    }
+  },
+  {
+    "content": "\uf0b7 Every LDU carries:\n\uf0b7 page_refs \u2192 (document_name, page_number, bbox)\n\uf0b7 content_hash \u2192 stable spatial+content hash.\n\uf0b7 ProvenanceChain is attached to every QueryAnswer:\n\uf0b7 List of ProvenanceItem with document_name, page_number, bbox, content_hash.\n4. Cost Overrun from Overuse of Vision / Layout Models\n\uf0b7 Symptoms: All documents routed into expensive vision or layout strategies;\ntoken/spend explodes.\n\uf0b7 Impact: Unbounded costs at scale.\n\uf0b7 Mitigation:\n\uf0b7 Explicit estimated_extraction_cost tier and routing.\n\uf0b7 budget_per_document_usd configured in YAML.\n\uf0b7 Router tracks and enforces cost per document.",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 5,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "\uf0b7 Every LDU carries:",
+    "token_count": 82,
+    "content_hash": "287207ce0b38d036b1da71c627a79adf892ee8c0f7cff9d0692a02422b9d4ef7",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "\uf0b7 Every LDU carries:"
+    }
+  },
+  {
+    "content": "1.4 Pipeline Diagram (Mermaid)",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 6,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "1.4 Pipeline Diagram (Mermaid)",
+    "token_count": 4,
+    "content_hash": "45c5dc73078f5996383c0fd72b325b635b78db134ad89818bf74b712909fdc91",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "1.4 Pipeline Diagram (Mermaid)"
+    }
+  },
+  {
+    "content": "2. Architecture Diagram & 5-Stage Pipeline\nThis section describes the full 5-stage pipeline and its data contracts.\n2.1 High-Level Architectural Diagram (Mermaid)\n2.2 Stage 1 \u2013 Triage Agent (Document Classifier)\nInput: Raw PDF path Output: DocumentProfile (saved\nunder .refinery/profiles/{doc_id}.json)Responsibility:\n\uf0b7 Inspect per-page character density, image ratio, layout heuristics, and keywords.\n\uf0b7 Classify:\n\uf0b7 origin_type: native_digital | scanned_image | mixed | form_fillable\n\uf0b7 layout_complexity: single_column | multi_column | table_heavy | figure_heavy | mixed\n\uf0b7 language_code + language_confidence (currently default \u201cen\u201d, confidence ~0.85).\n\uf0b7 domain_hint: financial | legal | technical | medical | general\n\uf0b7 estimated_extraction_cost: fast_text_sufficient | needs_layout_model | needs_vision_model\n\uf0b7 avg_char_density, avg_image_ratio.",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 7,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "2. Architecture Diagram & 5-Stage Pipeline",
+    "token_count": 102,
+    "content_hash": "2e78f88712c522a6940e902ab899a3405c6dbdcb1c4e242262c5f2a3eb837ea3",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "2. Architecture Diagram & 5-Stage Pipeline"
+    }
+  },
+  {
+    "content": "This profile is the contract that governs routing in Stage 2.\n2.3 Stage 2 \u2013 Multi-Strategy Extraction Layer\nInput: document_path, DocumentProfileOutput: ExtractedDocument + ledger entryThree strategies:\n\uf0b7 Strategy A \u2014 FastTextExtractor\n\uf0b7 Use pypdf to extract page text and approximate page bounding box.\n\uf0b7 Detect simple pipe-delimited tables; create TableObjects.\n\uf0b7 Compute confidence:\n\uf0b7 Average characters per page vs target_chars_per_page.\n\uf0b7 Average density vs target_density.\n\uf0b7 Image ratio penalty.\n\uf0b7 Return ExtractedDocument with text_blocks, tables, figures.\n\uf0b7 Strategy B \u2014 LayoutExtractor\n\uf0b7 Subclass of FastText.\n\uf0b7 In addition to A:\n\uf0b7 Promote more tables when content contains financial/table keywords.\n\uf0b7 Slightly increase confidence when tables are detected.\n\uf0b7 Strategy C \u2014 VisionExtractor\n\uf0b7 Subclass of FastText, but designed to handle scanned / image-heavy PDFs.\n\uf0b7 Behavior:\n\uf0b7 If fast text already found usable text, reuse it and re-label as vision_augmented.\n\uf0b7 If no usable text:\n\uf0b7 Call _ocr_pages_with_vision (currently placeholder) to produce page-level TextBlocks.",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 8,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "This profile is the contract that governs routing in Stage 2.",
+    "token_count": 154,
+    "content_hash": "52ca1d578298d80a261b6b3a00925e56cf273d724833af4b7a8f2e0b8dec16c6",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "This profile is the contract that governs routing in Stage 2."
+    }
+  },
+  {
+    "content": "\uf0b7 Later: plug in LM Studio VLM/OCR here (render PDF pages to images, send to model,\nparse text).\n\uf0b7 Returns ExtractedDocument with text derived from OCR/VLM.\nRouter behavior:\n\uf0b7 Picks A/B/C based on DocumentProfile.estimated_extraction_cost.\n\uf0b7 Applies the confidence gate and escalation A\u2192B\u2192C.\n\uf0b7 Enforces budget per document, raising if estimated cost exceeds configured cap.\n\uf0b7 Logs to .refinery/extraction_ledger.jsonl via an ExtractionLedgerEntry.\n2.4 Stage 3 \u2013 Semantic Chunking Engine (LDUs)\nInput: ExtractedDocumentOutput: List[LDU] (Logical Document Units)Responsibilities:\n\uf0b7 Convert text_blocks, tables, figures into structurally-aware LDUs.\n\uf0b7 Enforce the 5 chunking rules (\u201cConstitution\u201d):\n1. Table cell is never split from header row\n\uf0b7 Whole table (header + rows) is wrapped into a single LDU of chunk_type=\"table\".\n2. Figure caption is stored as figure metadata\n\uf0b7 Each figure chunk carries metadata[\"caption\"].\n3. Numbered list kept as single LDU unless exceeding max_tokens\n\uf0b7 Detected via line patterns like 1. / 2) at line starts.\n4. Section headers propagated as parent metadata\n\uf0b7 parent_section and metadata[\"section_hint\"] carry the section context.\n5. Cross-references resolved into relationships\n\uf0b7 For occurrences of \u201cTable N\u201d / \u201csee Table N\u201d, related_chunk_hashes link to table LDUs.\nEach LDU includes:",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 9,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "\uf0b7 Later: plug in LM Studio VLM/OCR here (render PDF pages to images, send to mod",
+    "token_count": 187,
+    "content_hash": "f09c6ea2200722a12a89ac62ae97aaa3ea50ef75fd2eefc707b9fa40ffa1ad9c",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "\uf0b7 Later: plug in LM Studio VLM/OCR here (render PDF pages to images, send to mod"
+    }
+  },
+  {
+    "content": "\uf0b7 content: chunk text (paragraph, list, table flattening, or caption).\n\uf0b7 chunk_type: \"text\" | \"table\" | \"figure\" | \"list\".\n\uf0b7 page_refs: list of (document_name, page_number, bbox).\n\uf0b7 bounding_box: primary bbox for the chunk.\n\uf0b7 parent_section: best-known section name or hint.\n\uf0b7 token_count: approximate word-token count.\n\uf0b7 content_hash: stable hash over (page, bbox, content).\n\uf0b7 related_chunk_hashes, metadata: cross-links and extra annotations.\n2.5 Stage 4 \u2013 PageIndex Builder & Storage\nInput: LDUsOutputs:\n\uf0b7 PageIndexNode tree saved under .refinery/pageindex/{doc_id}.json.\n\uf0b7 Chunks ingested into:\n\uf0b7 SimpleVectorStore (in-memory vector space).\n\uf0b7 FactTableStore (SQLite facts.db).\nPageIndexNode fields:\n\uf0b7 title\n\uf0b7 page_start, page_end\n\uf0b7 child_sections: List[PageIndexNode]\n\uf0b7 key_entities: List[str]\n\uf0b7 summary: str\n\uf0b7 data_types_present: List[str] (e.g. [\"text\", \"table\"])\nAlgorithm (heuristic baseline):\n\uf0b7 Group LDUs by parent_section (or \u201cUncategorized\u201d).",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 10,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "\uf0b7 content: chunk text (paragraph, list, table flattening, or caption).",
+    "token_count": 121,
+    "content_hash": "464981bd64000b9a6728af30bbf46039b5d0a6ea57215c9f28df70abd69770b8",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "\uf0b7 content: chunk text (paragraph, list, table flattening, or caption)."
+    }
+  },
+  {
+    "content": "\uf0b7 For each section:\n\uf0b7 Determine page range from its LDUs.\n\uf0b7 Extract simple key entities: capitalized tokens that look like names or key terms.\n\uf0b7 Build a short summary from first N words of section content.\n\uf0b7 Build a top-level \u201cDocument\u201d node with child sections.\nAdditionally:\n\uf0b7 Vector store: uses TF/cosine similarity over LDU content for semantic search.\n\uf0b7 Fact table: regex-based extraction of key: value pairs into SQLite, keyed by page and content\nhash.\n2.6 Stage 5 \u2013 Query Interface Agent & Audit\nInput:\n\uf0b7 PageIndexNode tree\n\uf0b7 LDUs (already ingested into vector and fact stores)\n\uf0b7 Natural language question or claim\nTools exposed:\n1. pageindex_navigate(topic, k)\n\uf0b7 Scores child sections by match to topic in title and summary.\n2. semantic_search(query, top_k, allowed_pages)\n\uf0b7 Vector search restricted to allowed page ranges.\n3. structured_query(sql)\n\uf0b7 Direct SQL over facts.db.\nAnswer generation:\n\uf0b7 Navigate PageIndex with question string to get top-K relevant sections.",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 11,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "\uf0b7 For each section:",
+    "token_count": 153,
+    "content_hash": "de8fb51c0d0bf99f870f1f0ffe4cc975cb8a0c95c6dba03d4992d7601fa4b69a",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "\uf0b7 For each section:"
+    }
+  },
+  {
+    "content": "\uf0b7 Restrict semantic search to pages in these sections.\n\uf0b7 Collect top chunks; synthesize an answer (extractive + concatenative baseline).\n\uf0b7 Build ProvenanceChain from the chunks:\n\uf0b7 For each hit: document_name, page_number, bbox, content_hash.\nAudit mode:\n\uf0b7 Given a claim:\n\uf0b7 Reuse the same pipeline to attempt retrieval.\n\uf0b7 If ProvenanceChain.citations non-empty \u2192 claim considered \u201cverified (has source)\u201d.\n\uf0b7 Else \u2192 \u201cunverifiable / not found\u201d.\n3. Cost Analysis \u2013 Strategy Tiers\nThis section provides a concrete, per-document cost estimate for each strategy tier, assuming:\n\uf0b7 Local PDF parsing and chunking are negligible vs. model calls.\n\uf0b7 The main variable cost is tokens processed by external models (layout model or\nVLM/OCR).\n\uf0b7 We assume a hypothetical local LM Studio model or low-cost API; you can adapt the\nnumbers to your real pricing.\n3.1 Assumptions\nLet:\n\uf0b7 PP = number of pages in the document.\n\uf0b7 Typical page has:\n\uf0b7 Strategy A (fast text): ~0.5\u20131k tokens (if later summarized/embedded).\n\uf0b7 Strategy B (layout): ~1\u20131.5k tokens per page when using a layout-aware model.\n\uf0b7 Strategy C (vision): ~1.5\u20132.0k tokens per page due to image+prompt overhead.",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 12,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "\uf0b7 Restrict semantic search to pages in these sections.",
+    "token_count": 182,
+    "content_hash": "8725b8bb53147aed857aa882d1c40b2f1c9e35bc927a47e6201f1cf18479b94f",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "\uf0b7 Restrict semantic search to pages in these sections."
+    }
+  },
+  {
+    "content": "Token pricing assumptions (illustrative):\n\uf0b7 Text model (for layout-level extraction / summarization):\n\uf0b7 $0.25 per 1M tokens (input + output) \u2013 think cheap, local/hosted model.\n\uf0b7 Vision model (for scanned PDFs):\n\uf0b7 Effective cost equivalent of $1.00 per 1M tokens (since images are heavier).\nWe also set:\n\uf0b7 Budget guard: budget_per_document_usd = 0.20 (configurable).\n3.2 Strategy A \u2013 Fast Text (Low Cost)\nMechanics:\n\uf0b7 Uses local pypdf text extraction only.\n\uf0b7 No external model tokens required for extraction.\n\uf0b7 Optional light summarization or embedding can be done with a very cheap local model.\nCost estimate per document:\n\uf0b7 Extraction: ~$0.00 (local only).\n\uf0b7 Optional summarization/embedding on 20 pages (P=20P=20), ~500 tokens per page:\n\uf0b7 Total tokens: 20\u00d7500=10,00020\u00d7500=10,000 tokens.\n\uf0b7 Cost: 10,000/1,000,000\u00d7$0.25\u2248$0.002510,000/1,000,000\u00d7$0.25\u2248$0.0025.\nRange:\n\uf0b7 \\$0.00 \u2013 \\$0.01 per document for typical 20\u201350 page native PDFs.\n3.3 Strategy B \u2013 Layout-Aware (Medium Cost)\nMechanics:\n\uf0b7 May invoke a layout-aware text model (Docling/MinerU-like behavior when later integrated).\n\uf0b7 We assume per-page extraction prompt that includes layout hints and table expectations.",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 13,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "Token pricing assumptions (illustrative):",
+    "token_count": 167,
+    "content_hash": "16202a6302caeff2bb22cf56915b3fbdc9227c17dc1efc6e21245c39f788df86",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "Token pricing assumptions (illustrative):"
+    }
+  },
+  {
+    "content": "Cost estimate per document (P pages):\n\uf0b7 Tokens per page: ~1,000\u20131,500.\n\uf0b7 For P=30P=30:\n\uf0b7 Total tokens: ~30\u201345k.\n\uf0b7 At $0.25 / 1M tokens \u2192\ncost \u2248 45,000/1,000,000\u00d7$0.25=$0.0112545,000/1,000,000\u00d7$0.25=$0.01125\n.\nAdd some headroom (retry / longer prompts):\n\uf0b7 Typical range:\n\uf0b7 \\$0.01 \u2013 \\$0.05 per 30\u2013100 page technical or financial report.\nThis keeps most layout-heavy documents well under the \\$0.20 per-doc budget, even with\nmultiple passes.\n3.4 Strategy C \u2013 Vision-Augmented (High Cost)\nMechanics:\n\uf0b7 For scanned PDFs and low-confidence A/B outputs, use a vision model via LM Studio:\n\uf0b7 Convert each page to an image.\n\uf0b7 Send image + structured extraction prompt to vision endpoint.\n\uf0b7 Receive OCR text + structured hints.\nCost estimate per document (P pages):\n\uf0b7 Assume 1.5k\u20132.0k tokens per page (image prompt + response).\n\uf0b7 For P=20P=20:\n\uf0b7 Tokens: 30\u201340k.\n\uf0b7 At $1.00 / 1M tokens:\n\uf0b7 Cost: 40,000/1,000,000\u00d7$1.00=$0.0440,000/1,000,000\u00d7$1.00=$0.04.\n\uf0b7 For P=50P=50:",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 14,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "Cost estimate per document (P pages):",
+    "token_count": 146,
+    "content_hash": "c45b8213e3918161bc563efb981caf8403adf0afe8b4478a294cd0d0911a0d85",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "Cost estimate per document (P pages):"
+    }
+  },
+  {
+    "content": "\uf0b7 Tokens: 75\u2013100k.\n\uf0b7 Cost: 0.075\u20130.100.075\u20130.10 USD.\nRange:\n\uf0b7 \\$0.03 \u2013 \\$0.15 per document for 20\u201350 page scanned PDFs, depending on page count and\nretries.\nGiven the configured budget guard at \\$0.20, this ensures:\n\uf0b7 Even worst-case 50-page scanned documents are usually under budget.\n\uf0b7 If a pathological case would exceed budget (e.g., repeated retries, very high page count),\nthe pipeline fails fast instead of silently overspending.\n3.5 Strategy Mix Across Corpus Classes\nFor the target corpus:\n\uf0b7 Class A \u2013 Annual Report (native, multi-column)\n\uf0b7 Route: A (fast text) or B (layout-aware) for complex tables/columns.\n\uf0b7 Expected tier: Mostly Strategy B.\n\uf0b7 Cost range: \\$0.01\u2013\\$0.05 per document.\n\uf0b7 Class B \u2013 Scanned Government/Legal\n\uf0b7 Route: C (vision-augmented) after triage & low-density detection.\n\uf0b7 Expected tier: Strategy C.\n\uf0b7 Cost range: \\$0.05\u2013\\$0.15 per document.\n\uf0b7 Class C \u2013 Technical Assessment (mixed)\n\uf0b7 Route: Starts with B; escalates to C only if confidence is low for some pages.\n\uf0b7 Expected tier: Mostly Strategy B, occasional C for scanned pages.\n\uf0b7 Cost range: \\$0.02\u2013\\$0.08 per document.\n\uf0b7 Class D \u2013 Structured Data Report (table-heavy fiscal)",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 15,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "\uf0b7 Tokens: 75\u2013100k.",
+    "token_count": 183,
+    "content_hash": "e6c0f43fdbb39227c42a6546c915b26a6e7d7cd128d77d778053533caa6d35b5",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "\uf0b7 Tokens: 75\u2013100k."
+    }
+  },
+  {
+    "content": "\uf0b7 Route: Primarily B for table-quality extraction.\n\uf0b7 Expected tier: Strategy B with precise table handling.\n\uf0b7 Cost range: \\$0.02\u2013\\$0.06 per document.\nThese estimates demonstrate that most documents remain under \\$0.10, and all are bounded\nby the \\$0.20 budget guard, while still allowing reliable escalation to layout and\nvision strategies when needed.\n4. Summary\nThis report describes:\n\uf0b7 The domain-specific extraction strategy decision tree and observed failure modes\nwith mitigations.\n\uf0b7 A 5-stage agentic architecture (Triage \u2192 Multi-Strategy Extraction \u2192\nSemantic Chunking \u2192 PageIndex & Storage \u2192 Query & Audit), with typed contracts\nbetween stages.\n\uf0b7 A confidence-gated, budget-aware routing design that escalates intelligently from cheap to\nexpensive strategies.\n\uf0b7 A cost model for Strategy A/B/C, with per-document estimates aligned to the\nconfigured budget guard and to realistic page counts for Classes A\u2013D.",
+    "chunk_type": "text",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 16,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 792.0
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 792.0
+    },
+    "parent_section": "\uf0b7 Route: Primarily B for table-quality extraction.",
+    "token_count": 133,
+    "content_hash": "4a58463bc5812cf99c51081969661dec5a1f7a1805253814f5107f830d2f3691",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "section_hint": "\uf0b7 Route: Primarily B for table-quality extraction."
+    }
+  },
+  {
+    "content": "\uf0b7 origin_type: native_digital | scanned_image | mixed | form_fillable\n\uf0b7 layout_complexity: single_column | multi_column | table_heavy | figure_heavy | mixed\n\uf0b7 domain_hint: financial | legal | technical | medical | general\n\uf0b7 estimated_extraction_cost: fast_text_sufficient | needs_layout_model | needs_vision_model",
+    "chunk_type": "table",
+    "page_refs": [
+      {
+        "document_name": "Interim_trpw3.pdf",
+        "page_number": 7,
+        "bbox": {
+          "x0": 0.0,
+          "y0": 0.0,
+          "x1": 612.0,
+          "y1": 356.40000000000003
+        }
+      }
+    ],
+    "bounding_box": {
+      "x0": 0.0,
+      "y0": 0.0,
+      "x1": 612.0,
+      "y1": 356.40000000000003
+    },
+    "parent_section": "2. Architecture Diagram & 5-Stage Pipeline",
+    "token_count": 38,
+    "content_hash": "767bd0f316d75646bee6f86744e72e62df06b1335790e3c4fa2414ac73b81933",
+    "related_chunk_hashes": [],
+    "metadata": {
+      "headers": "\uf0b7 origin_type: native_digital,scanned_image,mixed,form_fillable",
+      "title": "Detected pipe-delimited table",
+      "source_table_title": "Detected pipe-delimited table"
+    }
+  }
+]

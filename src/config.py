@@ -83,7 +83,11 @@ class FastTextConfig(BaseModel):
 class VisionConfig(BaseModel):
     confidence_if_text_present_min: float = Field(default=0.9, ge=0.0, le=1.0)
     confidence_if_ocr_only: float = Field(default=0.88, ge=0.0, le=1.0)
+    min_confidence_for_accept: float = Field(default=0.78, ge=0.0, le=1.0)
+    escalate_on_low_confidence: bool = True
+    allow_best_effort_on_low_confidence: bool = True
     figure_bbox_height: float = Field(default=260.0, ge=0.0)
+    max_image_dimension: int = Field(default=1600, ge=256)
     require_model_for_ocr: bool = True
     strategy_config_path: str = "rubric/vision_strategy.yaml"
     page_extraction_prompt: str = (
@@ -100,6 +104,7 @@ class VisionConfig(BaseModel):
             "temperature": 0.0,
         }
     )
+    providers: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class LayoutAdapterConfig(BaseModel):
@@ -116,6 +121,7 @@ class LayoutConfig(BaseModel):
 class EscalationConfig(BaseModel):
     continue_on_strategy_error: bool = True
     require_human_review_on_low_confidence: bool = True
+    initial_strategy_mode: str = "profile"  # always_fast_text | profile
     chains: dict[str, list[str]] = Field(
         default_factory=lambda: {
             "fast_text": ["fast_text", "layout_aware", "vision_augmented"],
@@ -229,16 +235,64 @@ def _apply_env_overrides(cfg: dict[str, Any]) -> dict[str, Any]:
     use_lm_for_vision = os.getenv("USE_LMSTUDIO_FOR_VISION", "false").strip().lower() in {"1", "true", "yes"}
     use_lm_for_pageindex = os.getenv("USE_LMSTUDIO_FOR_PAGEINDEX", "false").strip().lower() in {"1", "true", "yes"}
     use_lm_for_router = os.getenv("USE_LMSTUDIO_FOR_ROUTER", "false").strip().lower() in {"1", "true", "yes"}
+    use_openai_fallback_for_vision = os.getenv("USE_OPENAI_FALLBACK_FOR_VISION", "false").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+    use_gemini_fallback_for_vision = os.getenv("USE_GEMINI_FALLBACK_FOR_VISION", "false").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }
 
     if lm_base:
         if use_lm_for_vision:
+            providers: list[dict[str, Any]] = []
+            local_provider = {
+                "name": "lmstudio_qwen",
+                "enabled": True,
+                "api_base": lm_base,
+                "model": vision_model or "qwen3-vl-32b-instruct",
+                "api_key_env": lm_api_key_env or "LMSTUDIO_API_KEY",
+                "max_output_tokens": 700,
+                "temperature": 0.0,
+            }
+            providers.append(local_provider)
+            if use_openai_fallback_for_vision:
+                providers.append(
+                    {
+                        "name": "openai_fallback",
+                        "enabled": True,
+                        "api_base": os.getenv("OPENAI_API_BASE", "https://api.openai.com/v1").strip().rstrip("/"),
+                        "model": os.getenv("OPENAI_VISION_MODEL", "gpt-4o-mini").strip(),
+                        "api_key_env": os.getenv("OPENAI_API_KEY_ENV", "OPENAI_API_KEY").strip(),
+                        "max_output_tokens": 700,
+                        "temperature": 0.0,
+                    }
+                )
+            if use_gemini_fallback_for_vision:
+                providers.append(
+                    {
+                        "name": "gemini_fallback",
+                        "enabled": True,
+                        "api_base": os.getenv(
+                            "GEMINI_OPENAI_API_BASE", "https://generativelanguage.googleapis.com/v1beta/openai"
+                        )
+                        .strip()
+                        .rstrip("/"),
+                        "model": os.getenv("GEMINI_VISION_MODEL", "gemini-2.0-flash").strip(),
+                        "api_key_env": os.getenv("GEMINI_API_KEY_ENV", "GEMINI_API_KEY").strip(),
+                        "max_output_tokens": 700,
+                        "temperature": 0.0,
+                    }
+                )
+            out["extraction"]["vision"]["providers"] = providers
             vis_or = out["extraction"]["vision"]["openrouter"]
             vis_or["enabled"] = True
-            vis_or["api_base"] = lm_base
-            if vision_model:
-                vis_or["model"] = vision_model
-            if lm_api_key_env:
-                vis_or["api_key_env"] = lm_api_key_env
+            vis_or["api_base"] = local_provider["api_base"]
+            vis_or["model"] = local_provider["model"]
+            vis_or["api_key_env"] = local_provider["api_key_env"]
         if use_lm_for_pageindex:
             llm_cfg = out["pageindex"]["llm"]
             llm_cfg["provider"] = "openrouter"

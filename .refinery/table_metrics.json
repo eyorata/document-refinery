@@ -1,0 +1,57 @@
+{
+  "mode": "proxy",
+  "counts": {
+    "tp": 2,
+    "fp": 1,
+    "fn": 0,
+    "tn": 2,
+    "n": 5
+  },
+  "metrics": {
+    "precision": 0.6666666666666666,
+    "recall": 1.0,
+    "f1": 0.8
+  },
+  "details": [
+    {
+      "doc_id": "0c3371dd570d0543",
+      "document_name": "tax_expenditure_ethiopia_2021_22.pdf",
+      "ground_truth_proxy_table_heavy": false,
+      "pred_has_table": false,
+      "pred_table_count": 0,
+      "layout_complexity": "figure_heavy"
+    },
+    {
+      "doc_id": "0d7dc20e73a60ed0",
+      "document_name": "2013-E.C-Assigned-regular-budget-and-expense.pdf",
+      "ground_truth_proxy_table_heavy": false,
+      "pred_has_table": true,
+      "pred_table_count": 3,
+      "layout_complexity": "single_column"
+    },
+    {
+      "doc_id": "617d533ab560930a",
+      "document_name": "Interim_trpw3.pdf",
+      "ground_truth_proxy_table_heavy": true,
+      "pred_has_table": true,
+      "pred_table_count": 1,
+      "layout_complexity": "table_heavy"
+    },
+    {
+      "doc_id": "f0d524070ec1d31f",
+      "document_name": "Interim_trpw3.pdf",
+      "ground_truth_proxy_table_heavy": true,
+      "pred_has_table": true,
+      "pred_table_count": 1,
+      "layout_complexity": "table_heavy"
+    },
+    {
+      "doc_id": "fa78977dcf97efbd",
+      "document_name": "trpw3_delivery.pdf",
+      "ground_truth_proxy_table_heavy": false,
+      "pred_has_table": false,
+      "pred_table_count": 0,
+      "layout_complexity": "single_column"
+    }
+  ]
+}

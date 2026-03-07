@@ -1,0 +1,43 @@
+{
+  "n": 5,
+  "avg_with_pageindex": 1.0,
+  "avg_without_pageindex": 1.0,
+  "avg_delta": 0.0,
+  "rows": [
+    {
+      "doc_id": "617d533ab560930a",
+      "query": "What cost strategy is recommended for extraction and escalation?",
+      "with_pageindex": 1.0,
+      "without_pageindex": 1.0,
+      "delta": 0.0
+    },
+    {
+      "doc_id": "f0d524070ec1d31f",
+      "query": "How does the extraction strategy decision tree route documents?",
+      "with_pageindex": 1.0,
+      "without_pageindex": 1.0,
+      "delta": 0.0
+    },
+    {
+      "doc_id": "0c3371dd570d0543",
+      "query": "What does the report state about import tax expenditure by fiscal year?",
+      "with_pageindex": 1.0,
+      "without_pageindex": 1.0,
+      "delta": 0.0
+    },
+    {
+      "doc_id": "0d7dc20e73a60ed0",
+      "query": "What budget and expense values are presented in the assigned regular budget document?",
+      "with_pageindex": 1.0,
+      "without_pageindex": 1.0,
+      "delta": 0.0
+    },
+    {
+      "doc_id": "fa78977dcf97efbd",
+      "query": "What are the key architecture components of the document refinery pipeline?",
+      "with_pageindex": 1.0,
+      "without_pageindex": 1.0,
+      "delta": 0.0
+    }
+  ]
+}

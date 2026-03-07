@@ -1,0 +1,27 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 3,
+  "child_sections": [
+    {
+      "title": "vision extraction (lmstudio_qwen)",
+      "page_start": 1,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "This document, titled “Appendix 3: Audit Findings Information,” details audit findings from the Ethiopian Investment Commission (EIC) for the 2011 budget year. It identifies four instances of improper procurement practices (“Miscarriage 1” through “Miscarriage 4”), all stemming from non-compliance with relevant directives and potentially leading to financial losses for the government. The report concludes that revenue collection and expenditure generally adhered to finance laws, regulations, and directives up to June 30/2011, as evidenced by properly prepared records.",
+      "data_types_present": [
+        "figure",
+        "table",
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "figure",
+    "table",
+    "text"
+  ]
+}

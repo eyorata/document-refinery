@@ -1,0 +1,27 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 3,
+  "child_sections": [
+    {
+      "title": "vision extraction (lmstudio_qwen)",
+      "page_start": 1,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "This document section (Addendum 1.4) details the budget allocation and expenditure for fiscal year 2013 (Ethiopian calendar) across two programs: Program 1 – Work Management & Administration, and an Investment Policy Study & Research program. It presents allocated budgets versus actual spending in thousands of Birr for both 2012 and 2013, alongside planned targets and achievements (also in thousands of Birr) for Program 1 over a nine-month period and up to the fourth year. Key metrics tracked include investment climate improvements and number of discussion forums held as part of the Investment Policy program.",
+      "data_types_present": [
+        "figure",
+        "table",
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "figure",
+    "table",
+    "text"
+  ]
+}

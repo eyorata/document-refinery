@@ -41,6 +41,7 @@ class ExtractionRouter:
             "vision_augmented": float(strategy_estimates_cfg["vision_augmented"]),
         }
         self.vlm_budget = extraction_cfg["vlm_budget"]
+        self.vision_cfg = extraction_cfg.get("vision", {})
         self.escalation_cfg = extraction_cfg["escalation"]
         self.orchestrator = EscalationOrchestrator(
             min_confidence=self.min_confidence,
@@ -107,9 +108,11 @@ class ExtractionRouter:
             elapsed = time.time() - start
             token_usage = None
             provider = None
+            provider_attempts = None
             if final_strategy_name == "vision_augmented":
                 token_usage = getattr(self.vision, "last_token_usage", None)
                 provider = getattr(self.vision, "last_provider", None)
+                provider_attempts = getattr(self.vision, "last_provider_attempts", None)
             elif final_strategy_name == "layout_aware":
                 provider = getattr(self.layout, "last_adapter_used", None)
             # Ensure we always record something in the ledger, even if extraction failed.
@@ -127,6 +130,7 @@ class ExtractionRouter:
                 human_review_required=human_review_required,
                 token_usage=token_usage,
                 provider=provider,
+                provider_attempts=provider_attempts,
             )
             append_jsonl(self.output_dir / "extraction_ledger.jsonl", entry.model_dump())
 
@@ -176,9 +180,37 @@ class ExtractionRouter:
 
     def _projected_strategy_cost(self, strategy_name: str, profile: DocumentProfile) -> float:
         if strategy_name == "vision_augmented":
+            # Local-first vision runs (LM Studio/private endpoint) should not be blocked preflight.
+            if self._is_local_first_vision_provider():
+                return 0.0
             cost_per_page = float(self.vlm_budget["cost_per_page_usd"])
             max_pages = int(self.vlm_budget["max_pages_per_document"])
             max_total = float(self.vlm_budget["max_total_cost_usd"])
             page_budget = max(1, min(profile.page_count, max_pages))
             return min(page_budget * cost_per_page, max_total)
         return float(self.strategy_estimated_costs.get(strategy_name, 0.0))
+
+    def _is_local_first_vision_provider(self) -> bool:
+        providers = self.vision_cfg.get("providers")
+        if isinstance(providers, list) and providers:
+            first = providers[0] if isinstance(providers[0], dict) else {}
+            api_base = str(first.get("api_base", "")).lower()
+            name = str(first.get("name", "")).lower()
+            return (
+                ("lmstudio" in name)
+                or ("localhost" in api_base)
+                or ("127.0.0.1" in api_base)
+                or ("192.168." in api_base)
+                or ("10." in api_base)
+                or ("172.16." in api_base)
+            )
+        # Backward compatibility path for single-provider config.
+        openrouter_cfg = self.vision_cfg.get("openrouter") or {}
+        api_base = str(openrouter_cfg.get("api_base", "")).lower()
+        return (
+            ("localhost" in api_base)
+            or ("127.0.0.1" in api_base)
+            or ("192.168." in api_base)
+            or ("10." in api_base)
+            or ("172.16." in api_base)
+        )

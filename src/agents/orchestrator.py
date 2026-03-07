@@ -40,8 +40,15 @@ class EscalationOrchestrator:
         self.escalation_cfg = escalation_cfg
         self.continue_on_strategy_error = bool(escalation_cfg["continue_on_strategy_error"])
         self.require_human_review_on_low_confidence = bool(escalation_cfg["require_human_review_on_low_confidence"])
+        self.initial_strategy_mode = str(escalation_cfg.get("initial_strategy_mode", "profile")).strip().lower()
 
     def select_initial_strategy_name(self, profile: DocumentProfile) -> str:
+        # Table-heavy documents should start with layout-aware extraction for structured fidelity.
+        layout = getattr(profile.layout_complexity, "value", profile.layout_complexity)
+        if str(layout) == "table_heavy":
+            return "layout_aware"
+        if self.initial_strategy_mode == "always_fast_text":
+            return "fast_text"
         if profile.estimated_extraction_cost == CostTier.FAST_TEXT_SUFFICIENT:
             return "fast_text"
         if profile.estimated_extraction_cost == CostTier.NEEDS_LAYOUT_MODEL:

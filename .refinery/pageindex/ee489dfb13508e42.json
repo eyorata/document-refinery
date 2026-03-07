@@ -1,0 +1,26 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 1,
+  "child_sections": [
+    {
+      "title": "INDEPENDENT AUDiTOR’S REPORT",
+      "page_start": 1,
+      "page_end": 1,
+      "child_sections": [],
+      "key_entities": [
+        "Your",
+        "Development"
+      ],
+      "summary": "The Independent Auditor's Report covers the financial statements of **Development Bank of Ethiopia** as of **June 30, 2023**. The report signifies a professional assessment of the bank’s financial position and performance for that period. It serves as an external verification of the accuracy and fairness of these statements to stakeholders, positioning the Development Bank of Ethiopia as \"Your Development partner!\".",
+      "data_types_present": [
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "text"
+  ]
+}

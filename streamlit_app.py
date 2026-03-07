@@ -12,8 +12,25 @@ from src.utils.hashing import stable_hash
 st.set_page_config(page_title="Document Refinery", layout="wide")
 
 
+def _pipeline_cache_key() -> str:
+    """Invalidate cached pipeline when config/env files change."""
+    watched = [
+        Path("rubric/extraction_rules.yaml"),
+        Path("rubric/vision_strategy.yaml"),
+        Path(".env"),
+    ]
+    parts: list[str] = []
+    for p in watched:
+        if p.exists():
+            stat = p.stat()
+            parts.append(f"{p}:{stat.st_mtime_ns}:{stat.st_size}")
+        else:
+            parts.append(f"{p}:missing")
+    return "|".join(parts)
+
+
 @st.cache_resource
-def get_pipeline() -> RefineryPipeline:
+def get_pipeline(_cache_key: str) -> RefineryPipeline:
     return RefineryPipeline(config_path="rubric/extraction_rules.yaml", output_dir=".refinery")
 
 
@@ -41,7 +58,11 @@ def main() -> None:
 
     process_clicked = st.button("Process Uploaded Files", type="primary", use_container_width=True)
 
-    pipeline = get_pipeline()
+    if st.button("Reload Pipeline Config", use_container_width=True):
+        st.cache_resource.clear()
+        st.rerun()
+
+    pipeline = get_pipeline(_pipeline_cache_key())
 
     if process_clicked:
         st.session_state["doc_runs"] = {}
@@ -135,7 +156,10 @@ def main() -> None:
     output_dir = Path(".refinery")
     st.subheader("Artifacts")
     profiles_dir = output_dir / "profiles"
+    extracted_dir = output_dir / "extracted"
+    chunks_dir = output_dir / "chunks"
     pageindex_dir = output_dir / "pageindex"
+    pageindex_metrics_dir = output_dir / "pageindex_metrics"
     ledger_path = output_dir / "extraction_ledger.jsonl"
 
     if profiles_dir.exists():
@@ -149,6 +173,30 @@ def main() -> None:
     if pageindex_dir.exists():
         st.markdown("**PageIndex (.refinery/pageindex)**")
         for p in sorted(pageindex_dir.glob("*.json")):
+            if p.stem not in set(current_ids):
+                continue
+            with st.expander(p.name):
+                st.code(p.read_text(encoding="utf-8"), language="json")
+
+    if extracted_dir.exists():
+        st.markdown("**Extracted Documents (.refinery/extracted)**")
+        for p in sorted(extracted_dir.glob("*.json")):
+            if p.stem not in set(current_ids):
+                continue
+            with st.expander(p.name):
+                st.code(p.read_text(encoding="utf-8"), language="json")
+
+    if chunks_dir.exists():
+        st.markdown("**Chunks (.refinery/chunks)**")
+        for p in sorted(chunks_dir.glob("*.json")):
+            if p.stem not in set(current_ids):
+                continue
+            with st.expander(p.name):
+                st.code(p.read_text(encoding="utf-8"), language="json")
+
+    if pageindex_metrics_dir.exists():
+        st.markdown("**PageIndex Metrics (.refinery/pageindex_metrics)**")
+        for p in sorted(pageindex_metrics_dir.glob("*.json")):
             if p.stem not in set(current_ids):
                 continue
             with st.expander(p.name):

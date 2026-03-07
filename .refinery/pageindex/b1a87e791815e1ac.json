@@ -1,0 +1,36 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 12,
+  "child_sections": [
+    {
+      "title": "ETHIOPIAN STATISTICAL SERVICE",
+      "page_start": 1,
+      "page_end": 12,
+      "child_sections": [],
+      "key_entities": [
+        "Statistical",
+        "Bulletin",
+        "Issue",
+        "March",
+        "Summary",
+        "Consumer",
+        "Price",
+        "Index",
+        "Content",
+        "Page"
+      ],
+      "summary": "The Ethiopian Statistical Service publishes monthly statistical bulletins, like this Issue No. 21/2017 report on March EFY 2017, focusing on key economic indicators such as the Consumer Price Index (CPI). The report indicates a general inflation rate of 13.6% in March EFY 2017 compared to the same month the previous year, showing a steady decline from March EFY 2016. It further breaks down this inflation into food and non-food components, illustrating their respective year-on-year changes.",
+      "data_types_present": [
+        "list",
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "list",
+    "text"
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "doc_id": "f0d524070ec1d31f",
+  "document_name": "Interim_trpw3.pdf",
+  "strategy_used": "fast_text",
+  "confidence_score": 0.949374071245785,
+  "text_blocks": [
+    {
+      "content": "Interim Report – Document Intelligence Refinery\n1. Domain Notes (Phase 0 Deliverable)\n1.1 Problem Context\nModern Financial Data Engineering (FDE) work must ingest heterogeneous\ndocuments (native PDFs, scanned legal documents, technical reports, and table-heavy fiscal\nsummaries) and turn them into auditable, queryable knowledge. The primary risks are:\n Garbage-in → hallucination-out: weak extraction corrupts downstream RAG.\n Layout blindness: multi-column and table-heavy layouts often collapse into flat text.\n Provenance blindness: systems answer confidently without source trace.\nThis refinery is designed as a 5-stage, agentic pipeline that explicitly separates:\n1. Document profiling (Triage)\n2. Structure extraction with multi-strategy routing (A/B/C)\n3. Semantic chunking into Logical Document Units (LDUs)\n4. Page-level navigation structure (PageIndex)\n5. Query + provenance / audit layer\nThe goal is to handle Classes A–D robustly, with explicit escalation from cheap to expensive\nstrategies and cost-aware controls.\n1.2 Extraction Strategy Decision Tree\nSignals computed per document (from PDF parser / heuristics):\n Per-page character count.\n Per-page character density chars/page_areachars/page_area.\n Image ratio\nproxy image_count/max_images_for_ratioimage_count/max_images_for_ratio.",
+      "page_number": 1,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": "Interim Report – Document Intelligence Refinery",
+      "reading_order": 1
+    },
+    {
+      "content": " Line statistics: presence of pipe (|) characters, short-line frequency.\n Keyword signals for domain hints (financial / legal / technical / medical / general).\nStep 1 – Origin Type Classification\n If avg_char_density < low_density_threshold and avg_image_ratio ≥\nimage_heavy_threshold\n→ origin_type = scanned_image\n If avg_char_density ≥ high_density_threshold and avg_image_ratio < 0.3\n→ origin_type = native_digital\n Else\n→ origin_type = mixedStep 2 – Layout Complexity ClassificationCompute over concatenated\npage text:\n Count pipe-like lines (contains | and ≥ 3 segments).\n Count short lines (length between ~8 and 32 chars).\n Look for figure keywords (“figure”, “chart”).\nHeuristic:\n If pipe_like > 5 → layout_complexity = table_heavy\n Else if many_short_lines > max(0.45 * total_lines, 5) → layout_complexity = multi_column\n Else if “figure” or “chart” present → layout_complexity = figure_heavy\n Else → layout_complexity = single_column\nStep 3 – Domain Hint\n For each domain, sum keyword counts in lowercased text:\n financial: “revenue”, “balance sheet”, “income statement”, “fiscal”, …\n legal: “clause”, “agreement”, “hereby”, …\n technical: “architecture”, “protocol”, “specification”, …",
+      "page_number": 2,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": " Line statistics: presence of pipe (|) characters, short-line frequency.",
+      "reading_order": 2
+    },
+    {
+      "content": " medical: “patient”, “diagnosis”, “clinical”, …\n Choose domain with highest score; default general.\nStep 4 – Estimated Extraction Cost TierMapping:\n If origin_type = scanned_image\n→ estimated_extraction_cost = needs_vision_model\n Else if layout_complexity ∈ {table_heavy, multi_column, mixed}\n→ estimated_extraction_cost = needs_layout_model\n Else\n→ estimated_extraction_cost = fast_text_sufficientStep 5 – Strategy Routing (A/B/C)Initial\nstrategy selection based on estimated_extraction_cost:\n fast_text_sufficient → Strategy A – FastTextExtractor\n needs_layout_model → Strategy B – LayoutExtractor\n needs_vision_model → Strategy C – VisionExtractor\nConfidence-gated escalation:\n1. Run chosen strategy → produce (ExtractedDocument, confidence_score, cost_estimate).\n2. If confidence_score < confidence_minimum and strategy is A\n→ escalate to B, recompute.\n3. If still confidence_score < confidence_minimum and strategy is A or B\n→ escalate to C, recompute.\n4. If cost_estimate > budget_per_document_usd\n→ fail fast with a budget guard error (no silent overruns).\n1.3 Failure Modes Observed & Mitigations\n1. Structure Collapse (tables flatten into paragraphs)",
+      "page_number": 3,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": " medical: “patient”, “diagnosis”, “clinical”, …",
+      "reading_order": 3
+    },
+    {
+      "content": " Symptoms: Pipe- or grid-like tables become linear text, columns merge, numeric columns lose\nalignment.\n Impact: Querying numeric facts or doing aggregates becomes unreliable; RAG misses\ntable context.\n Mitigation:\n Detect pipe-delimited table lines in fast-text extraction.\n Promote suspected tables to explicit TableObject with headers and rows.\n In layout-aware strategy, add heuristic promotions when text mentions “balance sheet”,\n“income statement”, “table”, etc.\n In chunking, enforce “table cells are never split from headers”.\n2. Context Poverty (chunks are too small or mis-grouped)\n Symptoms: Answers lose nearby context; cross-references like “see Table 3”\nbecome meaningless.\n Impact: Embedding search operates on fragments that don’t carry enough semantics;\nretrieval precision drops.\n Mitigation:\n Chunk at Logical Document Unit (LDU) level:\n Group paragraphs under section hints.\n Keep numbered lists as single LDUs when below max_tokens.\n Propagate section headers as parent metadata to all child chunks.\n Resolve cross-references into related_chunk_hashes linking LDUs that mention “Table N”.\n3. Provenance Blindness (no trustworthy citation)\n Symptoms: System can answer but cannot show exactly which page/region supported\nthe claim.\n Impact: No auditability, high regulatory/compliance risk.\n Mitigation:",
+      "page_number": 4,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": " Symptoms: Pipe- or grid-like tables become linear text, columns merge, numeric",
+      "reading_order": 4
+    },
+    {
+      "content": " Every LDU carries:\n page_refs → (document_name, page_number, bbox)\n content_hash → stable spatial+content hash.\n ProvenanceChain is attached to every QueryAnswer:\n List of ProvenanceItem with document_name, page_number, bbox, content_hash.\n4. Cost Overrun from Overuse of Vision / Layout Models\n Symptoms: All documents routed into expensive vision or layout strategies;\ntoken/spend explodes.\n Impact: Unbounded costs at scale.\n Mitigation:\n Explicit estimated_extraction_cost tier and routing.\n budget_per_document_usd configured in YAML.\n Router tracks and enforces cost per document.",
+      "page_number": 5,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": " Every LDU carries:",
+      "reading_order": 5
+    },
+    {
+      "content": "1.4 Pipeline Diagram (Mermaid)",
+      "page_number": 6,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": "1.4 Pipeline Diagram (Mermaid)",
+      "reading_order": 6
+    },
+    {
+      "content": "2. Architecture Diagram & 5-Stage Pipeline\nThis section describes the full 5-stage pipeline and its data contracts.\n2.1 High-Level Architectural Diagram (Mermaid)\n2.2 Stage 1 – Triage Agent (Document Classifier)\nInput: Raw PDF path Output: DocumentProfile (saved\nunder .refinery/profiles/{doc_id}.json)Responsibility:\n Inspect per-page character density, image ratio, layout heuristics, and keywords.\n Classify:\n origin_type: native_digital | scanned_image | mixed | form_fillable\n layout_complexity: single_column | multi_column | table_heavy | figure_heavy | mixed\n language_code + language_confidence (currently default “en”, confidence ~0.85).\n domain_hint: financial | legal | technical | medical | general\n estimated_extraction_cost: fast_text_sufficient | needs_layout_model | needs_vision_model\n avg_char_density, avg_image_ratio.",
+      "page_number": 7,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": "2. Architecture Diagram & 5-Stage Pipeline",
+      "reading_order": 7
+    },
+    {
+      "content": "This profile is the contract that governs routing in Stage 2.\n2.3 Stage 2 – Multi-Strategy Extraction Layer\nInput: document_path, DocumentProfileOutput: ExtractedDocument + ledger entryThree strategies:\n Strategy A — FastTextExtractor\n Use pypdf to extract page text and approximate page bounding box.\n Detect simple pipe-delimited tables; create TableObjects.\n Compute confidence:\n Average characters per page vs target_chars_per_page.\n Average density vs target_density.\n Image ratio penalty.\n Return ExtractedDocument with text_blocks, tables, figures.\n Strategy B — LayoutExtractor\n Subclass of FastText.\n In addition to A:\n Promote more tables when content contains financial/table keywords.\n Slightly increase confidence when tables are detected.\n Strategy C — VisionExtractor\n Subclass of FastText, but designed to handle scanned / image-heavy PDFs.\n Behavior:\n If fast text already found usable text, reuse it and re-label as vision_augmented.\n If no usable text:\n Call _ocr_pages_with_vision (currently placeholder) to produce page-level TextBlocks.",
+      "page_number": 8,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": "This profile is the contract that governs routing in Stage 2.",
+      "reading_order": 8
+    },
+    {
+      "content": " Later: plug in LM Studio VLM/OCR here (render PDF pages to images, send to model,\nparse text).\n Returns ExtractedDocument with text derived from OCR/VLM.\nRouter behavior:\n Picks A/B/C based on DocumentProfile.estimated_extraction_cost.\n Applies the confidence gate and escalation A→B→C.\n Enforces budget per document, raising if estimated cost exceeds configured cap.\n Logs to .refinery/extraction_ledger.jsonl via an ExtractionLedgerEntry.\n2.4 Stage 3 – Semantic Chunking Engine (LDUs)\nInput: ExtractedDocumentOutput: List[LDU] (Logical Document Units)Responsibilities:\n Convert text_blocks, tables, figures into structurally-aware LDUs.\n Enforce the 5 chunking rules (“Constitution”):\n1. Table cell is never split from header row\n Whole table (header + rows) is wrapped into a single LDU of chunk_type=\"table\".\n2. Figure caption is stored as figure metadata\n Each figure chunk carries metadata[\"caption\"].\n3. Numbered list kept as single LDU unless exceeding max_tokens\n Detected via line patterns like 1. / 2) at line starts.\n4. Section headers propagated as parent metadata\n parent_section and metadata[\"section_hint\"] carry the section context.\n5. Cross-references resolved into relationships\n For occurrences of “Table N” / “see Table N”, related_chunk_hashes link to table LDUs.\nEach LDU includes:",
+      "page_number": 9,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": " Later: plug in LM Studio VLM/OCR here (render PDF pages to images, send to mod",
+      "reading_order": 9
+    },
+    {
+      "content": " content: chunk text (paragraph, list, table flattening, or caption).\n chunk_type: \"text\" | \"table\" | \"figure\" | \"list\".\n page_refs: list of (document_name, page_number, bbox).\n bounding_box: primary bbox for the chunk.\n parent_section: best-known section name or hint.\n token_count: approximate word-token count.\n content_hash: stable hash over (page, bbox, content).\n related_chunk_hashes, metadata: cross-links and extra annotations.\n2.5 Stage 4 – PageIndex Builder & Storage\nInput: LDUsOutputs:\n PageIndexNode tree saved under .refinery/pageindex/{doc_id}.json.\n Chunks ingested into:\n SimpleVectorStore (in-memory vector space).\n FactTableStore (SQLite facts.db).\nPageIndexNode fields:\n title\n page_start, page_end\n child_sections: List[PageIndexNode]\n key_entities: List[str]\n summary: str\n data_types_present: List[str] (e.g. [\"text\", \"table\"])\nAlgorithm (heuristic baseline):\n Group LDUs by parent_section (or “Uncategorized”).",
+      "page_number": 10,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": " content: chunk text (paragraph, list, table flattening, or caption).",
+      "reading_order": 10
+    },
+    {
+      "content": " For each section:\n Determine page range from its LDUs.\n Extract simple key entities: capitalized tokens that look like names or key terms.\n Build a short summary from first N words of section content.\n Build a top-level “Document” node with child sections.\nAdditionally:\n Vector store: uses TF/cosine similarity over LDU content for semantic search.\n Fact table: regex-based extraction of key: value pairs into SQLite, keyed by page and content\nhash.\n2.6 Stage 5 – Query Interface Agent & Audit\nInput:\n PageIndexNode tree\n LDUs (already ingested into vector and fact stores)\n Natural language question or claim\nTools exposed:\n1. pageindex_navigate(topic, k)\n Scores child sections by match to topic in title and summary.\n2. semantic_search(query, top_k, allowed_pages)\n Vector search restricted to allowed page ranges.\n3. structured_query(sql)\n Direct SQL over facts.db.\nAnswer generation:\n Navigate PageIndex with question string to get top-K relevant sections.",
+      "page_number": 11,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": " For each section:",
+      "reading_order": 11
+    },
+    {
+      "content": " Restrict semantic search to pages in these sections.\n Collect top chunks; synthesize an answer (extractive + concatenative baseline).\n Build ProvenanceChain from the chunks:\n For each hit: document_name, page_number, bbox, content_hash.\nAudit mode:\n Given a claim:\n Reuse the same pipeline to attempt retrieval.\n If ProvenanceChain.citations non-empty → claim considered “verified (has source)”.\n Else → “unverifiable / not found”.\n3. Cost Analysis – Strategy Tiers\nThis section provides a concrete, per-document cost estimate for each strategy tier, assuming:\n Local PDF parsing and chunking are negligible vs. model calls.\n The main variable cost is tokens processed by external models (layout model or\nVLM/OCR).\n We assume a hypothetical local LM Studio model or low-cost API; you can adapt the\nnumbers to your real pricing.\n3.1 Assumptions\nLet:\n PP = number of pages in the document.\n Typical page has:\n Strategy A (fast text): ~0.5–1k tokens (if later summarized/embedded).\n Strategy B (layout): ~1–1.5k tokens per page when using a layout-aware model.\n Strategy C (vision): ~1.5–2.0k tokens per page due to image+prompt overhead.",
+      "page_number": 12,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": " Restrict semantic search to pages in these sections.",
+      "reading_order": 12
+    },
+    {
+      "content": "Token pricing assumptions (illustrative):\n Text model (for layout-level extraction / summarization):\n $0.25 per 1M tokens (input + output) – think cheap, local/hosted model.\n Vision model (for scanned PDFs):\n Effective cost equivalent of $1.00 per 1M tokens (since images are heavier).\nWe also set:\n Budget guard: budget_per_document_usd = 0.20 (configurable).\n3.2 Strategy A – Fast Text (Low Cost)\nMechanics:\n Uses local pypdf text extraction only.\n No external model tokens required for extraction.\n Optional light summarization or embedding can be done with a very cheap local model.\nCost estimate per document:\n Extraction: ~$0.00 (local only).\n Optional summarization/embedding on 20 pages (P=20P=20), ~500 tokens per page:\n Total tokens: 20×500=10,00020×500=10,000 tokens.\n Cost: 10,000/1,000,000×$0.25≈$0.002510,000/1,000,000×$0.25≈$0.0025.\nRange:\n \\$0.00 – \\$0.01 per document for typical 20–50 page native PDFs.\n3.3 Strategy B – Layout-Aware (Medium Cost)\nMechanics:\n May invoke a layout-aware text model (Docling/MinerU-like behavior when later integrated).\n We assume per-page extraction prompt that includes layout hints and table expectations.",
+      "page_number": 13,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": "Token pricing assumptions (illustrative):",
+      "reading_order": 13
+    },
+    {
+      "content": "Cost estimate per document (P pages):\n Tokens per page: ~1,000–1,500.\n For P=30P=30:\n Total tokens: ~30–45k.\n At $0.25 / 1M tokens →\ncost ≈ 45,000/1,000,000×$0.25=$0.0112545,000/1,000,000×$0.25=$0.01125\n.\nAdd some headroom (retry / longer prompts):\n Typical range:\n \\$0.01 – \\$0.05 per 30–100 page technical or financial report.\nThis keeps most layout-heavy documents well under the \\$0.20 per-doc budget, even with\nmultiple passes.\n3.4 Strategy C – Vision-Augmented (High Cost)\nMechanics:\n For scanned PDFs and low-confidence A/B outputs, use a vision model via LM Studio:\n Convert each page to an image.\n Send image + structured extraction prompt to vision endpoint.\n Receive OCR text + structured hints.\nCost estimate per document (P pages):\n Assume 1.5k–2.0k tokens per page (image prompt + response).\n For P=20P=20:\n Tokens: 30–40k.\n At $1.00 / 1M tokens:\n Cost: 40,000/1,000,000×$1.00=$0.0440,000/1,000,000×$1.00=$0.04.\n For P=50P=50:",
+      "page_number": 14,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": "Cost estimate per document (P pages):",
+      "reading_order": 14
+    },
+    {
+      "content": " Tokens: 75–100k.\n Cost: 0.075–0.100.075–0.10 USD.\nRange:\n \\$0.03 – \\$0.15 per document for 20–50 page scanned PDFs, depending on page count and\nretries.\nGiven the configured budget guard at \\$0.20, this ensures:\n Even worst-case 50-page scanned documents are usually under budget.\n If a pathological case would exceed budget (e.g., repeated retries, very high page count),\nthe pipeline fails fast instead of silently overspending.\n3.5 Strategy Mix Across Corpus Classes\nFor the target corpus:\n Class A – Annual Report (native, multi-column)\n Route: A (fast text) or B (layout-aware) for complex tables/columns.\n Expected tier: Mostly Strategy B.\n Cost range: \\$0.01–\\$0.05 per document.\n Class B – Scanned Government/Legal\n Route: C (vision-augmented) after triage & low-density detection.\n Expected tier: Strategy C.\n Cost range: \\$0.05–\\$0.15 per document.\n Class C – Technical Assessment (mixed)\n Route: Starts with B; escalates to C only if confidence is low for some pages.\n Expected tier: Mostly Strategy B, occasional C for scanned pages.\n Cost range: \\$0.02–\\$0.08 per document.\n Class D – Structured Data Report (table-heavy fiscal)",
+      "page_number": 15,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": " Tokens: 75–100k.",
+      "reading_order": 15
+    },
+    {
+      "content": " Route: Primarily B for table-quality extraction.\n Expected tier: Strategy B with precise table handling.\n Cost range: \\$0.02–\\$0.06 per document.\nThese estimates demonstrate that most documents remain under \\$0.10, and all are bounded\nby the \\$0.20 budget guard, while still allowing reliable escalation to layout and\nvision strategies when needed.\n4. Summary\nThis report describes:\n The domain-specific extraction strategy decision tree and observed failure modes\nwith mitigations.\n A 5-stage agentic architecture (Triage → Multi-Strategy Extraction →\nSemantic Chunking → PageIndex & Storage → Query & Audit), with typed contracts\nbetween stages.\n A confidence-gated, budget-aware routing design that escalates intelligently from cheap to\nexpensive strategies.\n A cost model for Strategy A/B/C, with per-document estimates aligned to the\nconfigured budget guard and to realistic page counts for Classes A–D.",
+      "page_number": 16,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 792.0
+      },
+      "section_hint": " Route: Primarily B for table-quality extraction.",
+      "reading_order": 16
+    }
+  ],
+  "tables": [
+    {
+      "page_number": 7,
+      "bbox": {
+        "x0": 0.0,
+        "y0": 0.0,
+        "x1": 612.0,
+        "y1": 356.40000000000003
+      },
+      "headers": [
+        " origin_type: native_digital",
+        "scanned_image",
+        "mixed",
+        "form_fillable"
+      ],
+      "rows": [
+        [
+          " layout_complexity: single_column",
+          "multi_column",
+          "table_heavy",
+          "figure_heavy",
+          "mixed"
+        ],
+        [
+          " domain_hint: financial",
+          "legal",
+          "technical",
+          "medical",
+          "general"
+        ],
+        [
+          " estimated_extraction_cost: fast_text_sufficient",
+          "needs_layout_model",
+          "needs_vision_model"
+        ]
+      ],
+      "title": "Detected pipe-delimited table"
+    }
+  ],
+  "figures": [],
+  "routing_trace": [
+    "fast_text"
+  ],
+  "total_cost_estimate_usd": 0.002
+}

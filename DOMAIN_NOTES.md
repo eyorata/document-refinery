@@ -37,6 +37,38 @@
 - Provenance blindness: answers without source trace are untrustworthy.
   Mitigation: every chunk carries page refs, bbox, and content hash.
 
+## Failure Analysis by Corpus Class
+
+### Class A (Annual Financial Report, native digital)
+
+- Failure observed: multi-column financial narrative occasionally routed through fast-text when confidence was high, reducing table fidelity.
+- Fix applied: routing policy updated so `table_heavy` profiles start with Strategy B (`layout_aware`) to prioritize structured table extraction.
+
+### Class B (Scanned Government/Legal, image-based)
+
+- Failure observed: strategy C completed with placeholder OCR when local VLM call failed (provider attempts showed runtime payload/render incompatibilities).
+- Fix applied:
+  - forced OCR path for scanned/needs-vision profiles,
+  - page rendering fallback (`pypdfium2`),
+  - multimodal payload variants for OpenAI-compatible local endpoints,
+  - provider-attempt diagnostics in extraction ledger.
+
+### Class C (Technical mixed text+tables)
+
+- Failure observed: PageIndex retrieval gains were inconsistent on weak extraction output.
+- Fix applied:
+  - persisted extracted/chunk artifacts for inspection,
+  - improved query/pageindex token-overlap navigation,
+  - added retrieval precision metrics output (`pageindex_metrics`).
+
+### Class D (Table-heavy fiscal data)
+
+- Failure observed: heuristic table detection could over/under-detect in dense fiscal layouts.
+- Fix applied:
+  - layout adapter chain support (`docling/mineru/both`),
+  - chunk validator checks that table headers remain bound to table content,
+  - table metrics script for precision/recall evaluation.
+
 ## Cost-Quality Tradeoff
 
 - Strategy A (fast text): lowest cost, sufficient for clean native PDFs.
@@ -44,6 +76,15 @@
 - Strategy C (vision): highest cost, reserved for scanned or low-confidence extraction.
 
 Budget guard prevents high-cost overrun per document.
+
+### Practical VLM Cost Tradeoff (Local vs Cloud)
+
+- Local VLM (LM Studio): treated as operationally low/zero monetary cost in preflight policy; primary risk is reliability (runtime compatibility).
+- Cloud VLM fallback: higher reliability potential, but explicit cost risk; guarded by per-document cap and strategy cap.
+- Recommended production policy:
+  - local-first provider chain,
+  - confidence-gated fallback to paid provider,
+  - hard cap enforcement + provider attempts logging for auditability.
 
 ## Normalization Guarantees by Strategy
 

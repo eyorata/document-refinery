@@ -1,14 +1,39 @@
 # Strategy C (vision_augmented) dedicated config.
 vision:
   require_model_for_ocr: true
+  min_confidence_for_accept: 0.78
+  escalate_on_low_confidence: true
+  allow_best_effort_on_low_confidence: true
   page_extraction_prompt: >
     Extract all visible text, key-value pairs, and tables from this page.
     Preserve row/column structure using pipe-delimited lines when tables are present.
     Keep numeric precision exactly as written in the source.
+  providers:
+    - name: "lmstudio_qwen"
+      enabled: true
+      api_base: "http://192.168.6.233:1234/v1"
+      model: "qwen3-vl-32b-instruct"
+      api_key_env: "LMSTUDIO_API_KEY"
+      max_output_tokens: 700
+      temperature: 0.0
+    - name: "openai_fallback"
+      enabled: false
+      api_base: "https://api.openai.com/v1"
+      model: "gpt-4o-mini"
+      api_key_env: "OPENAI_API_KEY"
+      max_output_tokens: 700
+      temperature: 0.0
+    - name: "gemini_fallback"
+      enabled: false
+      api_base: "https://generativelanguage.googleapis.com/v1beta/openai"
+      model: "gemini-2.0-flash"
+      api_key_env: "GEMINI_API_KEY"
+      max_output_tokens: 700
+      temperature: 0.0
   openrouter:
-    enabled: false
-    api_base: "https://openrouter.ai/api/v1"
-    model: "openai/gpt-4o-mini"
-    api_key_env: "OPENROUTER_API_KEY"
+    enabled: true
+    api_base: "http://192.168.6.233:1234/v1"
+    model: "qwen3-vl-32b-instruct"
+    api_key_env: "LMSTUDIO_API_KEY"
     max_output_tokens: 700
     temperature: 0.0

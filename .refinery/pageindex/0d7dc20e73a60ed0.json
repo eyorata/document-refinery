@@ -1,0 +1,27 @@
+{
+  "title": "Document",
+  "page_start": 1,
+  "page_end": 3,
+  "child_sections": [
+    {
+      "title": "vision extraction (lmstudio_qwen)",
+      "page_start": 1,
+      "page_end": 3,
+      "child_sections": [],
+      "key_entities": [],
+      "summary": "This document section (Appendix 1.4) details the budget allocation and expenditure for fiscal year 2013 (Ethiopian calendar, likely 2020/2021 Gregorian) across two programs: Program 1 – Work Leadership & Administration, and an Investment Policy Study & Research program. It presents both allocated budgets versus actual spending in thousands of Birr, alongside planned targets and achievements for the same period, specifically focusing on creating a favorable investment climate through studies, forums, and policy improvements (measured by number of studies/forums held and improvement scores). The data is broken down into budget figures for 2012 and 2013, as",
+      "data_types_present": [
+        "figure",
+        "table",
+        "text"
+      ]
+    }
+  ],
+  "key_entities": [],
+  "summary": "Top-level page index over extracted sections",
+  "data_types_present": [
+    "figure",
+    "table",
+    "text"
+  ]
+}
