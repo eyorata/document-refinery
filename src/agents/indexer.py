@@ -192,7 +192,9 @@ class PageIndexBuilder:
         try:
             with urllib.request.urlopen(req, timeout=45) as resp:
                 body = json.loads(resp.read().decode("utf-8", errors="replace"))
-        except urllib.error.HTTPError:
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, OSError):
+            # Endpoint/network issues should not fail document processing.
+            # The caller will fall back to deterministic heuristic summary.
             return None
         text = self._extract_text_from_llm_body(body)
         return text or None

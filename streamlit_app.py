@@ -116,6 +116,17 @@ def main() -> None:
             st.warning(f"Requires human review: {status}")
         elif status.startswith("budget_exceeded"):
             st.error(f"Budget exceeded: {status}")
+        elif (
+            "urlopen error" in status.lower()
+            or "connection attempt failed" in status.lower()
+            or "vision model required" in status.lower()
+            or "connect vision model" in status.lower()
+        ):
+            st.warning(
+                "Optional model endpoint is currently unreachable. "
+                "Please start/connect the model server and retry if this step is required.\n\n"
+                f"Details: {status}"
+            )
         else:
             st.error(f"Processing failed: {status}")
 
